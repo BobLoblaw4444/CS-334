@@ -1,7 +1,7 @@
 Application Log
-Start: Sat Sep 07 17:25:13 2013
+Start: Sun Sep 08 18:31:26 2013
 
-Initializing System::findDataFile took 0.005225s
+Initializing System::findDataFile took 0.002630s
 Setting video mode
 wglSwapIntervalEXT(0);
 Enabling separate specular lighting.
@@ -14,12 +14,12 @@ Supported Formats:
                 L16F  Yes       Yes         Yes
                 L32F  Yes       Yes         Yes
                   A8  Yes       Yes         Yes
-                 A16  Yes       Yes         Yes
+                 A16  Yes       Yes         No 
                 A16F  Yes       Yes         Yes
                 A32F  Yes       Yes         Yes
                  LA4  Yes       Yes         Yes
                  LA8  Yes       Yes         Yes
-                LA16  Yes       Yes         Yes
+                LA16  Yes       Yes         No 
                LA16F  Yes       Yes         Yes
                LA32F  Yes       Yes         Yes
                 RGB5  Yes       Yes         Yes
@@ -29,29 +29,29 @@ Supported Formats:
              RGB10A2  Yes       Yes         Yes
                RGB16  Yes       Yes         Yes
               RGB32F  Yes       Yes         Yes
-          R11G11B10F  No        Yes         Yes
-             RGB9E5F  Yes       No          No 
-               RGB8I  Yes       Yes         No 
-              RGB8UI  Yes       Yes         No 
-              RGBA8I  Yes       Yes         No 
-             RGBA8UI  Yes       Yes         No 
+          R11G11B10F  Yes       Yes         Yes
+             RGB9E5F  Yes       Yes         No 
+               RGB8I  Yes       Yes         Yes
+              RGB8UI  Yes       Yes         Yes
+              RGBA8I  Yes       Yes         Yes
+             RGBA8UI  Yes       Yes         Yes
           RGB8_SNORM  Yes       No          No 
-         RGBA8_SNORM  Yes       No          Yes
+         RGBA8_SNORM  Yes       No          No 
          RGB16_SNORM  Yes       No          No 
         RGBA16_SNORM  Yes       No          No 
                 BGR8  Yes       Yes         Yes
                BGRA8  Yes       Yes         Yes
-                  R8  Yes       Yes         No 
-                 R8I  Yes       Yes         No 
-                R8UI  Yes       Yes         No 
+                  R8  Yes       Yes         Yes
+                 R8I  Yes       Yes         Yes
+                R8UI  Yes       Yes         Yes
                  R16  Yes       Yes         Yes
-                R16I  Yes       Yes         No 
-               R16UI  Yes       Yes         No 
-                R32I  Yes       Yes         No 
-               R32UI  Yes       Yes         No 
-                 RG8  Yes       Yes         No 
-                RG8I  Yes       Yes         No 
-               RG8UI  Yes       Yes         No 
+                R16I  Yes       Yes         Yes
+               R16UI  Yes       Yes         Yes
+                R32I  Yes       Yes         Yes
+               R32UI  Yes       Yes         Yes
+                 RG8  Yes       Yes         Yes
+                RG8I  Yes       Yes         Yes
+               RG8UI  Yes       Yes         Yes
                 R16F  Yes       Yes         Yes
                RG16F  Yes       Yes         Yes
                 R32F  Yes       Yes         Yes
@@ -62,8 +62,8 @@ Supported Formats:
              RGBA32F  Yes       Yes         Yes
               RGB32I  Yes       Yes         No 
              RGB32UI  Yes       Yes         No 
-             RGBA32I  Yes       Yes         No 
-            RGBA32UI  Yes       Yes         No 
+             RGBA32I  Yes       Yes         Yes
+            RGBA32UI  Yes       Yes         Yes
        YUV420_PLANAR  No        No          No 
               YUV422  No        No          No 
               YUV444  No        No          No 
@@ -71,10 +71,10 @@ Supported Formats:
            RGBA_DXT1  Yes       No          No 
            RGBA_DXT3  Yes       No          No 
            RGBA_DXT5  Yes       No          No 
-               SRGB8  Yes       No          Yes
-              SRGBA8  Yes       No          Yes
-                 SL8  Yes       No          Yes
-                SLA8  Yes       No          Yes
+               SRGB8  Yes       Yes         Yes
+              SRGBA8  Yes       Yes         Yes
+                 SL8  Yes       Yes         Yes
+                SLA8  Yes       Yes         Yes
            SRGB_DXT1  Yes       No          No 
           SRGBA_DXT1  Yes       No          No 
           SRGBA_DXT3  Yes       No          No 
@@ -94,7 +94,7 @@ Capability    Minimum   Desired   Received  Ok?
 * RENDER DEVICE 
 Depth         16 bits   24 bits   24 bits   ok
 Stencil        8 bits    8 bits    8 bits   ok
-Alpha                              8 bits   ok
+Alpha                              0 bits   ok
 Red                                8 bits   ok
 Green                              8 bits   ok
 Blue                               8 bits   ok
@@ -104,8 +104,8 @@ Height                 600 pixels           ok
 Mode                   Windowed             ok
 
 This driver will support G3D 9.00:
-GLSL version 3.30                   yes - GLSL version on this driver is 4.20
-GPU Supports OpenGL 3.3 or later    yes - OpenGL version on this driver is 4.2
+GLSL version 3.30                   yes - GLSL version on this driver is 3.30
+GPU Supports OpenGL 3.3 or later    yes - OpenGL version on this driver is 3.3
          GL_ARB_seamless_cube_map   yes 
             GL_ARB_sample_shading   yes - Optional
 

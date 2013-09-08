@@ -7,6 +7,9 @@
 #include <G3D/G3DAll.h>
 #include <GLG3D/GLG3D.h>
 #include <time.h>
+#include <string>
+#include <sstream>
+#include <iostream>
 #include "MyPoint.h"
 #include "MyVector.h"
 #include <Windows.h>
@@ -25,6 +28,13 @@ float yVel2;
 
 G3D_START_AT_MAIN();
 
+void print(float value)
+{
+	std::wstringstream s;
+	s << L"" <<value;
+	std::wstring ws = s.str();
+	OutputDebugString(ws.c_str());
+}
 
 void drawFrame(int w, int h) {
 
@@ -109,14 +119,19 @@ int main(int argc, char** argv) {
 	yVel2 = ((rand() % 5) + 1)/2;
 
 	MyPoint<float> point(3.0f,4.0f,5.0f);
-	MyVector<float> vector(3.0f,4.0f,5.0f);
-	vector[2] = 7.0f;
-	float yay = vector.length();
-	point[1] = 6.0f;
-	printf("Testing!");// <<point[1];
-	//OutputDebugString(L"%s",point[1]);
+	MyPoint<float> point2(3.0f,4.0f,5.0f);
+	MyPoint<float> point3 = point-point2;
 
- 	for (int i=0; i<300; i++) {
+	MyVector<float> vector(3.0f,4.0f,2.0f);
+	MyVector<float> vector2(3.0f,7.0f,0.0f);
+	float dotProduct = vector.DotProduct(vector2);
+	MyVector<float> crossProduct = vector.CrossProduct(vector2);
+	//vector.Normalize();
+	MyVector<float> vector3 = vector - vector2;
+	
+	print(point3.components[0]);
+
+	for (int i=0; i<300; i++) {
 
 		// draw frame
         drawFrame(settings.width, settings.height);
