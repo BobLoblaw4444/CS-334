@@ -37,5 +37,8 @@
     <ClInclude Include="MyVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MyMatrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

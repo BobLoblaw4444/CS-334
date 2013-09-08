@@ -1,7 +1,7 @@
 Application Log
-Start: Sun Sep 08 18:31:26 2013
+Start: Sun Sep 08 18:54:52 2013
 
-Initializing System::findDataFile took 0.002630s
+Initializing System::findDataFile took 0.002751s
 Setting video mode
 wglSwapIntervalEXT(0);
 Enabling separate specular lighting.

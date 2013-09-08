@@ -1,8 +1,6 @@
 #pragma once
 
-#include <stdlib.h>
 #include <math.h>
-#include "MyPoint.h"
 
 template <class VECTOR_T>
 class MyVector
@@ -71,6 +69,8 @@ MyVector<VECTOR_T> MyVector<VECTOR_T>::CrossProduct(MyVector<VECTOR_T> vector2)
 
 	return MyVector<VECTOR_T>(x,y,z);
 }
+
+// Operators
 
 template <class VECTOR_T>
 VECTOR_T& MyVector<VECTOR_T>::operator[] (int index)

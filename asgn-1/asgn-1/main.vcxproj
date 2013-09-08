@@ -175,6 +175,7 @@
     <ClCompile Include="asgn1-main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MyMatrix.h" />
     <ClInclude Include="MyPoint.h" />
     <ClInclude Include="MyVector.h" />
   </ItemGroup>
