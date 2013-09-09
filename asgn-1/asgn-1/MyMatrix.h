@@ -14,6 +14,7 @@ class MyMatrix
 						   MATRIX_T val30, MATRIX_T val31, MATRIX_T val32, MATRIX_T val33);
 
 		MATRIX_T& operator[](int index);
+		void MyMatrix<MATRIX_T>::Transpose();
 };
 
 template <class MATRIX_T>
@@ -49,10 +50,21 @@ MATRIX_T& MyMatrix<MATRIX_T>::operator[] (int index)
 template <class MATRIX_T>
 void MyMatrix<MATRIX_T>::Transpose()
 {
-	MATRIX_T tempRow[4];
+	MyMatrix<MATRIX_T> newMatrix(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
 
-	for(int i = 0; i < 4; i++)
+	int count = 0;
+
+	for(int i = 0, int j = 0; i < 16, j < 16; i++, j++)
 	{
-		
+		if(i > 4)
+		{
+			count++;
+		}
+		newMatrix.components[i*(i%4)] = components[i];
+	}
+
+	for(int i = 0; i < 16; i++)
+	{
+		components[i] = newMatrix.components[i];
 	}
 }

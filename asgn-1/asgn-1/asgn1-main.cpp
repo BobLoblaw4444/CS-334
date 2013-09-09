@@ -12,7 +12,7 @@
 #include <iostream>
 #include "MyPoint.h"
 #include "MyVector.h"
-#include <Windows.h>
+#include "MyMatrix.h"
 
 ////////////
 // Define necessary globals here
@@ -128,8 +128,19 @@ int main(int argc, char** argv) {
 	MyVector<float> crossProduct = vector.CrossProduct(vector2);
 	//vector.Normalize();
 	MyVector<float> vector3 = vector - vector2;
+
+	MyMatrix<float> matrix(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
 	
-	print(point3.components[0]);
+	for(int i = 0; i< 16; i++)
+	{
+		print(matrix.components[i]);
+	}
+	matrix.Transpose();
+
+	for(int i = 0; i< 16; i++)
+	{
+		print(matrix.components[i]);
+	}
 
 	for (int i=0; i<300; i++) {
 
