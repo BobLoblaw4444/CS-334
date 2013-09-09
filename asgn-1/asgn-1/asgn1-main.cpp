@@ -31,7 +31,7 @@ G3D_START_AT_MAIN();
 void print(float value)
 {
 	std::wstringstream s;
-	s << L"" <<value;
+	s << L"" <<value <<" ";
 	std::wstring ws = s.str();
 	OutputDebugString(ws.c_str());
 }
@@ -135,11 +135,11 @@ int main(int argc, char** argv) {
 	{
 		print(matrix.components[i]);
 	}
-	matrix.Transpose();
+	;
 
 	for(int i = 0; i< 16; i++)
 	{
-		print(matrix.components[i]);
+		print(matrix.Transpose().components[i]);
 	}
 
 	for (int i=0; i<300; i++) {

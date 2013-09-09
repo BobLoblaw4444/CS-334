@@ -1,5 +1,6 @@
 #pragma once
 
+#include "MyVector.h"
 #include <math.h>
 
 template <class MATRIX_T>
@@ -14,7 +15,8 @@ class MyMatrix
 						   MATRIX_T val30, MATRIX_T val31, MATRIX_T val32, MATRIX_T val33);
 
 		MATRIX_T& operator[](int index);
-		void MyMatrix<MATRIX_T>::Transpose();
+		MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Transpose();
+		MyVector<MATRIX_T> MyMatrix<MATRIX_T>::operator*(MyVector<MATRIX_T> vector);
 };
 
 template <class MATRIX_T>
@@ -48,23 +50,30 @@ MATRIX_T& MyMatrix<MATRIX_T>::operator[] (int index)
 }
 
 template <class MATRIX_T>
-void MyMatrix<MATRIX_T>::Transpose()
+MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Transpose()
 {
-	MyMatrix<MATRIX_T> newMatrix(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+	MyMatrix<MATRIX_T> newMatrix(components[0],
+								 components[4], 
+								 components[8], 
+								 components[12],
+								 components[1], 
+								 components[5],
+								 components[9],
+								 components[13],
+								 components[2], 
+								 components[6], 
+								 components[10],
+								 components[14],
+								 components[3],
+								 components[7], 
+								 components[11],
+								 components[15]);
 
-	int count = 0;
+	return newMatrix;
+}
 
-	for(int i = 0, int j = 0; i < 16, j < 16; i++, j++)
-	{
-		if(i > 4)
-		{
-			count++;
-		}
-		newMatrix.components[i*(i%4)] = components[i];
-	}
+template <class MATRIX_T>
+MyVector<MATRIX_T> MyMatrix<MATRIX_T>::operator*(MyVector<MATRIX_T> vector)
+{
 
-	for(int i = 0; i < 16; i++)
-	{
-		components[i] = newMatrix.components[i];
-	}
 }
