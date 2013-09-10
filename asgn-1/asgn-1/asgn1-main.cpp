@@ -129,17 +129,12 @@ int main(int argc, char** argv) {
 	//vector.Normalize();
 	MyVector<float> vector3 = vector - vector2;
 
-	MyMatrix<float> matrix(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
+	MyMatrix<float> matrix(1,2,3,0,5,6,7,0,9,10,11,0,13,14,15,1);
 	
-	for(int i = 0; i< 16; i++)
+	MyVector<float> matrixResult = matrix * vector;
+	for(int i = 0; i< 4; i++)
 	{
-		print(matrix.components[i]);
-	}
-	;
-
-	for(int i = 0; i< 16; i++)
-	{
-		print(matrix.Transpose().components[i]);
+		print(matrixResult.components[i]);
 	}
 
 	for (int i=0; i<300; i++) {

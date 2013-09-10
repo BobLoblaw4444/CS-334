@@ -75,5 +75,17 @@ MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Transpose()
 template <class MATRIX_T>
 MyVector<MATRIX_T> MyMatrix<MATRIX_T>::operator*(MyVector<MATRIX_T> vector)
 {
+	MATRIX_T x = (vector.components[0] * components[0]) +  (vector.components[1] * components[4]) +  (vector.components[2] * components[8]) +  (vector.components[3] * components[12]);
+	MATRIX_T y = (vector.components[0] * components[1]) +  (vector.components[1] * components[5]) +  (vector.components[2] * components[9]) +  (vector.components[3] * components[13]);
+	MATRIX_T z = (vector.components[0] * components[2]) +  (vector.components[1] * components[6]) +  (vector.components[2] * components[10]) +  (vector.components[3] * components[14]);
+	MATRIX_T w = (vector.components[0] * components[3]) +  (vector.components[1] * components[7]) +  (vector.components[2] * components[11]) +  (vector.components[3] * components[15]);
 
+	if(w != 0 && w != 1)
+	{
+		x /= w;
+		y /= w;
+		z /= w;
+	}
+
+	return MyVector<MATRIX_T>(x, y, z);
 }

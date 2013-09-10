@@ -6,7 +6,7 @@ template <class VECTOR_T>
 class MyVector
 {
 	public:
-		VECTOR_T components[3];
+		VECTOR_T components[4];
 
 		MyVector<VECTOR_T>(VECTOR_T x, VECTOR_T y, VECTOR_T z);
 
@@ -30,6 +30,7 @@ MyVector<VECTOR_T>::MyVector(VECTOR_T x, VECTOR_T y, VECTOR_T z)
 		components[0] = x;
 		components[1] = y;
 		components[2] = z;
+		components[3] = 1;
 }
 
 template <class VECTOR_T>
