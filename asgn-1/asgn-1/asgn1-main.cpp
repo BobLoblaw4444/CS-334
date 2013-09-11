@@ -118,23 +118,24 @@ int main(int argc, char** argv) {
 	xVel2 = ((rand() % 5) + 1)/2;
 	yVel2 = ((rand() % 5) + 1)/2;
 
-	MyPoint<float> point(3.0f,4.0f,5.0f);
+	MyPoint<float> point(3.0f,4.0f,2.0f);
 	MyPoint<float> point2(3.0f,4.0f,5.0f);
 	MyPoint<float> point3 = point-point2;
 
 	MyVector<float> vector(3.0f,4.0f,2.0f);
 	MyVector<float> vector2(3.0f,7.0f,0.0f);
-	float dotProduct = vector.DotProduct(vector2);
-	MyVector<float> crossProduct = vector.CrossProduct(vector2);
-	//vector.Normalize();
-	MyVector<float> vector3 = vector - vector2;
 
 	MyMatrix<float> matrix(1,2,3,0,5,6,7,0,9,10,11,0,13,14,15,1);
+	MyMatrix<float> matrix2(1,2,3,0,5,6,7,0,9,10,11,0,13,14,15,1);
 	
-	MyVector<float> matrixResult = matrix * vector;
-	for(int i = 0; i< 4; i++)
+	MyMatrix<float> matrixResult = matrix * matrix2;
+	MyVector<float> vectorMatrix = matrix * vector;
+
+	MyMatrix<float> matrixRotX = matrix2.Rotate('x', 90);
+
+	for(int i = 0; i < 16; i++)
 	{
-		print(matrixResult.components[i]);
+		print(matrixRotX.components[i]);
 	}
 
 	for (int i=0; i<300; i++) {

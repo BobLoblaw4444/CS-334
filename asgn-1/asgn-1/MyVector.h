@@ -8,21 +8,33 @@ class MyVector
 	public:
 		VECTOR_T components[4];
 
+		MyVector<VECTOR_T>();
 		MyVector<VECTOR_T>(VECTOR_T x, VECTOR_T y, VECTOR_T z);
+		MyVector(VECTOR_T x, VECTOR_T y, VECTOR_T z, VECTOR_T w);
 
 		void Normalize();
 		VECTOR_T Length();
 		VECTOR_T DotProduct(MyVector<VECTOR_T> vector2);
+		VECTOR_T MatrixDotProduct(MyVector<VECTOR_T> vector2);
 		MyVector<VECTOR_T> CrossProduct(MyVector<VECTOR_T> vector2);
 
 		VECTOR_T& operator[](int index);
 		void operator*(VECTOR_T scalar);
 		void operator/(VECTOR_T scalar);
-		MyVector<VECTOR_T> MyVector<VECTOR_T>::operator+ (MyVector<VECTOR_T> vector2);
-		MyVector<VECTOR_T> MyVector<VECTOR_T>::operator- (MyVector<VECTOR_T> vector2);
-		MyVector<VECTOR_T> MyVector<VECTOR_T>::operator+ (MyPoint<VECTOR_T> point);
-		MyVector<VECTOR_T> MyVector<VECTOR_T>::operator- (MyPoint<VECTOR_T> point);
+		MyVector<VECTOR_T> operator+ (MyVector<VECTOR_T> vector2);
+		MyVector<VECTOR_T> operator- (MyVector<VECTOR_T> vector2);
+		MyVector<VECTOR_T> operator+ (MyPoint<VECTOR_T> point);
+		MyVector<VECTOR_T> operator- (MyPoint<VECTOR_T> point);
 };
+
+template <class VECTOR_T>
+MyVector<VECTOR_T>::MyVector()
+{
+		components[0] = 0;
+		components[1] = 0;
+		components[2] = 0;
+		components[3] = 1;
+}
 
 template <class VECTOR_T>
 MyVector<VECTOR_T>::MyVector(VECTOR_T x, VECTOR_T y, VECTOR_T z)
@@ -31,6 +43,15 @@ MyVector<VECTOR_T>::MyVector(VECTOR_T x, VECTOR_T y, VECTOR_T z)
 		components[1] = y;
 		components[2] = z;
 		components[3] = 1;
+}
+
+template <class VECTOR_T>
+MyVector<VECTOR_T>::MyVector(VECTOR_T x, VECTOR_T y, VECTOR_T z, VECTOR_T w)
+{
+		components[0] = x;
+		components[1] = y;
+		components[2] = z;
+		components[3] = w;
 }
 
 template <class VECTOR_T>
@@ -59,6 +80,12 @@ template <class VECTOR_T>
 VECTOR_T MyVector<VECTOR_T>::DotProduct(MyVector<VECTOR_T> vector2)
 {
 	return ((components[0] * vector2.components[0]) + (components[1] * vector2.components[1]) + (components[2] * vector2.components[2]));
+}
+
+template <class VECTOR_T>
+VECTOR_T MyVector<VECTOR_T>::MatrixDotProduct(MyVector<VECTOR_T> vector2)
+{
+	return ((components[0] * vector2.components[0]) + (components[1] * vector2.components[1]) + (components[2] * vector2.components[2]) + (components[3] * vector2.components[3]));
 }
 
 template <class VECTOR_T>

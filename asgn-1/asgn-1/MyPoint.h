@@ -8,8 +8,8 @@ class MyPoint
 
 		MyPoint<POINT_T>(POINT_T x, POINT_T y, POINT_T z);
 		POINT_T& operator[](int index);
-		MyPoint<POINT_T> MyPoint<POINT_T>::operator+ (MyPoint<POINT_T> point2);
-		MyPoint<POINT_T> MyPoint<POINT_T>::operator- (MyPoint<POINT_T> point2);
+		MyPoint<POINT_T> operator+ (MyPoint<POINT_T> point2);
+		MyPoint<POINT_T> operator- (MyPoint<POINT_T> point2);
 };
 
 template <class POINT_T>
