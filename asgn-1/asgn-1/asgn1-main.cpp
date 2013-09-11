@@ -24,6 +24,11 @@ float xVel1;
 float yVel1;
 float xVel2;
 float yVel2;
+
+MyPoint<float> point1(0,0,0);
+MyPoint<float> point2(0,0,0);
+MyVector<float> velocity1(0,0,0);
+MyVector<float> velocity2(0,0,0);
 ////////////
 
 G3D_START_AT_MAIN();
@@ -60,36 +65,49 @@ void drawFrame(int w, int h) {
 	// *** add code below ***
 
 	// update position of two 2D points
-	xPos1 += xVel1;
-	yPos1 += yVel1;
-	xPos2 += xVel2;
-	yPos2 += yVel2;
+	point1.components[0] += velocity1.components[0];
+	point1.components[1] += velocity1.components[1];
+	point1.components[2] += velocity1.components[2];
+
+	point2.components[0] += velocity2.components[0];
+	point2.components[1] += velocity2.components[1];
+	point2.components[2] += velocity2.components[2];
 
 	// bounce points off the edge of the window 
-	if((xPos1 > 10 && xVel1 > 0) || (xPos1 < -10 && xVel1 < 0))
+	if((point1.components[0] > 10 && velocity1.components[0] > 0) || (point1.components[0] < -10 && velocity1.components[0] < 0))
 	{
-		xVel1 = -xVel1;
+		velocity1.components[0] = -velocity1.components[0];
 	}
 
-	if( (xPos2 > 10 && xVel2 > 0) || (xPos2 < -10 && xVel2 < 0))
+	if((point1.components[1] > 10 && velocity1.components[1] > 0) || (point1.components[1] < -10 && velocity1.components[1] < 0))
 	{
-		xVel2 = -xVel2;
-	}
-
-	if((yPos1 > 10 && yVel1 > 0) || (yPos1 < -10 && yVel1 < 0))
-	{
-		yVel1 = -yVel1;
+		velocity1.components[1] = -velocity1.components[1];
 	}
 	
-	if((yPos2 > 10 && yVel2 > 0) || (yPos2 < -10 && yVel2 < 0))
+	if((point1.components[2] > 10 && velocity1.components[2] > 0) || (point1.components[2] < -10 && velocity1.components[2] < 0))
 	{
-		yVel2 = -yVel2;
+		velocity1.components[2] = -velocity1.components[2];
+	}
+
+	if( (point2.components[0] > 10 && velocity2.components[0] > 0) || (point2.components[0] < -10 && velocity2.components[0] < 0))
+	{
+		velocity2.components[0] = -velocity2.components[0];
+	}
+
+	if((point2.components[1] > 10 && velocity2.components[1] > 0) || (point2.components[1] < -10 && velocity2.components[1] < 0))
+	{
+		velocity2.components[1] = -velocity2.components[1];
+	}
+
+	if((point2.components[2] > 10 && velocity2.components[2] > 0) || (point2.components[2] < -10 && velocity2.components[2] < 0))
+	{
+		velocity2.components[2] = -velocity2.components[2];
 	}
 
 	// draw a line using GL_LINES
 	glBegin(GL_LINES);
-	glVertex3f(xPos1, yPos1, 0);
-	glVertex3f(xPos2, yPos2, 0);
+	glVertex3fv(point1.components);
+	glVertex3fv(point2.components);
 	glEnd();
 	// *** add code above ***
 	///////////////	
@@ -109,34 +127,43 @@ int main(int argc, char** argv) {
 	// ** add code here ***
 	///////////
 	srand(time(0));
-	xPos1 = rand() % 10;
-	xPos2 = rand() % 10;
-	yPos1 = rand() % 10;
-	yPos2 = rand() % 10;
-	xVel1 = ((rand() % 5) + 1)/2;
-	yVel1 = ((rand() % 5) + 1)/2;
-	xVel2 = ((rand() % 5) + 1)/2;
-	yVel2 = ((rand() % 5) + 1)/2;
-
-	MyPoint<float> point(3.0f,4.0f,2.0f);
-	MyPoint<float> point2(3.0f,4.0f,5.0f);
-	MyPoint<float> point3 = point-point2;
-
-	MyVector<float> vector(3.0f,4.0f,2.0f);
-	MyVector<float> vector2(3.0f,7.0f,0.0f);
-
-	MyMatrix<float> matrix(1,2,3,0,5,6,7,0,9,10,11,0,13,14,15,1);
-	MyMatrix<float> matrix2(1,2,3,0,5,6,7,0,9,10,11,0,13,14,15,1);
+	point1.components[0] = rand() % 10;
+	point1.components[1] = rand() % 10;
+	point1.components[2] = rand() % 10;
 	
-	MyMatrix<float> matrixResult = matrix * matrix2;
-	MyVector<float> vectorMatrix = matrix * vector;
+	point2.components[0] = rand() % 10;
+	point2.components[1] = rand() % 10;
+	point2.components[2] = rand() % 10;
+	
+	velocity1.components[0] = ((rand() % 5) + 1)/2.0f;
+	velocity1.components[1] = ((rand() % 5) + 1)/2.0f;
+	velocity1.components[2] = ((rand() % 5) + 1)/2.0f;
+	
+	velocity2.components[0] = ((rand() % 5) + 1)/2.0f;
+	velocity2.components[1] = ((rand() % 5) + 1)/2.0f;
+	velocity2.components[2] = ((rand() % 5) + 1)/2.0f;
 
-	MyMatrix<float> matrixRotX = matrix2.Rotate('x', 90);
+	//MyPoint<float> point(3.0f,4.0f,2.0f);
+	//point[0] = 3;
+	//MyPoint<float> point2(3.0f,4.0f,5.0f);
+	//MyPoint<float> point3 = point-point2;
 
-	for(int i = 0; i < 16; i++)
-	{
-		print(matrixRotX.components[i]);
-	}
+	//MyVector<float> vector(3.0f,4.0f,2.0f);
+	//MyVector<float> vector2(3.0f,7.0f,0.0f);
+
+	//MyMatrix<float> matrix(1,2,3,0,5,6,7,0,9,10,11,0,13,14,15,1);
+	//MyMatrix<float> matrix2(1,2,3,0,5,6,7,0,9,10,11,0,13,14,15,1);
+	//
+	//MyMatrix<float> matrixResult = matrix * matrix2;
+	//MyVector<float> vectorMatrix = matrix * vector;
+
+	//MyMatrix<float> matrixRotX = matrix2.Rotate('x', 90);
+	//MyMatrix<float> matrixTrans= matrix.Translate(5,0,0);
+
+	//for(int i = 0; i < 16; i++)
+	//{
+	//	print(matrixTrans.components[i]);
+	//}
 
 	for (int i=0; i<300; i++) {
 

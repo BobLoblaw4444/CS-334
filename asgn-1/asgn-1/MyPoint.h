@@ -6,11 +6,21 @@ class MyPoint
 	public:
 		POINT_T components[4];
 
+		MyPoint<POINT_T>();
 		MyPoint<POINT_T>(POINT_T x, POINT_T y, POINT_T z);
 		POINT_T& operator[](int index);
 		MyPoint<POINT_T> operator+ (MyPoint<POINT_T> point2);
 		MyPoint<POINT_T> operator- (MyPoint<POINT_T> point2);
 };
+
+template <class POINT_T>
+MyPoint<POINT_T>::MyPoint()
+{
+		components[0] = 0;
+		components[1] = 0;
+		components[2] = 0;
+		components[3] = 0;
+}
 
 template <class POINT_T>
 MyPoint<POINT_T>::MyPoint(POINT_T x, POINT_T y, POINT_T z)

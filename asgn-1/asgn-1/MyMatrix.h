@@ -26,6 +26,9 @@ class MyMatrix
 		MyMatrix<MATRIX_T> operator*(MyMatrix<MATRIX_T> matrix);
 
 		MyMatrix<MATRIX_T> Rotate(char direction, MATRIX_T angle);
+		MyMatrix<MATRIX_T> Translate(MATRIX_T x, MATRIX_T y, MATRIX_T z);
+		MyMatrix<MATRIX_T> Scale(MATRIX_T x, MATRIX_T y, MATRIX_T z);
+		MyMatrix<MATRIX_T> Identity();
 
 	private:
 		void SetRowsAndColumns();
@@ -34,22 +37,22 @@ class MyMatrix
 template <class MATRIX_T>
 MyMatrix<MATRIX_T>::MyMatrix()
 {
-	components[0] = 0;
+	components[0] = 1;
 	components[1] = 0;
 	components[2] = 0;
 	components[3] = 0;
 	components[4] = 0;
-	components[5] = 0;
+	components[5] = 1;
 	components[6] = 0;
 	components[7] = 0;
 	components[8] = 0;
 	components[9] = 0;
-	components[10] = 0;
+	components[10] = 1;
 	components[11] = 0;
 	components[12] = 0;
 	components[13] = 0;
 	components[14] = 0;
-	components[15] = 0;
+	components[15] = 1;
 
 	SetRowsAndColumns();
 }
@@ -173,23 +176,46 @@ MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Rotate(char direction, MATRIX_T angle)
 	if(direction == 'x' || direction == 'X')
 	{
 			MyMatrix<MATRIX_T> rotationMatrix(1, 0, 0, 0, 0, cos(-angle), sin(-angle), 0, 0, -sin(-angle), cos(-angle), 0, 0, 0, 0, 1);
-			return *this * rotationMatrix;
+			return rotationMatrix;
 	}
 	else if(direction == 'y' || direction == 'Y')
 	{
 			MyMatrix<MATRIX_T> rotationMatrix(cos(-angle), 0, -sin(-angle), 0, 0, 1, 0, 0, sin(-angle), 0, cos(-angle), 0, 0, 0, 0, 1);
-			return *this * rotationMatrix;
+			return rotationMatrix;
 	}
 	else if(direction == 'z' || direction == 'Z')
 	{
 			MyMatrix<MATRIX_T> rotationMatrix(cos(-angle), sin(-angle), 0, 0, -sin(-angle), cos(-angle), 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-			return *this * rotationMatrix;
+			return rotationMatrix;
 	}
 	return *this;
 }
 
+template <class MATRIX_T>
+MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Translate(MATRIX_T x, MATRIX_T y, MATRIX_T z)
+{
+	MyMatrix<MATRIX_T> translationMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, x, y, z, 1);
 
+	return translationMatrix;
+}
 
+template <class MATRIX_T>
+MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Scale(MATRIX_T x, MATRIX_T y, MATRIX_T z)
+{
+	MyMatrix<MATRIX_T> scaleMatrix(x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1);
+
+	return scaleMatrix;
+}
+
+template <class MATRIX_T>
+MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Identity()
+{
+	MyMatrix<MATRIX_T> identityMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+
+	return identityMatrix;
+}
+
+//Private Methods
 template <class MATRIX_T>
 void MyMatrix<MATRIX_T>::SetRowsAndColumns()
 {
