@@ -26,6 +26,7 @@ class MyMatrix
 		MyMatrix<MATRIX_T> operator*(MyMatrix<MATRIX_T> matrix);
 
 		MyMatrix<MATRIX_T> Rotate(char direction, MATRIX_T angle);
+		MyMatrix<MATRIX_T> RotateEverything(MATRIX_T angle);
 		MyMatrix<MATRIX_T> Translate(MATRIX_T x, MATRIX_T y, MATRIX_T z);
 		MyMatrix<MATRIX_T> Scale(MATRIX_T x, MATRIX_T y, MATRIX_T z);
 		MyMatrix<MATRIX_T> Identity();
@@ -189,6 +190,16 @@ MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Rotate(char direction, MATRIX_T angle)
 			return rotationMatrix;
 	}
 	return *this;
+}
+
+template <class MATRIX_T>
+MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::RotateEverything(MATRIX_T angle)
+{
+	MyMatrix<MATRIX_T> rotX(1, 0, 0, 0, 0, cos(angle), sin(angle), 0, 0, -sin(angle), cos(angle), 0, 0, 0, 0, 1);
+	MyMatrix<MATRIX_T> rotY(cos(angle), 0, -sin(angle), 0, 0, 1, 0, 0, sin(angle), 0, cos(angle), 0, 0, 0, 0, 1);
+	MyMatrix<MATRIX_T> rotZ(cos(angle), sin(angle), 0, 0, -sin(angle), cos(angle), 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+
+	return rotX * rotY * rotZ; 
 }
 
 template <class MATRIX_T>

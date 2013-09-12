@@ -2,7 +2,7 @@
  Department of Computer Science
  Purdue University
  Jan 13, 2012
- CS334 Assignment #0 Warm-up Assignment
+ CS334 Assignment #1 Warmed-up Assignment
  **/
 #include <G3D/G3DAll.h>
 #include <GLG3D/GLG3D.h>
@@ -16,19 +16,14 @@
 
 ////////////
 // Define necessary globals here
-float xPos1;
-float xPos2;
-float yPos1;
-float yPos2;
-float xVel1;
-float yVel1;
-float xVel2;
-float yVel2;
+float speed = 1;
+float fps = 30.0f;
 
 MyPoint<float> point1(0,0,0);
 MyPoint<float> point2(0,0,0);
 MyVector<float> velocity1(0,0,0);
 MyVector<float> velocity2(0,0,0);
+MyMatrix<float> rotation(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
 ////////////
 
 G3D_START_AT_MAIN();
@@ -65,13 +60,27 @@ void drawFrame(int w, int h) {
 	// *** add code below ***
 
 	// update position of two 2D points
+	rotation = rotation.RotateEverything(rand() % 22);
+	velocity1 = rotation * velocity1;
+
+	rotation = rotation.RotateEverything(rand() % 22);
+	velocity2 = rotation * velocity2;
+
 	point1.components[0] += velocity1.components[0];
 	point1.components[1] += velocity1.components[1];
 	point1.components[2] += velocity1.components[2];
 
+	velocity1.Normalize();
+	velocity1/fps;
+	velocity1 * (speed * 20.0f);
+
 	point2.components[0] += velocity2.components[0];
 	point2.components[1] += velocity2.components[1];
 	point2.components[2] += velocity2.components[2];
+
+	velocity2.Normalize();
+	velocity2/fps;
+	velocity2 * (speed * 20.0f);
 
 	// bounce points off the edge of the window 
 	if((point1.components[0] > 10 && velocity1.components[0] > 0) || (point1.components[0] < -10 && velocity1.components[0] < 0))
@@ -171,7 +180,7 @@ int main(int argc, char** argv) {
         drawFrame(settings.width, settings.height);
 
         // Render at 30 fps
-        System::sleep(1.0/30.0);
+        System::sleep(1.0/fps);
 
         // See also RenderDevice::beginFrame, RenderDevice::endFrame
         rd->swapBuffers();
