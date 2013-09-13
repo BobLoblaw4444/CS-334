@@ -18,23 +18,27 @@ class MyMatrix
 						   MATRIX_T val20, MATRIX_T val21, MATRIX_T val22, MATRIX_T val23,
 						   MATRIX_T val30, MATRIX_T val31, MATRIX_T val32, MATRIX_T val33);
 
-		MATRIX_T& operator[](int index);
 		MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Transpose();
 
+		MATRIX_T& operator[](int index);
 		MyPoint<MATRIX_T> operator*(MyPoint<MATRIX_T> point);
 		MyVector<MATRIX_T> operator*(MyVector<MATRIX_T> vector);
 		MyMatrix<MATRIX_T> operator*(MyMatrix<MATRIX_T> matrix);
 
+		// Non-instance Methods
 		MyMatrix<MATRIX_T> Rotate(char direction, MATRIX_T angle);
 		MyMatrix<MATRIX_T> RotateEverything(MATRIX_T angle);
 		MyMatrix<MATRIX_T> Translate(MATRIX_T x, MATRIX_T y, MATRIX_T z);
 		MyMatrix<MATRIX_T> Scale(MATRIX_T x, MATRIX_T y, MATRIX_T z);
 		MyMatrix<MATRIX_T> Identity();
+		MyMatrix<MATRIX_T> Reflect(MATRIX_T x, MATRIX_T y, MATRIX_T z);
+		MyMatrix<MATRIX_T> Perspective(MATRIX_T focal);
 
 	private:
 		void SetRowsAndColumns();
 };
 
+// Default Constructor
 template <class MATRIX_T>
 MyMatrix<MATRIX_T>::MyMatrix()
 {
@@ -85,14 +89,6 @@ MyMatrix<MATRIX_T>::MyMatrix(MATRIX_T val00, MATRIX_T val01, MATRIX_T val02, MAT
 }
 
 template <class MATRIX_T>
-MATRIX_T& MyMatrix<MATRIX_T>::operator[] (int index)
-{
-	SetRowsAndColumns();
-	return components[index];
-}
-
-
-template <class MATRIX_T>
 MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Transpose()
 {
 	MyMatrix<MATRIX_T> newMatrix(components[0],
@@ -116,15 +112,26 @@ MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Transpose()
 }
 
 template <class MATRIX_T>
+MATRIX_T& MyMatrix<MATRIX_T>::operator[] (int index)
+{
+	SetRowsAndColumns();
+	return components[index];
+}
+
+// Operators
+
+template <class MATRIX_T>
 MyVector<MATRIX_T> MyMatrix<MATRIX_T>::operator*(MyVector<MATRIX_T> vector)
 {
 	MATRIX_T newComponents[4];
 
+	// Perform multiplication of vector and rows of matrix
 	for(int i = 0; i < 4; i++)
 	{
 		newComponents[i] = vector.MatrixDotProduct(rows[i]);
 	}
 
+	// Divide by w if applicable
 	if(newComponents[3] != 0 && newComponents[3] != 1)
 	{
 		for(int i = 0; i < 3; i++)
@@ -139,10 +146,10 @@ MyVector<MATRIX_T> MyMatrix<MATRIX_T>::operator*(MyVector<MATRIX_T> vector)
 template <class MATRIX_T>
 MyPoint<MATRIX_T> MyMatrix<MATRIX_T>::operator*(MyPoint<MATRIX_T> point)
 {
-	MATRIX_T x = (point.components[0] * components[0]) +  (point.components[1] * components[4]) +  (point.components[2] * components[8]) +  (point.components[3] * components[12]);
-	MATRIX_T y = (point.components[0] * components[1]) +  (point.components[1] * components[5]) +  (point.components[2] * components[9]) +  (point.components[3] * components[13]);
-	MATRIX_T z = (point.components[0] * components[2]) +  (point.components[1] * components[6]) +  (point.components[2] * components[10]) +  (point.components[3] * components[14]);
-	MATRIX_T w = (point.components[0] * components[3]) +  (point.components[1] * components[7]) +  (point.components[2] * components[11]) +  (point.components[3] * components[15]);
+	MATRIX_T x = (point.components[0] * components[0]) +  (point.components[1] * components[4]) +  (point.components[2] * components[8]) +  ( components[12]);
+	MATRIX_T y = (point.components[0] * components[1]) +  (point.components[1] * components[5]) +  (point.components[2] * components[9]) +  ( components[13]);
+	MATRIX_T z = (point.components[0] * components[2]) +  (point.components[1] * components[6]) +  (point.components[2] * components[10]) +  ( components[14]);
+	MATRIX_T w = (point.components[0] * components[3]) +  (point.components[1] * components[7]) +  (point.components[2] * components[11]) +  ( components[15]);
 
 	if(w != 0 && w != 1)
 	{
@@ -157,8 +164,9 @@ MyPoint<MATRIX_T> MyMatrix<MATRIX_T>::operator*(MyPoint<MATRIX_T> point)
 template <class MATRIX_T>
 MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::operator*(MyMatrix<MATRIX_T> matrix)
 {
-	MyMatrix<MATRIX_T> newMatrix(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1);
+	MyMatrix<MATRIX_T> newMatrix;
 
+	// Build newMatrix by multipling the rows of the first matrix by columns of second using dot product
 	int k = 0;
 	for(int i = 0; i < 4; i++)
 	{
@@ -171,8 +179,10 @@ MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::operator*(MyMatrix<MATRIX_T> matrix)
 	return newMatrix.Transpose();
 }
 
+// Non-instance functions
+
 template <class MATRIX_T>
-MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Rotate(char direction, MATRIX_T angle)
+MyMatrix<MATRIX_T> Rotate(char direction, MATRIX_T angle)
 {
 	if(direction == 'x' || direction == 'X')
 	{
@@ -189,11 +199,15 @@ MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Rotate(char direction, MATRIX_T angle)
 			MyMatrix<MATRIX_T> rotationMatrix(cos(-angle), sin(-angle), 0, 0, -sin(-angle), cos(-angle), 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 			return rotationMatrix;
 	}
-	return *this;
+
+	// Return identity if input isn't a valid axis
+	MyMatrix<MATRIX_T> newMatrix;
+	return newMatrix;
 }
 
+// Perform x, y, then z rotations
 template <class MATRIX_T>
-MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::RotateEverything(MATRIX_T angle)
+MyMatrix<MATRIX_T> RotateEverything(MATRIX_T angle)
 {
 	MyMatrix<MATRIX_T> rotX(1, 0, 0, 0, 0, cos(angle), sin(angle), 0, 0, -sin(angle), cos(angle), 0, 0, 0, 0, 1);
 	MyMatrix<MATRIX_T> rotY(cos(angle), 0, -sin(angle), 0, 0, 1, 0, 0, sin(angle), 0, cos(angle), 0, 0, 0, 0, 1);
@@ -203,7 +217,7 @@ MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::RotateEverything(MATRIX_T angle)
 }
 
 template <class MATRIX_T>
-MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Translate(MATRIX_T x, MATRIX_T y, MATRIX_T z)
+MyMatrix<MATRIX_T> Translate(MATRIX_T x, MATRIX_T y, MATRIX_T z)
 {
 	MyMatrix<MATRIX_T> translationMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, x, y, z, 1);
 
@@ -211,7 +225,7 @@ MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Translate(MATRIX_T x, MATRIX_T y, MATRIX_
 }
 
 template <class MATRIX_T>
-MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Scale(MATRIX_T x, MATRIX_T y, MATRIX_T z)
+MyMatrix<MATRIX_T> Scale(MATRIX_T x, MATRIX_T y, MATRIX_T z)
 {
 	MyMatrix<MATRIX_T> scaleMatrix(x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1);
 
@@ -219,14 +233,32 @@ MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Scale(MATRIX_T x, MATRIX_T y, MATRIX_T z)
 }
 
 template <class MATRIX_T>
-MyMatrix<MATRIX_T> MyMatrix<MATRIX_T>::Identity()
+MyMatrix<MATRIX_T> Identity()
 {
 	MyMatrix<MATRIX_T> identityMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 
 	return identityMatrix;
 }
 
+template <class MATRIX_T>
+MyMatrix<MATRIX_T> Reflect(MATRIX_T x, MATRIX_T y, MATRIX_T z)
+{
+	MyMatrix<MATRIX_T> reflectionMatrix(x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1);
+
+	return reflectionMatrix;
+}
+
+template <class MATRIX_T>
+MyMatrix<MATRIX_T> Perspective(MATRIX_T focal)
+{
+	MyMatrix<MATRIX_T> perspectiveMatrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, focal, 1);
+
+	return perspectiveMatrix;
+}
+
 //Private Methods
+
+// Helper method to build rows and columns
 template <class MATRIX_T>
 void MyMatrix<MATRIX_T>::SetRowsAndColumns()
 {

@@ -22,11 +22,10 @@ class MyVector
 		void operator*(VECTOR_T scalar);
 		void operator/(VECTOR_T scalar);
 		MyVector<VECTOR_T> operator+ (MyVector<VECTOR_T> vector2);
-		MyVector<VECTOR_T> operator- (MyVector<VECTOR_T> vector2);
-		MyVector<VECTOR_T> operator+ (MyPoint<VECTOR_T> point);
-		MyVector<VECTOR_T> operator- (MyPoint<VECTOR_T> point);
+		MyVector<VECTOR_T> operator- (MyVector<VECTOR_T> vector2);		
 };
 
+// Default Constructor
 template <class VECTOR_T>
 MyVector<VECTOR_T>::MyVector()
 {
@@ -82,6 +81,7 @@ VECTOR_T MyVector<VECTOR_T>::DotProduct(MyVector<VECTOR_T> vector2)
 	return ((components[0] * vector2.components[0]) + (components[1] * vector2.components[1]) + (components[2] * vector2.components[2]));
 }
 
+// Dot product using 4 components to aid with matrix multiplication
 template <class VECTOR_T>
 VECTOR_T MyVector<VECTOR_T>::MatrixDotProduct(MyVector<VECTOR_T> vector2)
 {
@@ -141,19 +141,3 @@ MyVector<VECTOR_T> MyVector<VECTOR_T>::operator- (MyVector<VECTOR_T> vector2)
 
 	return MyVector<VECTOR_T>(x,y,z);
 }
-
-//template <class VECTOR_T>
-//MyVector<VECTOR_T> MyVector<VECTOR_T>::operator+ (MyPoint<VECTOR_T> point)
-//{
-//	components[0] += point.components[0];
-//	components[1] += point.components[1];
-//	components[2] += point.components[2];
-//}
-//
-//template <class VECTOR_T>
-//MyVector<VECTOR_T> MyVector<VECTOR_T>::operator- (MyPoint<VECTOR_T> point)
-//{
-//	components[0] -= point.components[0];
-//	components[1] -= point.components[1];
-//	components[2] -= point.components[2];
-//}

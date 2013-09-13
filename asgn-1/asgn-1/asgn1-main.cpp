@@ -14,16 +14,19 @@
 #include "MyVector.h"
 #include "MyMatrix.h"
 
-////////////
-// Define necessary globals here
+// HEY, CHANGE THESE VARIABLES TO TEST SPEED AND PERSPECTIVE
 float speed = 1;
+bool isPerspective = true;
 float fps = 30.0f;
+//////////////////
 
-MyPoint<float> point1(0,0,0);
-MyPoint<float> point2(0,0,0);
-MyVector<float> velocity1(0,0,0);
-MyVector<float> velocity2(0,0,0);
-MyMatrix<float> rotation(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+// Define necessary globals here
+MyPoint<float> point1, point2;
+MyPoint<float> perspectivePoint1, perspectivePoint2;
+MyVector<float> velocity1, velocity2;
+
+MyMatrix<float> rotation1, rotation2;
+float rotAngle1, rotAngle2;
 ////////////
 
 G3D_START_AT_MAIN();
@@ -38,12 +41,21 @@ void print(float value)
 
 void drawFrame(int w, int h) {
 
+	MyMatrix<float> rotation, translation;
+
 	// Set up the camera and window space; here spans (-10, -10) to (+10, +10)
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(-10.0f, 10.0f, -10.0f, 10.0f, -10.0f, 10.0f);
-	
+
+	// Pull camera back when using perspective projection
+	if(isPerspective)
+	{
+		glOrtho(-10.0f, 10.0f, -10.0f, 10.0f, -15.0f, 15.0f);
+		glTranslated(0, 0, 10.0f);
+	}
+
     glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
     glClearDepth(1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -55,68 +67,63 @@ void drawFrame(int w, int h) {
     // Move the line in camera space
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+	///////////////////////////////////
 
-	///////////////
-	// *** add code below ***
-
-	// update position of two 2D points
-	rotation = rotation.RotateEverything(rand() % 22);
-	velocity1 = rotation * velocity1;
-
-	rotation = rotation.RotateEverything(rand() % 22);
-	velocity2 = rotation * velocity2;
-
-	point1.components[0] += velocity1.components[0];
-	point1.components[1] += velocity1.components[1];
-	point1.components[2] += velocity1.components[2];
-
-	velocity1.Normalize();
-	velocity1/fps;
-	velocity1 * (speed * 20.0f);
-
-	point2.components[0] += velocity2.components[0];
-	point2.components[1] += velocity2.components[1];
-	point2.components[2] += velocity2.components[2];
-
-	velocity2.Normalize();
-	velocity2/fps;
-	velocity2 * (speed * 20.0f);
+	// update velocities with rotation
+	velocity1 = rotation1 * velocity1;
+	velocity2 = rotation2 * velocity2;
 
 	// bounce points off the edge of the window 
 	if((point1.components[0] > 10 && velocity1.components[0] > 0) || (point1.components[0] < -10 && velocity1.components[0] < 0))
 	{
-		velocity1.components[0] = -velocity1.components[0];
+		velocity1 = Reflect<float>(-1, 1, 1) * velocity1;
 	}
 
 	if((point1.components[1] > 10 && velocity1.components[1] > 0) || (point1.components[1] < -10 && velocity1.components[1] < 0))
 	{
-		velocity1.components[1] = -velocity1.components[1];
+		velocity1 = Reflect<float>(1, -1, 1) * velocity1;
 	}
 	
 	if((point1.components[2] > 10 && velocity1.components[2] > 0) || (point1.components[2] < -10 && velocity1.components[2] < 0))
 	{
-		velocity1.components[2] = -velocity1.components[2];
+		velocity1 = Reflect<float>(1, 1, -1) * velocity1;
 	}
 
 	if( (point2.components[0] > 10 && velocity2.components[0] > 0) || (point2.components[0] < -10 && velocity2.components[0] < 0))
 	{
-		velocity2.components[0] = -velocity2.components[0];
+		velocity2 = Reflect<float>(-1, 1, 1) * velocity2;
 	}
 
 	if((point2.components[1] > 10 && velocity2.components[1] > 0) || (point2.components[1] < -10 && velocity2.components[1] < 0))
 	{
-		velocity2.components[1] = -velocity2.components[1];
+		velocity2 = Reflect<float>(1, -1, 1) * velocity2;
 	}
 
 	if((point2.components[2] > 10 && velocity2.components[2] > 0) || (point2.components[2] < -10 && velocity2.components[2] < 0))
 	{
-		velocity2.components[2] = -velocity2.components[2];
+		velocity2 = Reflect<float>(1, 1, -1) * velocity2;
 	}
+
+	// update position of two 3D points
+	point1 = Translate(velocity1[0], velocity1[1], velocity1[2]) * point1;
+	point2 = Translate(velocity2[0], velocity2[1], velocity2[2]) * point2;
 
 	// draw a line using GL_LINES
 	glBegin(GL_LINES);
-	glVertex3fv(point1.components);
-	glVertex3fv(point2.components);
+
+	if(isPerspective)
+	{
+		perspectivePoint1 = Perspective<float>(5.0f) * point1;
+		perspectivePoint2 = Perspective<float>(5.0f) * point2;
+		glVertex3fv(perspectivePoint1.components);
+		glVertex3fv(perspectivePoint2.components);
+	}
+	else
+	{
+		glVertex3fv(point1.components);
+		glVertex3fv(point2.components);
+	}
+	
 	glEnd();
 	// *** add code above ***
 	///////////////	
@@ -132,7 +139,7 @@ int main(int argc, char** argv) {
     rd->init(settings);
 
 	////////////
-	// compute random initial position and velocity of two 2D points within the application window
+	// compute random initial position and velocity of two 3D points within the application window
 	// ** add code here ***
 	///////////
 	srand(time(0));
@@ -144,37 +151,30 @@ int main(int argc, char** argv) {
 	point2.components[1] = rand() % 10;
 	point2.components[2] = rand() % 10;
 	
-	velocity1.components[0] = ((rand() % 5) + 1)/2.0f;
-	velocity1.components[1] = ((rand() % 5) + 1)/2.0f;
-	velocity1.components[2] = ((rand() % 5) + 1)/2.0f;
+	// Initialize velocity1 and multiply by fps and speed
+	velocity1.components[0] = ((rand() % 5) + 1);
+	velocity1.components[1] = ((rand() % 5) + 1);
+	velocity1.components[2] = ((rand() % 5) + 1);
 	
-	velocity2.components[0] = ((rand() % 5) + 1)/2.0f;
-	velocity2.components[1] = ((rand() % 5) + 1)/2.0f;
-	velocity2.components[2] = ((rand() % 5) + 1)/2.0f;
+	velocity1.Normalize();
+	velocity1/fps;
+	velocity1 * (speed * 20.0f);
 
-	//MyPoint<float> point(3.0f,4.0f,2.0f);
-	//point[0] = 3;
-	//MyPoint<float> point2(3.0f,4.0f,5.0f);
-	//MyPoint<float> point3 = point-point2;
+	// Initialize velocity2 and multiply by fps and speed
+	velocity2.components[0] = ((rand() % 5) + 1);
+	velocity2.components[1] = ((rand() % 5) + 1);
+	velocity2.components[2] = ((rand() % 5) + 1);
 
-	//MyVector<float> vector(3.0f,4.0f,2.0f);
-	//MyVector<float> vector2(3.0f,7.0f,0.0f);
+	velocity2.Normalize();
+	velocity2/fps;
+	velocity2 * (speed * 20.0f);
 
-	//MyMatrix<float> matrix(1,2,3,0,5,6,7,0,9,10,11,0,13,14,15,1);
-	//MyMatrix<float> matrix2(1,2,3,0,5,6,7,0,9,10,11,0,13,14,15,1);
-	//
-	//MyMatrix<float> matrixResult = matrix * matrix2;
-	//MyVector<float> vectorMatrix = matrix * vector;
+	// Initialize rotation matrices
+	rotation1 = RotateEverything<float>((float)rand()/((float)RAND_MAX/.25f));
+	rotation2 = RotateEverything<float>((float)rand()/((float)RAND_MAX/.25f));
 
-	//MyMatrix<float> matrixRotX = matrix2.Rotate('x', 90);
-	//MyMatrix<float> matrixTrans= matrix.Translate(5,0,0);
-
-	//for(int i = 0; i < 16; i++)
-	//{
-	//	print(matrixTrans.components[i]);
-	//}
-
-	for (int i=0; i<300; i++) {
+	// Main program loop
+	for (int i=0; i<(fps * 10); i++) {
 
 		// draw frame
         drawFrame(settings.width, settings.height);

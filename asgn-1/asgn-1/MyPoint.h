@@ -8,11 +8,13 @@ class MyPoint
 
 		MyPoint<POINT_T>();
 		MyPoint<POINT_T>(POINT_T x, POINT_T y, POINT_T z);
+
 		POINT_T& operator[](int index);
 		MyPoint<POINT_T> operator+ (MyPoint<POINT_T> point2);
 		MyPoint<POINT_T> operator- (MyPoint<POINT_T> point2);
 };
 
+// Default Constructor
 template <class POINT_T>
 MyPoint<POINT_T>::MyPoint()
 {
@@ -30,6 +32,8 @@ MyPoint<POINT_T>::MyPoint(POINT_T x, POINT_T y, POINT_T z)
 		components[2] = z;
 		components[3] = 0;
 }
+
+// Operators
 
 template <class POINT_T>
 POINT_T& MyPoint<POINT_T>::operator[] (int index)
