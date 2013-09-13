@@ -16,7 +16,7 @@
 
 // HEY, CHANGE THESE VARIABLES TO TEST SPEED AND PERSPECTIVE
 float speed = 1;
-bool isPerspective = true;
+bool isPerspective = false;
 float fps = 30.0f;
 //////////////////
 
