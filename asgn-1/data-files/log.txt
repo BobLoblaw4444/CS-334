@@ -1,0 +1,116 @@
+Application Log
+Start: Fri Sep 13 00:21:39 2013
+
+Initializing System::findDataFile took 0.003551s
+Setting video mode
+wglSwapIntervalEXT(0);
+Enabling separate specular lighting.
+Setting initial rendering state.
+Done setting initial state.
+Supported Formats:
+              Format  Texture RenderBuffer Can bind Texture as render target
+                  L8  Yes       Yes         Yes
+                 L16  Yes       Yes         No 
+                L16F  Yes       Yes         Yes
+                L32F  Yes       Yes         Yes
+                  A8  Yes       Yes         Yes
+                 A16  Yes       Yes         Yes
+                A16F  Yes       Yes         Yes
+                A32F  Yes       Yes         Yes
+                 LA4  Yes       Yes         Yes
+                 LA8  Yes       Yes         Yes
+                LA16  Yes       Yes         Yes
+               LA16F  Yes       Yes         Yes
+               LA32F  Yes       Yes         Yes
+                RGB5  Yes       Yes         Yes
+              RGB5A1  Yes       Yes         Yes
+                RGB8  Yes       Yes         Yes
+               RGB10  Yes       Yes         Yes
+             RGB10A2  Yes       Yes         Yes
+               RGB16  Yes       Yes         Yes
+              RGB32F  Yes       Yes         Yes
+          R11G11B10F  No        Yes         Yes
+             RGB9E5F  Yes       No          No 
+               RGB8I  Yes       Yes         No 
+              RGB8UI  Yes       Yes         No 
+              RGBA8I  Yes       Yes         No 
+             RGBA8UI  Yes       Yes         No 
+          RGB8_SNORM  Yes       No          No 
+         RGBA8_SNORM  Yes       No          Yes
+         RGB16_SNORM  Yes       No          No 
+        RGBA16_SNORM  Yes       No          No 
+                BGR8  Yes       Yes         Yes
+               BGRA8  Yes       Yes         Yes
+                  R8  Yes       Yes         No 
+                 R8I  Yes       Yes         No 
+                R8UI  Yes       Yes         No 
+                 R16  Yes       Yes         Yes
+                R16I  Yes       Yes         No 
+               R16UI  Yes       Yes         No 
+                R32I  Yes       Yes         No 
+               R32UI  Yes       Yes         No 
+                 RG8  Yes       Yes         No 
+                RG8I  Yes       Yes         No 
+               RG8UI  Yes       Yes         No 
+                R16F  Yes       Yes         Yes
+               RG16F  Yes       Yes         Yes
+                R32F  Yes       Yes         Yes
+               RG32F  Yes       Yes         Yes
+               RGBA8  Yes       Yes         Yes
+              RGBA16  Yes       Yes         Yes
+             RGBA16F  Yes       Yes         Yes
+             RGBA32F  Yes       Yes         Yes
+              RGB32I  Yes       Yes         No 
+             RGB32UI  Yes       Yes         No 
+             RGBA32I  Yes       Yes         No 
+            RGBA32UI  Yes       Yes         No 
+       YUV420_PLANAR  No        No          No 
+              YUV422  No        No          No 
+              YUV444  No        No          No 
+            RGB_DXT1  Yes       No          No 
+           RGBA_DXT1  Yes       No          No 
+           RGBA_DXT3  Yes       No          No 
+           RGBA_DXT5  Yes       No          No 
+               SRGB8  Yes       No          Yes
+              SRGBA8  Yes       No          Yes
+                 SL8  Yes       No          Yes
+                SLA8  Yes       No          Yes
+           SRGB_DXT1  Yes       No          No 
+          SRGBA_DXT1  Yes       No          No 
+          SRGBA_DXT3  Yes       No          No 
+          SRGBA_DXT5  Yes       No          No 
+             DEPTH16  Yes       Yes         No 
+             DEPTH24  Yes       Yes         No 
+             DEPTH32  Yes       Yes         No 
+            DEPTH32F  Yes       Yes         No 
+            STENCIL1  No        Yes         No 
+            STENCIL4  No        Yes         No 
+            STENCIL8  No        Yes         No 
+           STENCIL16  No        Yes         No 
+    DEPTH24_STENCIL8  Yes       Yes         No 
+
+Capability    Minimum   Desired   Received  Ok?
+-------------------------------------------------
+* RENDER DEVICE 
+Depth         16 bits   24 bits   24 bits   ok
+Stencil        8 bits    8 bits    8 bits   ok
+Alpha                              8 bits   ok
+Red                                8 bits   ok
+Green                              8 bits   ok
+Blue                               8 bits   ok
+FSAA                       1     1    ok
+Width                  960 pixels           ok
+Height                 600 pixels           ok
+Mode                   Windowed             ok
+
+This driver will support G3D 9.00:
+GLSL version 3.30                   yes - GLSL version on this driver is 4.20
+GPU Supports OpenGL 3.3 or later    yes - OpenGL version on this driver is 4.2
+         GL_ARB_seamless_cube_map   yes 
+            GL_ARB_sample_shading   yes - Optional
+
+
+Done initializing RenderDevice.
+Shutting down RenderDevice.
+Freeing all AttributeArray memory
+Deleting window.
