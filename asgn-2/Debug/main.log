@@ -1,4 +1,4 @@
-﻿Build started 9/18/2013 5:33:04 PM.
+﻿Build started 9/21/2013 4:25:02 PM.
      1>Project "C:\Users\twolvert\Desktop\CS-334\trunk\asgn-2\main.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\asgn-2.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -98,4 +98,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.38
+Time Elapsed 00:00:04.89

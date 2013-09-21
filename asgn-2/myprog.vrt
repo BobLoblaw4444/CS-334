@@ -25,6 +25,12 @@ varying vec3 tan_X, tan_Y, tan_Z;
 /** tex coords */
 varying vec2 texCoord;
 
+/** Intensity of displacement mapping */
+uniform float   displacement;
+
+/** Bump map **/
+uniform sampler2D displacementMap;
+
 void main(void) {
 
     // Standard stuff
@@ -43,4 +49,6 @@ void main(void) {
 
 	// set texcoord variable (note: gl_MultiTexCoord0 has the actual texcoords of the inputted model file, assuming they have them)
 	texCoord = g3d_TexCoord0.st;
+
+	texCoord.x = displacement * (texture2D(displacementMap, texCoord).xyz + vec3(-1.0, -1.0, -1.0)).x;
 }

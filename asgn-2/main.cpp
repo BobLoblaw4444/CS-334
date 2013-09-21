@@ -26,6 +26,7 @@ private:
     float                                reflect;
     float                                shine;
     float                                bumpiness;
+	float                                displacement;
 
     ////////////////////////////////////
     // GUI
@@ -42,7 +43,7 @@ private:
 
 public:
 
-    App(const GApp::Settings& settings) : GApp(settings), diffuseScalar(0.6f), specularScalar(0.5f), reflect(0.1f), shine(20.0f), bumpiness(0.0f) {}
+    App(const GApp::Settings& settings) : GApp(settings), diffuseScalar(0.6f), specularScalar(0.5f), reflect(0.1f), shine(20.0f), bumpiness(0.0f), displacement(0.0f) {}
 
     virtual void onInit();
     virtual void onGraphics3D(RenderDevice* rd, Array<shared_ptr<Surface> >& surface3D);
@@ -55,18 +56,21 @@ void App::onInit() {
         
     ArticulatedModel::Specification spec;
 
-	spec.filename = System::findDataFile("crate/crate.obj");
-    spec.stripMaterials = true;
+	/*spec.filename = System::findDataFile("crate/crate.obj");
+    spec.stripMaterials = true;*/
+
+	/*spec.filename = System::findDataFile("dragon/dragon.obj");
+    spec.stripMaterials = true;*/
 
     /*spec.filename = System::findDataFile("teapot/teapot.obj");
     spec.scale = 0.015f;
     spec.stripMaterials = true;
     spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), Point3(0, -0.5, 0));")));*/
 
-    /*spec.filename = System::findDataFile("viper/Viper-mk-IV-fighter.obj");
+    spec.filename = System::findDataFile("viper/Viper-mk-IV-fighter.obj");
     spec.scale = 0.06f;
     spec.stripMaterials = true;
-    spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), CFrame::fromXYZYPRDegrees(0,0,0,-90));")));*/
+    spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), CFrame::fromXYZYPRDegrees(0,0,0,-90));")));
 
     model = ArticulatedModel::create(spec);
 
@@ -172,6 +176,8 @@ void App::configureShaderArgs(Args& args) {
 
 	args.setUniform("bumpMap",             bumpMap);
 	args.setUniform("bumpiness",           bumpiness);
+	args.setUniform("displacementMap",     displacementMap);
+	args.setUniform("displacement",        displacement);
 }
 
 
@@ -208,6 +214,7 @@ void App::makeGui() {
     pane->addSlider("Mirror",       &reflect, 0.0f, 1.0f);
     pane->addSlider("Smoothness",   &shine, 1.0f, 100.0f);
     pane->addSlider("Bumpiness",    &bumpiness, 0.0f, 1.0f);
+	pane->addSlider("Displacement", &displacement, 0.0f, 1.0f);
     
     gui->pack();
     addWidget(gui);
@@ -239,6 +246,9 @@ void App::loadTextures() {
 	
 	// load a standard grayscale image, and use preprocess tools to convert it to a normalmap
 	bumpMap = Texture::fromFile("../heightMap.png", ImageFormat::RGBA8(), Texture::DIM_2D_NPOT, 
+		Texture::Settings::defaults(), Texture::Preprocess::normalMap());
+
+	displacementMap = Texture::fromFile("../displacementMap.png", ImageFormat::RGBA8(), Texture::DIM_2D_NPOT, 
 		Texture::Settings::defaults(), Texture::Preprocess::normalMap());
 
 	// how to load a regular texture...

@@ -71,7 +71,7 @@ void main() {
     vec3 wsEye = normalize(wsInterpolatedEye);
 
 	// Take the normal map values back to (-1, 1) range to compute a tangent space normal
-    vec3 tsN = texture2D(bumpMap, texCoord).xyz * 2.0 + vec3(-1.0, -1.0, -1.0);
+    vec3 tsN = bumpiness * (texture2D(bumpMap, texCoord).xyz + vec3(-1.0, -1.0, -1.0));
 	
 	// Compute tangent to world matrix using tan_XYZ vectors; note that the columns might be slightly non-orthogonal due to interpolation but this is ok
     mat3 tangentToWorld = mat3(tan_X, tan_Y, tan_Z);
@@ -92,7 +92,7 @@ void main() {
     // If you wanted to use that function, you could use the following line instead of the above computation
     // vec3 wsReflect = -reflect(wsEye, wsNormal);
     	
-	// now, compute the actual fragment/pixel color as a combination of diffuse, specular, reflection mapping, and bump mapping
+	// now, compute the actual fragment/pixel color as a combination of diffuse, specular, and reflection mapping
     gl_FragColor.rgb =
         diffuseScalar  * diffuseColor  * (ambient + (max(dot(wsNormal, wsLightDir), 0.0) * lightColor)) +
         specularScalar * specularColor * (8.0 + shine) / 8.0 * pow(max(dot(wsReflect, wsLightDir), 0.0), shine) * lightColor +
