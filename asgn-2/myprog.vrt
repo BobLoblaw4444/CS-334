@@ -49,4 +49,15 @@ void main(void) {
 
 	// set texcoord variable (note: gl_MultiTexCoord0 has the actual texcoords of the inputted model file, assuming they have them)
 	texCoord = g3d_TexCoord0.st;
+
+    vec3 disMap = texture2D(displacementMap, texCoord).xyz;
+	
+	disMap = normalize(disMap);
+
+	// find the new normal by interpolating between the world normal and tangent normal based on the displacement value
+	float df = (disMap.x * displacement) + (disMap.y * displacement) + (disMap.z * displacement);
+	
+	gl_Position = g3d_ModelViewProjectionMatrix * (vec4(g3d_Normal * df * .1, 0.0) + g3d_Vertex);
+	
+	//((g3d_Vertex * (1-displacement)) + (g3d_Vertex * (normalize(vec4(disMap.x, disMap.y, disMap.z, 0)) * displacement)));
 }

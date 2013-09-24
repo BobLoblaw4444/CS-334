@@ -56,8 +56,8 @@ void App::onInit() {
         
     ArticulatedModel::Specification spec;
 
-	spec.filename = System::findDataFile("crate/crate.obj");
-    spec.stripMaterials = true;
+	/*spec.filename = System::findDataFile("crate/crate.obj");
+    spec.stripMaterials = true;*/
 
 	/*spec.filename = System::findDataFile("dragon/dragon.obj");
     spec.stripMaterials = true;*/
@@ -80,7 +80,7 @@ void App::onInit() {
 	loadTextures();
 
     // Color 1 is red
-    diffuseColorIndex = 1;
+    diffuseColorIndex = 8;
     // Last color is white
     specularColorIndex = colorList.size() - 1;
     
