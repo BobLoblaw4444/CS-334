@@ -72,8 +72,9 @@ void main() {
     vec3 wsEye = normalize(wsInterpolatedEye);
 
 	// Take the normal map values back to (-1, 1) range to compute a tangent space normal
-    vec3 tsN = texture2D(bumpMap, texCoord).xyz * bumpiness * 2.0 + vec3(-1.0, -1.0, -1.0);
 
+    vec3 tsN = texture2D(bumpMap, texCoord).xyz * 2.0 + vec3(-1.0, -1.0, -1.0);
+	
 	// Compute tangent to world matrix using tan_XYZ vectors; note that the columns might be slightly non-orthogonal due to interpolation but this is ok
     mat3 tangentToWorld = mat3(tan_X, tan_Y, tan_Z);
 
@@ -83,8 +84,8 @@ void main() {
     // For very tiny geometry the tangent space can become degenerate and produce a bad normal (this is due to bad tangent vector computations)
     wsN = (dot(wsN, wsN) > 0.001) ? wsN : tan_Z;
 	
-	// normalize 
-	wsNormal = normalize(wsN);
+	// find the new normal by interpolating between the world normal and tangent normal based on the bumpiness value
+	wsNormal = (normalize(wsN) * (1-bumpiness)) + (normalize(tsN) * bumpiness);
 
 	// Unit vector giving the direction of perfect reflection into the eye
     vec3 wsReflect = 2.0 * dot(wsEye, wsNormal) * wsNormal - wsEye;

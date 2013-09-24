@@ -62,10 +62,10 @@ void App::onInit() {
 	/*spec.filename = System::findDataFile("dragon/dragon.obj");
     spec.stripMaterials = true;*/
 
-  /*  spec.filename = System::findDataFile("teapot/teapot.obj");
+    spec.filename = System::findDataFile("teapot/teapot.obj");
     spec.scale = 0.015f;
     spec.stripMaterials = true;
-    spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), Point3(0, -0.5, 0));")));*/
+    spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), Point3(0, -0.5, 0));")));
 
     //spec.filename = System::findDataFile("viper/Viper-mk-IV-fighter.obj");
     //spec.scale = 0.06f;

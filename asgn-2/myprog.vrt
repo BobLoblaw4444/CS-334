@@ -38,8 +38,6 @@ void main(void) {
     wsInterpolatedEye    = wsEyePosition - (g3d_ObjectToWorldMatrix * g3d_Vertex).xyz;
     gl_Position          = g3d_ModelViewProjectionMatrix * g3d_Vertex;
 
-	g3d_TexCoord1.xyz = normalize(vec3(1.0,1.0,1.0));
-
 	// N vector:
 	tan_Z = g3d_ObjectToWorldNormalMatrix * g3d_Normal.xyz;
 
