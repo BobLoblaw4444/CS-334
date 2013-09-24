@@ -1,12 +1,12 @@
 Application Log
-Start: Sat Sep 21 16:25:07 2013
+Start: Mon Sep 23 20:30:56 2013
 
-Initializing System::findDataFile took 0.002715s
+Initializing System::findDataFile took 0.004769s
 
 Entering GApp::GApp()
 cwd = C:\Users\twolvert\Desktop\CS-334\trunk\asgn-2\data-files
 System::setAppDataDir("C:\Users\twolvert\Desktop\CS-334\trunk\asgn-2\Debug\")
-Initializing System::findDataFile took 0.001689s
+Initializing System::findDataFile took 0.001628s
 Setting video mode
 wglSwapIntervalEXT(0);
 Enabling separate specular lighting.
@@ -399,9 +399,9 @@ System = {
     
     Network = { 
         Adapter0 ={ 
-            hostname = "K9-08.ad.cs.purdue.edu;"
+            hostname = "K9-12.ad.cs.purdue.edu;"
             name = ";"
-            ip = "128. 10. 15.108"; 
+            ip = "128. 10. 15.112"; 
             subnet = "  0.  0.255.255"; 
             broadcast = "255.255.255.255"; 
             mac = "00:00:00:00:00:00"; 
@@ -443,37 +443,37 @@ _____________________________________________________
 
     ###    Files Used    ###
 
-C:/G3D9/data/model/viper/Viper-mk-IV-fighter.mtl
-C:/G3D9/data/gui/osx-10.7.gtm
-C:\Users\twolvert\Desktop\CS-334\trunk\asgn-2\data-files/../myprog.vrt
-C:\G3D9\data/shader/GaussianBlur/GaussianBlur_apply.pix
-C:/G3D9/data/shader/Film/Film_FXAA.pix
-C:/G3D9/data/font/greek.fnt
-C:/G3D9/data/font/arial.fnt
-log.txt
-C:/G3D9/data/icon/tango.icn
-C:/G3D9/data/cubemap/noonclouds/noonclouds_bk.png
-C:/Users/twolvert/Desktop/CS-334/trunk/asgn-2/data-files/../myprog.vrt
-C:\Users\twolvert\Desktop\CS-334\trunk\asgn-2\data-files/../myprog.pix
-C:/G3D9/data/cubemap/noonclouds/noonclouds_up.png
-C:/G3D9/data/model/viper/Viper-mk-IV-fighter.obj
-C:/G3D9/data/cubemap/noonclouds/noonclouds_ft.png
-C:\G3D9\data/shader/Film/Film_expose.pix
-C:/G3D9/data/font/console-small.fnt
-C:/G3D9/data/shader/GaussianBlur/GaussianBlur_apply.pix
-C:/Users/twolvert/Desktop/CS-334/trunk/asgn-2/data-files/../myprog.pix
-..
-C:/G3D9/data/font/icon.fnt
-C:/G3D9/data/shader/compatibility.glsl
-C:/G3D9/data/cubemap/noonclouds/noonclouds_dn.png
-C:/G3D9/data/cubemap/noonclouds/noonclouds_rt.png
-../heightMap.png
-C:/G3D9/data/shader/Film/Film_compositeAndTone.pix
-../displacementMap.png
 C:\G3D9\data/shader/Film/Film_compositeAndTone.pix
-C:\G3D9\data/shader/compatibility.glsl
-C:/G3D9/data/cubemap/noonclouds/noonclouds_lf.png
-C:/Users/twolvert/Desktop/CS-334/trunk/asgn-2/data-files/..
+C:/G3D9/data/font/greek.fnt
+C:/G3D9/data/shader/Film/Film_compositeAndTone.pix
+../heightMap.png
+C:/G3D9/data/shader/Film/Film_FXAA.pix
+C:/G3D9/data/font/arial.fnt
 C:/G3D9/data/shader/Film/Film_expose.pix
+..
+../displacementMap.png
+C:/G3D9/data/shader/compatibility.glsl
+C:\G3D9\data/shader/Film/Film_expose.pix
+log.txt
+C:/G3D9/data/cubemap/noonclouds/noonclouds_rt.png
+C:/G3D9/data/cubemap/noonclouds/noonclouds_dn.png
+C:\Users\twolvert\Desktop\CS-334\trunk\asgn-2\data-files/../myprog.pix
+C:/Users/twolvert/Desktop/CS-334/trunk/asgn-2/data-files/../myprog.pix
+C:/G3D9/data/cubemap/noonclouds/noonclouds_lf.png
+C:/Users/twolvert/Desktop/CS-334/trunk/asgn-2/data-files/../myprog.vrt
 C:\G3D9\data/shader/Film/Film_FXAA.pix
+C:\G3D9\data/shader/compatibility.glsl
+C:/G3D9/data/icon/tango.icn
+C:\G3D9\data/shader/GaussianBlur/GaussianBlur_apply.pix
+C:/G3D9/data/font/console-small.fnt
+C:/G3D9/data/cubemap/noonclouds/noonclouds_ft.png
+C:/G3D9/data/model/crate/crate.mtl
+C:\Users\twolvert\Desktop\CS-334\trunk\asgn-2\data-files/../myprog.vrt
+C:/G3D9/data/shader/GaussianBlur/GaussianBlur_apply.pix
+C:/G3D9/data/gui/osx-10.7.gtm
+C:/G3D9/data/model/crate/crate.obj
+C:/G3D9/data/font/icon.fnt
+C:/G3D9/data/cubemap/noonclouds/noonclouds_up.png
+C:/Users/twolvert/Desktop/CS-334/trunk/asgn-2/data-files/..
+C:/G3D9/data/cubemap/noonclouds/noonclouds_bk.png
 

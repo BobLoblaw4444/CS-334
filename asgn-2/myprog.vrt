@@ -38,6 +38,8 @@ void main(void) {
     wsInterpolatedEye    = wsEyePosition - (g3d_ObjectToWorldMatrix * g3d_Vertex).xyz;
     gl_Position          = g3d_ModelViewProjectionMatrix * g3d_Vertex;
 
+	g3d_TexCoord1.xyz = normalize(vec3(1.0,1.0,1.0));
+
 	// N vector:
 	tan_Z = g3d_ObjectToWorldNormalMatrix * g3d_Normal.xyz;
 
@@ -49,6 +51,4 @@ void main(void) {
 
 	// set texcoord variable (note: gl_MultiTexCoord0 has the actual texcoords of the inputted model file, assuming they have them)
 	texCoord = g3d_TexCoord0.st;
-
-	texCoord.x = displacement * (texture2D(displacementMap, texCoord).xyz + vec3(-1.0, -1.0, -1.0)).x;
 }
