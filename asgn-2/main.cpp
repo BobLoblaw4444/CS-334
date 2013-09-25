@@ -56,8 +56,8 @@ void App::onInit() {
         
     ArticulatedModel::Specification spec;
 
-	/*spec.filename = System::findDataFile("crate/crate.obj");
-    spec.stripMaterials = true;*/
+	spec.filename = System::findDataFile("crate/crate.obj");
+    spec.stripMaterials = true;
 
 	/*spec.filename = System::findDataFile("dragon/dragon.obj");
     spec.stripMaterials = true;*/
@@ -67,10 +67,10 @@ void App::onInit() {
     spec.stripMaterials = true;
     spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), Point3(0, -0.5, 0));")));
 
-    //spec.filename = System::findDataFile("viper/Viper-mk-IV-fighter.obj");
-    //spec.scale = 0.06f;
-    //spec.stripMaterials = true;
-    //spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), CFrame::fromXYZYPRDegrees(0,0,0,-90));")));
+ /*   spec.filename = System::findDataFile("viper/Viper-mk-IV-fighter.obj");
+    spec.scale = 0.06f;
+    spec.stripMaterials = true;
+    spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), CFrame::fromXYZYPRDegrees(0,0,0,-90));")));*/
 
     model = ArticulatedModel::create(spec);
 
@@ -248,8 +248,7 @@ void App::loadTextures() {
 	bumpMap = Texture::fromFile("../heightMap.png", ImageFormat::RGBA8(), Texture::DIM_2D_NPOT, 
 		Texture::Settings::defaults(), Texture::Preprocess::normalMap());
 
-	displacementMap = Texture::fromFile("../displacementMap.png", ImageFormat::RGBA8(), Texture::DIM_2D_NPOT, 
-		Texture::Settings::defaults(), Texture::Preprocess::normalMap());
+	displacementMap = Texture::fromFile("../heightMap.png", ImageFormat::RGBA8(), Texture::DIM_2D_NPOT);
 
 	// how to load a regular texture...
 	//anotherMap = Texture::fromFile("something.png", ImageFormat::RGB8(), Texture::DIM_2D_NPOT);

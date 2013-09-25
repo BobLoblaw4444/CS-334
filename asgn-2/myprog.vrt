@@ -36,7 +36,6 @@ void main(void) {
     // Standard stuff
     wsInterpolatedNormal = g3d_ObjectToWorldNormalMatrix * g3d_Normal;
     wsInterpolatedEye    = wsEyePosition - (g3d_ObjectToWorldMatrix * g3d_Vertex).xyz;
-    gl_Position          = g3d_ModelViewProjectionMatrix * g3d_Vertex;
 
 	// N vector:
 	tan_Z = g3d_ObjectToWorldNormalMatrix * g3d_Normal.xyz;
@@ -50,14 +49,6 @@ void main(void) {
 	// set texcoord variable (note: gl_MultiTexCoord0 has the actual texcoords of the inputted model file, assuming they have them)
 	texCoord = g3d_TexCoord0.st;
 
-    vec3 disMap = texture2D(displacementMap, texCoord).xyz;
-	
-	disMap = normalize(disMap);
-
-	// find the new normal by interpolating between the world normal and tangent normal based on the displacement value
-	float df = (disMap.x * displacement) + (disMap.y * displacement) + (disMap.z * displacement);
-	
-	gl_Position = g3d_ModelViewProjectionMatrix * (vec4(g3d_Normal * df * .1, 0.0) + g3d_Vertex);
-	
-	//((g3d_Vertex * (1-displacement)) + (g3d_Vertex * (normalize(vec4(disMap.x, disMap.y, disMap.z, 0)) * displacement)));
+    vec3 disMap = texture2D(displacementMap, g3d_TexCoord0).xyz;
+	gl_Position = g3d_ModelViewProjectionMatrix * (vec4(g3d_Normal * length(disMap) * .1, 0.0)*displacement + g3d_Vertex);
 }
