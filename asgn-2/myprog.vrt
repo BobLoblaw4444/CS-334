@@ -33,19 +33,15 @@ uniform sampler2D displacementMap;
 
 void main(void) {
 
-	vec3 disMap = texture2D(displacementMap, g3d_TexCoord0).xyz;
-	vec4 newNormal = vec4(g3d_Normal * length(disMap) * .1, 0.0);
-	gl_Position = g3d_ModelViewProjectionMatrix * (newNormal*displacement + g3d_Vertex);
-
     // Standard stuff
     wsInterpolatedNormal = g3d_ObjectToWorldNormalMatrix * g3d_Normal;
-    wsInterpolatedEye    = wsEyePosition - (g3d_ObjectToWorldMatrix * gl_Position).xyz;
+    wsInterpolatedEye    = wsEyePosition - (g3d_ObjectToWorldMatrix * g3d_Vertex).xyz;
 
 	// N vector:
 	tan_Z = g3d_ObjectToWorldNormalMatrix * g3d_Normal.xyz;
 
 	// T vector (note: g3d_MultiTexCoord1 is computed by G3D to be the tangent vector; always computed with ArticulatedModels)
-	tan_X = (g3d_ObjectToWorldMatrix * vec4(g3d_TexCoord1.xyz, 0)).xyz;
+	tan_X = (g3d_ObjectToWorldMatrix * g3d_TexCoord1).xyz;
 
 	// B vector (note: T and N are guaranteed perpendicular and unit length; its facing direction is stored in the texcoord w component)
     tan_Y = cross(tan_Z, tan_X) * g3d_TexCoord1.w;
@@ -53,5 +49,7 @@ void main(void) {
 	// set texcoord variable (note: gl_MultiTexCoord0 has the actual texcoords of the inputted model file, assuming they have them)
 	texCoord = g3d_TexCoord0.st;
 
-    
+    vec3 disMap = texture2D(displacementMap, g3d_TexCoord0).xyz;
+	vec4 newNormal = vec4(g3d_Normal * length(disMap) * .1, 0.0);
+	gl_Position = g3d_ModelViewProjectionMatrix * (newNormal*displacement + g3d_Vertex);
 }

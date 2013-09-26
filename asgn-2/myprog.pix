@@ -29,6 +29,11 @@ uniform float   reflect;
 
 /** Intensity of bump mapping */
 uniform float   bumpiness;
+
+/** Intensity of displacement mapping */
+uniform float   displacement;
+
+/** Intensity of light mapping */
 uniform float   modulation;
 
 /** Unit world space direction to the (infinite, directional) light source */
@@ -52,6 +57,7 @@ uniform float   environmentConstant;
 
 /** Bump map **/
 uniform sampler2D bumpMap;
+uniform sampler2D displacementMap;
 uniform sampler2D modulationMap;
 
 
@@ -85,8 +91,10 @@ void main() {
     // For very tiny geometry the tangent space can become degenerate and produce a bad normal (this is due to bad tangent vector computations)
     wsN = (dot(wsN, wsN) > 0.001) ? wsN : tan_Z;
 	
+	vec3 disMap = texture2D(displacementMap, texCoord).xyz;
+
 	// find the new normal by interpolating between the world normal and tangent normal based on the bumpiness value
-	wsNormal = (normalize(wsN) * (1-bumpiness)) + (normalize(tsN) * bumpiness);
+	wsNormal = (wsNormal * (1-bumpiness)) + (normalize(wsN) * bumpiness) + (normalize(disMap) * displacement * .01);
 
 	// Unit vector giving the direction of perfect reflection into the eye
     vec3 wsReflect = 2.0 * dot(wsEye, wsNormal) * wsNormal - wsEye;
@@ -98,7 +106,6 @@ void main() {
 	vec3 modulationVec = texture2D(modulationMap, texCoord).xyz;
 	float light = length(modulationVec) * modulation;
 	
-
 	// now, compute the actual fragment/pixel color as a combination of diffuse, specular, and reflection mapping
     gl_FragColor.rgb =
         diffuseScalar  * diffuseColor  * (ambient + (max(dot(wsNormal, wsLightDir), 0.0) * lightColor)) +
