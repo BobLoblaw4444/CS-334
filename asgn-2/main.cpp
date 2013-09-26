@@ -27,6 +27,7 @@ private:
     float                                shine;
     float                                bumpiness;
 	float                                displacement;
+	float								 modulation;
 
     ////////////////////////////////////
     // GUI
@@ -43,7 +44,7 @@ private:
 
 public:
 
-    App(const GApp::Settings& settings) : GApp(settings), diffuseScalar(0.6f), specularScalar(0.5f), reflect(0.1f), shine(20.0f), bumpiness(0.0f), displacement(0.0f) {}
+    App(const GApp::Settings& settings) : GApp(settings), diffuseScalar(0.6f), specularScalar(0.5f), reflect(0.1f), shine(20.0f), bumpiness(0.0f), displacement(0.0f), modulation(0.0f) {}
 
     virtual void onInit();
     virtual void onGraphics3D(RenderDevice* rd, Array<shared_ptr<Surface> >& surface3D);
@@ -176,8 +177,12 @@ void App::configureShaderArgs(Args& args) {
 
 	args.setUniform("bumpMap",             bumpMap);
 	args.setUniform("bumpiness",           bumpiness);
+
 	args.setUniform("displacementMap",     displacementMap);
 	args.setUniform("displacement",        displacement);
+
+	args.setUniform("modulationMap",     modulationMap);
+	args.setUniform("modulation",        modulation);
 }
 
 
@@ -215,6 +220,7 @@ void App::makeGui() {
     pane->addSlider("Smoothness",   &shine, 1.0f, 100.0f);
     pane->addSlider("Bumpiness",    &bumpiness, 0.0f, 1.0f);
 	pane->addSlider("Displacement", &displacement, 0.0f, 1.0f);
+	pane->addSlider("Modulation",   &modulation, 0.0f, 1.0f);
     
     gui->pack();
     addWidget(gui);
@@ -249,6 +255,9 @@ void App::loadTextures() {
 		Texture::Settings::defaults(), Texture::Preprocess::normalMap());
 
 	displacementMap = Texture::fromFile("../heightMap.png", ImageFormat::RGBA8(), Texture::DIM_2D_NPOT);
+
+	modulationMap = Texture::fromFile("../lightMap.png", ImageFormat::RGBA8(), Texture::DIM_2D_NPOT, 
+		Texture::Settings::defaults(), Texture::Preprocess::normalMap());
 
 	// how to load a regular texture...
 	//anotherMap = Texture::fromFile("something.png", ImageFormat::RGB8(), Texture::DIM_2D_NPOT);

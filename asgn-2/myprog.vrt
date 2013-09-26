@@ -33,9 +33,13 @@ uniform sampler2D displacementMap;
 
 void main(void) {
 
+	vec3 disMap = texture2D(displacementMap, g3d_TexCoord0).xyz;
+	vec4 newNormal = vec4(g3d_Normal * length(disMap) * .1, 0.0);
+	gl_Position = g3d_ModelViewProjectionMatrix * (newNormal*displacement + g3d_Vertex);
+
     // Standard stuff
     wsInterpolatedNormal = g3d_ObjectToWorldNormalMatrix * g3d_Normal;
-    wsInterpolatedEye    = wsEyePosition - (g3d_ObjectToWorldMatrix * g3d_Vertex).xyz;
+    wsInterpolatedEye    = wsEyePosition - (g3d_ObjectToWorldMatrix * gl_Position).xyz;
 
 	// N vector:
 	tan_Z = g3d_ObjectToWorldNormalMatrix * g3d_Normal.xyz;
@@ -49,6 +53,5 @@ void main(void) {
 	// set texcoord variable (note: gl_MultiTexCoord0 has the actual texcoords of the inputted model file, assuming they have them)
 	texCoord = g3d_TexCoord0.st;
 
-    vec3 disMap = texture2D(displacementMap, g3d_TexCoord0).xyz;
-	gl_Position = g3d_ModelViewProjectionMatrix * (vec4(g3d_Normal * length(disMap) * .1, 0.0)*displacement + g3d_Vertex);
+    
 }

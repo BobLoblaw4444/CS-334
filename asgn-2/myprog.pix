@@ -29,7 +29,7 @@ uniform float   reflect;
 
 /** Intensity of bump mapping */
 uniform float   bumpiness;
-uniform float   displacement;
+uniform float   modulation;
 
 /** Unit world space direction to the (infinite, directional) light source */
 uniform vec3    wsLightDir;
@@ -52,6 +52,7 @@ uniform float   environmentConstant;
 
 /** Bump map **/
 uniform sampler2D bumpMap;
+uniform sampler2D modulationMap;
 
 
 /////////////////////////////////////////////////////////////
@@ -94,9 +95,15 @@ void main() {
     // If you wanted to use that function, you could use the following line instead of the above computation
     // vec3 wsReflect = -reflect(wsEye, wsNormal);
     	
+	vec3 modulationVec = texture2D(modulationMap, texCoord).xyz;
+	float light = length(modulationVec) * modulation;
+	
+
 	// now, compute the actual fragment/pixel color as a combination of diffuse, specular, and reflection mapping
     gl_FragColor.rgb =
         diffuseScalar  * diffuseColor  * (ambient + (max(dot(wsNormal, wsLightDir), 0.0) * lightColor)) +
         specularScalar * specularColor * (8.0 + shine) / 8.0 * pow(max(dot(wsReflect, wsLightDir), 0.0), shine) * lightColor +
         reflect        * specularColor * textureCube(environmentMap, wsReflect).rgb * environmentConstant;
+
+	gl_FragColor.rgb += light;
 }
