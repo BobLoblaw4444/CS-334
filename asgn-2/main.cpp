@@ -7,6 +7,9 @@
  */
 #include <G3D/G3DAll.h>
 #include <GLG3D/GLG3D.h>
+#include <string.h>
+
+std::string								 modelName;
 
 class App : public GApp {
 private:
@@ -57,18 +60,33 @@ void App::onInit() {
         
     ArticulatedModel::Specification spec;
 
-	spec.filename = System::findDataFile("crate/crate.obj");
+	std::string dataFile = modelName;
+	
+	if(modelName.empty())
+	{
+		dataFile = "teapot/teapot.obj";
+		spec.scale = 0.015f;
+		spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), Point3(0, -0.5, 0));")));
+	}
+	else
+	{
+		dataFile += "/";
+		dataFile+= modelName;
+		dataFile += ".obj";
+	}
+
+	spec.filename = System::findDataFile(dataFile);
     spec.stripMaterials = true;
 
 	/*spec.filename = System::findDataFile("dragon/dragon.obj");
     spec.stripMaterials = true;*/
 
-    spec.filename = System::findDataFile("teapot/teapot.obj");
+    /*spec.filename = System::findDataFile("teapot/teapot.obj");
     spec.scale = 0.015f;
     spec.stripMaterials = true;
-    spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), Point3(0, -0.5, 0));")));
+    spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), Point3(0, -0.5, 0));")));*/
 
- /*   spec.filename = System::findDataFile("viper/Viper-mk-IV-fighter.obj");
+    /*spec.filename = System::findDataFile("viper/Viper-mk-IV-fighter.obj");
     spec.scale = 0.06f;
     spec.stripMaterials = true;
     spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), CFrame::fromXYZYPRDegrees(0,0,0,-90));")));*/
@@ -256,8 +274,7 @@ void App::loadTextures() {
 
 	displacementMap = Texture::fromFile("../heightMap.png", ImageFormat::RGBA8(), Texture::DIM_2D_NPOT);
 
-	modulationMap = Texture::fromFile("../lightMap.png", ImageFormat::RGBA8(), Texture::DIM_2D_NPOT, 
-		Texture::Settings::defaults(), Texture::Preprocess::normalMap());
+	modulationMap = Texture::fromFile("../lightMap.png", ImageFormat::RGBA8(), Texture::DIM_2D_NPOT);
 
 	// how to load a regular texture...
 	//anotherMap = Texture::fromFile("something.png", ImageFormat::RGB8(), Texture::DIM_2D_NPOT);
@@ -283,6 +300,9 @@ int main(int argc, const char* argv[]) {
     GApp::Settings settings(argc, argv);  
     settings.colorGuardBandThickness  = Vector2int16(0, 0);
     settings.depthGuardBandThickness  = Vector2int16(0, 0);
+
+	if(argc > 1)
+		modelName = argv[1];
 
     return App(settings).run();
 }

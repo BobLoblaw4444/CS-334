@@ -94,7 +94,7 @@ void main() {
 	vec3 disMap = texture2D(displacementMap, texCoord).xyz;
 
 	// find the new normal by interpolating between the world normal and tangent normal based on the bumpiness value
-	wsNormal = (wsNormal * (1-bumpiness)) + (normalize(wsN) * bumpiness) + (normalize(disMap) * displacement * .01);
+	wsNormal = (wsNormal * (1-bumpiness)) + (normalize(tsN) * bumpiness) + (normalize(disMap) * displacement * .01);
 
 	// Unit vector giving the direction of perfect reflection into the eye
     vec3 wsReflect = 2.0 * dot(wsEye, wsNormal) * wsNormal - wsEye;
@@ -103,14 +103,14 @@ void main() {
     // If you wanted to use that function, you could use the following line instead of the above computation
     // vec3 wsReflect = -reflect(wsEye, wsNormal);
     	
-	vec3 modulationVec = texture2D(modulationMap, texCoord).xyz;
-	float light = length(modulationVec) * modulation;
+	//Get value from modulation map, hen multiply by slider and diffuse color to build light map
+	vec3 modulationVec = (texture2D(modulationMap, texCoord).xyz * 2.0) * modulation;
+	vec3 lightMapping = diffuseColor * lightColor * (modulationVec);
 	
 	// now, compute the actual fragment/pixel color as a combination of diffuse, specular, and reflection mapping
     gl_FragColor.rgb =
         diffuseScalar  * diffuseColor  * (ambient + (max(dot(wsNormal, wsLightDir), 0.0) * lightColor)) +
         specularScalar * specularColor * (8.0 + shine) / 8.0 * pow(max(dot(wsReflect, wsLightDir), 0.0), shine) * lightColor +
-        reflect        * specularColor * textureCube(environmentMap, wsReflect).rgb * environmentConstant;
-
-	gl_FragColor.rgb += light;
+        reflect        * specularColor * textureCube(environmentMap, wsReflect).rgb * environmentConstant +
+		lightMapping;
 }
