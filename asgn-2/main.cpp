@@ -62,11 +62,19 @@ void App::onInit() {
 
 	std::string dataFile = modelName;
 	
+	// Load each model depending on the input 
 	if(modelName.empty())
 	{
 		dataFile = "teapot/teapot.obj";
 		spec.scale = 0.015f;
 		spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), Point3(0, -0.5, 0));")));
+	}
+	// Special case to handle viper since the model isn't named like the folder
+	else if(!modelName.compare("viper"))
+	{
+		dataFile = "viper/Viper-mk-IV-fighter.obj";
+		spec.scale = 0.06f;
+		spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), CFrame::fromXYZYPRDegrees(0,0,0,-90));")));
 	}
 	else
 	{

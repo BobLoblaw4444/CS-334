@@ -49,6 +49,7 @@ void main(void) {
 	// set texcoord variable (note: gl_MultiTexCoord0 has the actual texcoords of the inputted model file, assuming they have them)
 	texCoord = g3d_TexCoord0.st;
 
+	// Displacement map
     vec3 disMap = texture2D(displacementMap, g3d_TexCoord0).xyz;
 	vec4 newNormal = vec4(g3d_Normal * length(disMap) * .1, 0.0);
 	gl_Position = g3d_ModelViewProjectionMatrix * (newNormal*displacement + g3d_Vertex);

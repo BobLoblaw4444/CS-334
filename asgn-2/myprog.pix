@@ -55,7 +55,7 @@ uniform samplerCube environmentMap;
    dynamic range when tone mapping. */
 uniform float   environmentConstant;
 
-/** Bump map **/
+/** Maps **/
 uniform sampler2D bumpMap;
 uniform sampler2D displacementMap;
 uniform sampler2D modulationMap;
@@ -103,9 +103,9 @@ void main() {
     // If you wanted to use that function, you could use the following line instead of the above computation
     // vec3 wsReflect = -reflect(wsEye, wsNormal);
     	
-	//Get value from modulation map, hen multiply by slider and diffuse color to build light map
+	//Get value from modulation map, then multiply by slider and diffuse color to build light map
 	vec3 modulationVec = (texture2D(modulationMap, texCoord).xyz * 2.0) * modulation;
-	vec3 lightMapping = diffuseColor * lightColor * (modulationVec);
+	vec3 lightMapping = diffuseScalar * lightColor * (modulationVec);
 	
 	// now, compute the actual fragment/pixel color as a combination of diffuse, specular, and reflection mapping
     gl_FragColor.rgb =
