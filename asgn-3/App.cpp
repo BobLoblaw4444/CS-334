@@ -73,7 +73,7 @@ void App::makeGUI() {
     pane->addNumberBox("Rays per pixel", &m_raysPerPixel, "", GuiTheme::LINEAR_SLIDER, 1, 16, 1);
     pane->addNumberBox("Max bounces", &m_maxBounces, "", GuiTheme::LINEAR_SLIDER, 1, 16, 1);
 	pane->addSlider("Fogginess", &m_fogginess, 0.0f, 1.0f);
-	//pane->addNumberBox("Fogginess", &m_fogginess, "", GuiTheme::LINEAR_SLIDER, 1, 100, 1);
+	//pane->addNumberBox("Fogginess", &m_fogginess, "", GuiTheme::LINEAR_SLIDER, 1, 20, 1);
     window->pack();
 
     window->setVisible(true);
@@ -115,6 +115,8 @@ Radiance3 App::rayTrace(const Ray& ray, World* world, int bounce) {
     const shared_ptr<Surfel>& surfel = world->intersect(ray, dist);
 	float fog = 1;
    
+	
+
 	if(dist > maxDist && dist != (float)inf())
 	{
 		maxDist = dist;
@@ -177,7 +179,12 @@ Radiance3 App::rayTrace(const Ray& ray, World* world, int bounce) {
         radiance = world->ambient;
     }
 
-    return radiance + (radiance * fog);
+	if(dist > (m_fogginess * 50))
+	{
+		radiance += (radiance * dist);
+	}
+
+    return min(radiance, Radiance3(1,1,1));
 }
 
 
