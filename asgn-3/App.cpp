@@ -4,7 +4,22 @@
 #include "App.h"
 #include "World.h"
 
+#include <string>
+#include <sstream>
+#include <iostream>
+
 G3D_START_AT_MAIN();
+
+float maxDist = 0;
+
+void print(float value)
+{
+	std::wstringstream s;
+	s << L"" <<value <<" ";
+	std::wstring ws = s.str();
+	OutputDebugString(ws.c_str());
+}
+
 
 int main(int argc, char** argv) {
     GApp::Settings settings;
@@ -19,7 +34,8 @@ int main(int argc, char** argv) {
 App::App(const GApp::Settings& settings) : 
     GApp(settings),
     m_maxBounces(3), 
-    m_raysPerPixel(1), 
+    m_raysPerPixel(1),
+	m_fogginess(0),
     m_world(NULL) {
     catchCommonExceptions = false;
 }
@@ -56,7 +72,7 @@ void App::makeGUI() {
     
     pane->addNumberBox("Rays per pixel", &m_raysPerPixel, "", GuiTheme::LINEAR_SLIDER, 1, 16, 1);
     pane->addNumberBox("Max bounces", &m_maxBounces, "", GuiTheme::LINEAR_SLIDER, 1, 16, 1);
-	pane->addSlider("Fogginess", &m_fogginess, 0.1f, 1.0f);
+	pane->addSlider("Fogginess", &m_fogginess, 0.0f, 1.0f);
 	//pane->addNumberBox("Fogginess", &m_fogginess, "", GuiTheme::LINEAR_SLIDER, 1, 100, 1);
     window->pack();
 
@@ -97,12 +113,18 @@ Radiance3 App::rayTrace(const Ray& ray, World* world, int bounce) {
 
     float dist = (float)inf();
     const shared_ptr<Surfel>& surfel = world->intersect(ray, dist);
-
-    if (notNull(surfel)) {
+	float fog = 1;
+   
+	if(dist > maxDist && dist != (float)inf())
+	{
+		maxDist = dist;
+		print(maxDist);
+	}
+	if (notNull(surfel)) {
 
 		// Apply fog
-		float fogDist = sqrt((surfel->position - m_debugCamera->frame().translation).squaredLength());
-		float fog = fogDist * m_fogginess;
+		//float fogDist = sqrt((surfel->position - m_debugCamera->frame().translation).squaredLength());
+		fog = dist * m_fogginess;
 
         // Shade this point (direct illumination)
         for (int L = 0; L < world->lightArray.size(); ++L) {
@@ -149,13 +171,13 @@ Radiance3 App::rayTrace(const Ray& ray, World* world, int bounce) {
                 debugAssert(radiance.isFinite());
             }
         }
-		radiance *= fog;
+		//radiance *= fog;
     } else {
         // Hit the sky
         radiance = world->ambient;
     }
 
-    return radiance;
+    return radiance + (radiance * fog);
 }
 
 

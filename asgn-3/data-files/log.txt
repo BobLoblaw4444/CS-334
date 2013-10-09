@@ -1,12 +1,12 @@
 Application Log
-Start: Wed Oct 02 15:52:04 2013
+Start: Wed Oct 09 14:10:14 2013
 
-Initializing System::findDataFile took 0.004292s
+Initializing System::findDataFile took 0.001935s
 
 Entering GApp::GApp()
 cwd = C:\Users\twolvert\Desktop\CS-334\trunk\asgn-3\data-files
-System::setAppDataDir("C:\Users\twolvert\Desktop\CS-334\trunk\asgn-3\Debug\")
-Initializing System::findDataFile took 0.003594s
+System::setAppDataDir("C:\Users\twolvert\Desktop\CS-334\trunk\asgn-3\Release\")
+Initializing System::findDataFile took 0.000464s
 Setting video mode
 wglSwapIntervalEXT(0);
 Enabling separate specular lighting.
@@ -119,7 +119,7 @@ Done initializing RenderDevice.
 Network StartupStarting WinSock networking.
 System = { 
     App { 
-        Name = "C:\\Users\\twolvert\\Desktop\\CS-334\\trunk\\asgn-3\\Debug\\asgn-3.exe"
+        Name = "C:\\Users\\twolvert\\Desktop\\CS-334\\trunk\\asgn-3\\Release\\asgn-3.exe"
         cwd = "C:\\Users\\twolvert\\Desktop\\CS-334\\trunk\\asgn-3\\data-files"
     } 
     
@@ -142,7 +142,7 @@ System = {
     
     G3D { 
         Link version = 90000 
-        Compile version = "G3D Innovation Engine 9.00, 32-bit (Debug)"
+        Compile version = "G3D Innovation Engine 9.00, 32-bit"
         G3D9DATA = "C:\\G3D9\\data"
     } 
     
@@ -399,9 +399,9 @@ System = {
     
     Network = { 
         Adapter0 ={ 
-            hostname = "K9-08.ad.cs.purdue.edu;"
+            hostname = "K9-11.ad.cs.purdue.edu;"
             name = ";"
-            ip = "128. 10. 15.108"; 
+            ip = "128. 10. 15.111"; 
             subnet = "  0.  0.255.255"; 
             broadcast = "255.255.255.255"; 
             mac = "00:00:00:00:00:00"; 
@@ -444,54 +444,54 @@ _____________________________________________________
 
     ###    Files Used    ###
 
-C:\G3D9\data/model/dabrovic_sponza/sponza.zip/01_STUB-bump.jpg
-C:\G3D9\data/shader/Film/Film_expose.pix
-C:\G3D9\data/model/dabrovic_sponza/sponza.zip/sp_luk-bump.JPG
-C:/G3D9/data/model/teapot/teapot.obj
-C:\G3D9\data/model/dabrovic_sponza/sponza.zip/KAMEN-stup.JPG
-C:\G3D9\data/model/dabrovic_sponza/sponza.zip/VRATA_KO.JPG
-C:\G3D9\data/model/dabrovic_sponza/sponza.zip
-C:\G3D9\data/shader/Texture/Texture_copy.pix
-C:/G3D9/data/shader/compatibility.glsl
-C:\G3D9\data/model/dabrovic_sponza/sponza.zip/00_SKAP.JPG
-C:/G3D9/data/shader/Film/Film_FXAA.pix
-C:/G3D9/data/shader/Texture/Texture_copy.pix
-C:/G3D9/data/ifs/sphere.ifs
-C:\G3D9\data/model/dabrovic_sponza/sponza.zip/X01_ST.JPG
-C:/G3D9/data/font/arial.fnt
-C:\G3D9\data/model/dabrovic_sponza/sponza.zip/sponza.mtl
-C:\G3D9\data/model/dabrovic_sponza/sponza.zip/KAMEN-stup.jpg
-C:/G3D9/data/font/greek.fnt
-C:\G3D9\data/model/dabrovic_sponza/sponza.zip/01_ST_KP.JPG
 C:/G3D9/data/shader/GaussianBlur/GaussianBlur_apply.pix
-C:/Users/twolvert/Desktop/CS-334/trunk/asgn-3/Debug/dabrovic_sponza/sponza.zip
-C:\G3D9\data/model/dabrovic_sponza/sponza.zip/KAMEN.JPG
+C:/G3D9/data/font/dabrovic_sponza/sponza.zip
+C:/G3D9/data/font/greek.fnt
+C:/G3D9/data/gui/dabrovic_sponza/sponza.zip
+C:/G3D9/data/font/arial.fnt
+C:\G3D9\data/model/dabrovic_sponza/sponza.zip/sp_luk-bump.JPG
+C:/Users/twolvert/Desktop/CS-334/trunk/asgn-3/Release/dabrovic_sponza/sponza.zip
+C:\G3D9\data/model/dabrovic_sponza/sponza.zip/PROZOR1.JPG
+C:\G3D9\data/model/dabrovic_sponza/sponza.zip
+C:\G3D9\data/model/dabrovic_sponza/sponza.zip/00_SKAP.JPG
+C:/G3D9/data/shader/dabrovic_sponza/sponza.zip
+dabrovic_sponza/sponza.zip
+C:\G3D9\data/model/dabrovic_sponza/sponza.zip/VRATA_KO.JPG
+C:/G3D9/data/font/console-small.fnt
+C:/G3D9/data/shader/Film/Film_compositeAndTone.pix
+C:\G3D9\data/model/dabrovic_sponza/sponza.zip/01_STUB.JPG
+C:\G3D9\data/model/dabrovic_sponza/sponza.zip/01_S_BA.JPG
+C:\G3D9\data/model/dabrovic_sponza/sponza.zip/01_STUB-bump.jpg
 C:\G3D9\data/model/dabrovic_sponza/sponza.zip/VRATA_KR.JPG
-C:\G3D9\data/shader/GaussianBlur/GaussianBlur_apply.pix
+C:/G3D9/data/shader/Film/Film_expose.pix
 C:\G3D9\data/model/dabrovic_sponza/sponza.zip/SP_LUK.JPG
+C:\G3D9\data/model/dabrovic_sponza/sponza.zip/KAMEN-bump.jpg
+C:/G3D9/data/ifs/sphere.ifs
+C:\G3D9\data/shader/Film/Film_FXAA.pix
+C:\G3D9\data/model/dabrovic_sponza/sponza.zip/KAMEN-stup.jpg
+C:\G3D9\data/shader/compatibility.glsl
 C:/G3D9/data/icon/tango.icn
-C:/G3D9/data/gui/osx-10.7.gtm
+C:/G3D9/data/model/teapot/teapot.obj
+C:\G3D9\data/model/dabrovic_sponza/sponza.zip/01_ST_KP.JPG
+C:/G3D9/data/font/icon.fnt
+C:\G3D9\data/model/dabrovic_sponza/sponza.zip/reljef-bump.jpg
+C:\G3D9\data/shader/Film/Film_compositeAndTone.pix
+C:/G3D9/data/model/teapot/default.mtl
+C:/G3D9/data/model/dabrovic_sponza/sponza.zip
+C:\G3D9\data/model/dabrovic_sponza/sponza.zip/KAMEN.JPG
+C:\G3D9\data/model/dabrovic_sponza/sponza.zip/KAMEN-stup.JPG
+C:\G3D9\data/model/dabrovic_sponza/sponza.zip/X01_ST.JPG
+C:/G3D9/data/dabrovic_sponza/sponza.zip
+log.txt
+C:/G3D9/data/shader/compatibility.glsl
+C:/G3D9/data/shader/Film/Film_FXAA.pix
+C:\G3D9\data/shader/GaussianBlur/GaussianBlur_apply.pix
+C:\G3D9\data/shader/Texture/Texture_copy.pix
+C:\G3D9\data/model/dabrovic_sponza/sponza.zip/01_St_kp-bump.jpg
 C:\G3D9\data/model/dabrovic_sponza/sponza.zip/sponza.obj
 C:\G3D9\data/model/dabrovic_sponza/sponza.zip/RELJEF.JPG
-C:\G3D9\data/model/dabrovic_sponza/sponza.zip/PROZOR1.JPG
-C:\G3D9\data/model/dabrovic_sponza/sponza.zip/01_St_kp-bump.jpg
-C:\G3D9\data/shader/Film/Film_FXAA.pix
-C:\G3D9\data/model/dabrovic_sponza/sponza.zip/KAMEN-bump.jpg
-dabrovic_sponza/sponza.zip
-C:/G3D9/data/font/dabrovic_sponza/sponza.zip
-C:/G3D9/data/shader/Film/Film_compositeAndTone.pix
-C:\G3D9\data/shader/Film/Film_compositeAndTone.pix
-C:/G3D9/data/font/console-small.fnt
-log.txt
-C:/G3D9/data/model/dabrovic_sponza/sponza.zip
-C:/G3D9/data/model/teapot/default.mtl
-C:/G3D9/data/font/icon.fnt
-C:\G3D9\data/shader/compatibility.glsl
-C:\G3D9\data/model/dabrovic_sponza/sponza.zip/01_S_BA.JPG
-C:/G3D9/data/gui/dabrovic_sponza/sponza.zip
-C:\G3D9\data/model/dabrovic_sponza/sponza.zip/01_STUB.JPG
-C:/G3D9/data/shader/Film/Film_expose.pix
-C:/G3D9/data/shader/dabrovic_sponza/sponza.zip
-C:\G3D9\data/model/dabrovic_sponza/sponza.zip/reljef-bump.jpg
-C:/G3D9/data/dabrovic_sponza/sponza.zip
+C:/G3D9/data/gui/osx-10.7.gtm
+C:\G3D9\data/shader/Film/Film_expose.pix
+C:\G3D9\data/model/dabrovic_sponza/sponza.zip/sponza.mtl
+C:/G3D9/data/shader/Texture/Texture_copy.pix
 
