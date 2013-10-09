@@ -56,6 +56,8 @@ void App::makeGUI() {
     
     pane->addNumberBox("Rays per pixel", &m_raysPerPixel, "", GuiTheme::LINEAR_SLIDER, 1, 16, 1);
     pane->addNumberBox("Max bounces", &m_maxBounces, "", GuiTheme::LINEAR_SLIDER, 1, 16, 1);
+	pane->addSlider("Fogginess", &m_fogginess, 0.1f, 1.0f);
+	//pane->addNumberBox("Fogginess", &m_fogginess, "", GuiTheme::LINEAR_SLIDER, 1, 100, 1);
     window->pack();
 
     window->setVisible(true);
@@ -97,6 +99,11 @@ Radiance3 App::rayTrace(const Ray& ray, World* world, int bounce) {
     const shared_ptr<Surfel>& surfel = world->intersect(ray, dist);
 
     if (notNull(surfel)) {
+
+		// Apply fog
+		float fogDist = sqrt((surfel->position - m_debugCamera->frame().translation).squaredLength());
+		float fog = fogDist * m_fogginess;
+
         // Shade this point (direct illumination)
         for (int L = 0; L < world->lightArray.size(); ++L) {
             const shared_ptr<Light>& light = world->lightArray[L];
@@ -107,14 +114,17 @@ Radiance3 App::rayTrace(const Ray& ray, World* world, int bounce) {
                 const float distance2 = w_i.squaredLength();
                 w_i /= sqrt(distance2);
 
+				
+
                 // Biradiance
                 const Biradiance3& B_i = light->color / (4.0f * pif() * distance2);
-
+				
                 radiance += 
                     surfel->finiteScatteringDensity(w_i, -ray.direction()) * 
                     B_i *
                     max(0.0f, w_i.dot(surfel->shadingNormal));
 
+				
                 debugAssert(radiance.isFinite());
             }
         }
@@ -139,6 +149,7 @@ Radiance3 App::rayTrace(const Ray& ray, World* world, int bounce) {
                 debugAssert(radiance.isFinite());
             }
         }
+		radiance *= fog;
     } else {
         // Hit the sky
         radiance = world->ambient;
