@@ -72,7 +72,7 @@ void App::makeGUI() {
     
     pane->addNumberBox("Rays per pixel", &m_raysPerPixel, "", GuiTheme::LINEAR_SLIDER, 1, 16, 1);
     pane->addNumberBox("Max bounces", &m_maxBounces, "", GuiTheme::LINEAR_SLIDER, 1, 16, 1);
-	pane->addSlider("Fogginess", &m_fogginess, 0.0f, 1.0f);
+	pane->addSlider("Fogginess", &m_fogginess, 0.0f, .1f);
 	//pane->addNumberBox("Fogginess", &m_fogginess, "", GuiTheme::LINEAR_SLIDER, 1, 20, 1);
     window->pack();
 
@@ -113,20 +113,8 @@ Radiance3 App::rayTrace(const Ray& ray, World* world, int bounce) {
 
     float dist = (float)inf();
     const shared_ptr<Surfel>& surfel = world->intersect(ray, dist);
-	float fog = 1;
-   
 	
-
-	if(dist > maxDist && dist != (float)inf())
-	{
-		maxDist = dist;
-		print(maxDist);
-	}
 	if (notNull(surfel)) {
-
-		// Apply fog
-		//float fogDist = sqrt((surfel->position - m_debugCamera->frame().translation).squaredLength());
-		fog = dist * m_fogginess;
 
         // Shade this point (direct illumination)
         for (int L = 0; L < world->lightArray.size(); ++L) {
@@ -138,8 +126,6 @@ Radiance3 App::rayTrace(const Ray& ray, World* world, int bounce) {
                 const float distance2 = w_i.squaredLength();
                 w_i /= sqrt(distance2);
 
-				
-
                 // Biradiance
                 const Biradiance3& B_i = light->color / (4.0f * pif() * distance2);
 				
@@ -147,7 +133,6 @@ Radiance3 App::rayTrace(const Ray& ray, World* world, int bounce) {
                     surfel->finiteScatteringDensity(w_i, -ray.direction()) * 
                     B_i *
                     max(0.0f, w_i.dot(surfel->shadingNormal));
-
 				
                 debugAssert(radiance.isFinite());
             }
@@ -173,18 +158,19 @@ Radiance3 App::rayTrace(const Ray& ray, World* world, int bounce) {
                 debugAssert(radiance.isFinite());
             }
         }
-		//radiance *= fog;
+
+		// Add radiance proportional to the distance and fogginess. Divide by 2 so that there isn't too much fog
+		radiance += (radiance.one() * dist * m_fogginess)/2;
+
     } else {
         // Hit the sky
         radiance = world->ambient;
-    }
 
-	if(dist > (m_fogginess * 50))
-	{
-		radiance += (radiance * dist);
+		// Add radiance proportional to fogginess. Multiply by 10 so the fog is noticeable
+		radiance += (radiance.one() * m_fogginess * 10);
 	}
 
-    return min(radiance, Radiance3(1,1,1));
+	return radiance;
 }
 
 
