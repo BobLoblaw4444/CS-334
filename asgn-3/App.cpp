@@ -70,10 +70,11 @@ void App::makeGUI() {
     pane->addLabel("Use WASD keys + right mouse to move");
     pane->addButton("Render High Res.", this, &App::onRender);
     
-    pane->addNumberBox("Rays per pixel", &m_raysPerPixel, "", GuiTheme::LINEAR_SLIDER, 1, 16, 1);
+    pane->addNumberBox("Rays per pixel", &m_raysPerPixel, "", GuiTheme::LINEAR_SLIDER, 1, 30, 1);
     pane->addNumberBox("Max bounces", &m_maxBounces, "", GuiTheme::LINEAR_SLIDER, 1, 16, 1);
 	pane->addSlider("Fogginess", &m_fogginess, 0.0f, .1f);
 	//pane->addNumberBox("Fogginess", &m_fogginess, "", GuiTheme::LINEAR_SLIDER, 1, 20, 1);
+	pane->addNumberBox("Focal Length", &m_focalLength, "", GuiTheme::LINEAR_SLIDER, 1, 50, 1);
     window->pack();
 
     window->setVisible(true);

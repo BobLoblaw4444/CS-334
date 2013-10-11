@@ -1,12 +1,12 @@
 Application Log
-Start: Wed Oct 09 20:51:25 2013
+Start: Fri Oct 11 17:14:15 2013
 
-Initializing System::findDataFile took 0.000890s
+Initializing System::findDataFile took 0.001986s
 
 Entering GApp::GApp()
 cwd = C:\Users\twolvert\Desktop\CS-334\trunk\asgn-3\data-files
 System::setAppDataDir("C:\Users\twolvert\Desktop\CS-334\trunk\asgn-3\Release\")
-Initializing System::findDataFile took 0.000208s
+Initializing System::findDataFile took 0.000464s
 Setting video mode
 wglSwapIntervalEXT(0);
 Enabling separate specular lighting.
@@ -399,9 +399,9 @@ System = {
     
     Network = { 
         Adapter0 ={ 
-            hostname = "K9-22.ad.cs.purdue.edu;"
+            hostname = "K9-25.ad.cs.purdue.edu;"
             name = ";"
-            ip = "128. 10. 15.122"; 
+            ip = "128. 10. 15.125"; 
             subnet = "  0.  0.255.255"; 
             broadcast = "255.255.255.255"; 
             mac = "00:00:00:00:00:00"; 
