@@ -36,6 +36,8 @@ App::App(const GApp::Settings& settings) :
     m_maxBounces(3), 
     m_raysPerPixel(1),
 	m_fogginess(0),
+	m_aperture(0),
+	m_focalLength(0),
     m_world(NULL) {
     catchCommonExceptions = false;
 }
@@ -73,8 +75,8 @@ void App::makeGUI() {
     pane->addNumberBox("Rays per pixel", &m_raysPerPixel, "", GuiTheme::LINEAR_SLIDER, 1, 30, 1);
     pane->addNumberBox("Max bounces", &m_maxBounces, "", GuiTheme::LINEAR_SLIDER, 1, 16, 1);
 	pane->addSlider("Fogginess", &m_fogginess, 0.0f, .1f);
-	//pane->addNumberBox("Fogginess", &m_fogginess, "", GuiTheme::LINEAR_SLIDER, 1, 20, 1);
-	pane->addNumberBox("Focal Length", &m_focalLength, "", GuiTheme::LINEAR_SLIDER, 1, 50, 1);
+	pane->addNumberBox("Aperture", &m_aperture, "", GuiTheme::LINEAR_SLIDER, 0, 100, 1);
+	pane->addNumberBox("Focal Length", &m_focalLength, "", GuiTheme::LINEAR_SLIDER, 0, 100, 1);
     window->pack();
 
     window->setVisible(true);
@@ -201,11 +203,36 @@ void App::onRender() {
 
 void App::trace(int x, int y) {
     Color3 sum = Color3::black();
-    if (m_currentRays == 1) {
+    if (m_currentRays == 1) 
+	{
         sum = rayTrace(m_debugCamera->worldRay(x + 0.5f, y + 0.5f, m_currentImage->rect2DBounds()), m_world);
-    } else {
+    } 
+	// Don't calculate blur if either aperture or focal length are 0
+	else if(m_aperture == 0 || m_focalLength == 0)
+	{
+		for (int i = 0; i < m_currentRays; ++i) 
+		{
+			sum += rayTrace(m_debugCamera->worldRay(x + rnd.uniform(), y + rnd.uniform(), m_currentImage->rect2DBounds()), m_world);
+		}
+	}
+	else
+	{
         for (int i = 0; i < m_currentRays; ++i) {
-            sum += rayTrace(m_debugCamera->worldRay(x + rnd.uniform(), y + rnd.uniform(), m_currentImage->rect2DBounds()), m_world);
+			// Save the original ray
+			Ray oldRay = m_debugCamera->worldRay(x, y, m_currentImage->rect2DBounds());
+			
+			// Calculate the origin of the new ray by multiplying the x and y values by a fraction of the aperture (keep z the same)
+			Point3 newOrigin = Point3(oldRay.origin().x + (rnd.uniform() * m_aperture/20.0f), oldRay.origin().y + (rnd.uniform() * m_aperture/20.0f), oldRay.origin().z);
+			 
+			// Determine the direction between the end point of the original ray and the new origin
+			Vector3 newDirection = ((oldRay.origin() + oldRay.direction()* m_focalLength) - newOrigin);
+
+			// Normalize the direction of the new ray
+			newDirection /= newDirection.magnitude();
+
+			// Create a new ray from origin and direction, then add to sum
+			Ray newRay = Ray(newOrigin, newDirection);			
+            sum += rayTrace(newRay, m_world);
         }
     }
     m_currentImage->set(x, y, sum / (float)m_currentRays);

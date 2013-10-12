@@ -20,6 +20,7 @@ private:
     int                 m_maxBounces;
     int                 m_raysPerPixel;
 	float               m_fogginess;
+	int					m_aperture;
 	int					m_focalLength;
 
     World*              m_world;
