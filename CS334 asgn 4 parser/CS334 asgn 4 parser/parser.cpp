@@ -2,9 +2,14 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <list>
 
 using std::cout;
 using std::string;
+using std::list;
+
+bool count = false;
+int fCount = 0;
 
 char*  fileName = new char(15);
 float turnAngle;
@@ -28,6 +33,7 @@ class ruleObject
 		}
 };
 
+list<ruleObject*> ruleList;
 ruleObject* ruleArray[15];
 
 int main()
@@ -50,7 +56,7 @@ int main()
 		}
 		else if(lineCount == 3)
 		{
-			initialLetter = line[0];
+			initialLetter = line;
 		}
 		else if(lineCount > 3)
 		{
@@ -62,37 +68,48 @@ int main()
 			char letter = line[0];
 			unsigned pos = line.find(" -> ");
 			string rule = line.substr(pos+4);
-			ruleArray[i] = new ruleObject(letter, 1.0f, rule);
-			//cout << ruleArray[i]->rule;
+			//ruleArray[i] = new ruleObject(letter, 1.0f, rule);
+			ruleList.push_front(new ruleObject(letter, 1.0f, rule));
 			i++;
 		}
 		lineCount++;
-		//cout<<line <<std::endl;
 	}
 	
 	string expandedRules = initialLetter;
 	for(int i = 0; i < numOfIterations; i++)
 	{
+		if(i == numOfIterations-1)
+			count = true;
 		expandedRules = expandRules(expandedRules);
 	}
-	cout <<expandedRules;
+	cout <<expandedRules <<std::endl;
+	cout << fCount;
 }
 
 string expandRules(string startString)
 {
 	string resultString;
+	bool foundInRules = false;
+
 	for each(char letter in startString)
 	{
-		for(int i = 0; i < 1; i++)
+		for(list<ruleObject*>::iterator it = ruleList.begin(); it != ruleList.end(); it++)
 		{
-			if(letter == ruleArray[i]->letter)
+			if(letter == (*it)->letter)
 			{
 				//cout << ruleArray[i]->rule <<std::endl;
-				resultString += ruleArray[i]->rule;
+				resultString += (*it)->rule;
+				foundInRules = true;
+				if(count)
+					fCount+=5;
 			}
-			else
-				resultString += letter;
 		}
+		if(!foundInRules)
+		{
+			resultString += letter;
+		}
+		else
+			foundInRules = false;
 	}
 	//cout<<resultString;
 	return resultString;
