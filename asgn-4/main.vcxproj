@@ -170,6 +170,8 @@
   <ItemGroup>
     <None Include="journal\journal.dox" />
     <None Include="mainpage.dox" />
+    <None Include="myprog.pix" />
+    <None Include="myprog.vrt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

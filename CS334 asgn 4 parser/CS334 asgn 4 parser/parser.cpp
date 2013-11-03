@@ -8,16 +8,6 @@ using std::cout;
 using std::string;
 using std::list;
 
-bool count = false;
-int fCount = 0;
-
-char*  fileName = new char(15);
-float turnAngle;
-int numOfIterations;
-string initialString;
-
-string expandRules(string startString);
-
 class ruleObject
 {
 	public:
@@ -33,7 +23,18 @@ class ruleObject
 		}
 };
 
+bool count = false;
+int fCount = 0;
+
+char*  fileName = new char(15);
+float turnAngle;
+int numOfIterations;
+string initialString;
 list<ruleObject*> ruleList;
+
+string expandRules(string startString);
+string determineStochasticRule(char letter);
+bool compareWeights(ruleObject* first, ruleObject* second);
 
 int main()
 {
@@ -89,7 +90,7 @@ int main()
 			// Locate the arrow and save the rest of the string as the rule
 			pos = line.find(" -> ");
 			string rule = line.substr(pos+4);
-			ruleList.push_front(new ruleObject(letter, 1.0f, rule));
+			ruleList.push_front(new ruleObject(letter, weight, rule));
 			i++;
 		}
 		lineCount++;
@@ -126,11 +127,11 @@ string expandRules(string startString)
 		{
 			if(letter == (*it)->letter)
 			{
-				//cout << ruleArray[i]->rule <<std::endl;
-				resultString += (*it)->rule;
+				resultString += determineStochasticRule(letter);
 				foundInRules = true;
 				if(count)
 					fCount+=5;
+				break;
 			}
 		}
 		if(!foundInRules)
@@ -145,7 +146,37 @@ string expandRules(string startString)
 	return resultString;
 }
 
+bool compareWeights(ruleObject* first, ruleObject* second)
+{
+	if(first->weight > second->weight)
+	{
+		return true;
+	}
+	else
+		return false;
+}
+
 string determineStochasticRule(char letter)
 {
-	return "woot";
+	list<ruleObject*> rules;
+
+	for(list<ruleObject*>::iterator it = ruleList.begin(); it != ruleList.end(); it++)
+	{
+		if(letter == (*it)->letter)
+		{
+			rules.push_front(*it);
+		}
+	}
+	if(rules.size() == 1)
+	{
+		return rules.front()->rule;
+	}
+
+	rules.sort(compareWeights);
+	for(list<ruleObject*>::iterator it = rules.begin(); it != rules.end(); it++)
+	{
+		//cout << (*it)->weight;
+	}
+
+	return rules.front()->rule;
 }

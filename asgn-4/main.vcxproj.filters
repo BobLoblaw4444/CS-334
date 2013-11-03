@@ -6,6 +6,12 @@
   <ItemGroup>
     <None Include="journal\journal.dox" />
     <None Include="mainpage.dox" />
+    <None Include="myprog.pix">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="myprog.vrt">
+      <Filter>Shader Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">

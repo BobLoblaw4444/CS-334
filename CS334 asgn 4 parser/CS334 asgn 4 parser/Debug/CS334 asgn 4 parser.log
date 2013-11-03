@@ -1,22 +1,22 @@
-﻿Build started 11/3/2013 2:58:49 PM.
-     1>Project "C:\Users\Tyler Wolverton\Documents\Visual Studio 2010\Projects\CS334 asgn 4 parser\CS334 asgn 4 parser\CS334 asgn 4 parser.vcxproj" on node 2 (build target(s)).
+﻿Build started 11/3/2013 4:23:57 PM.
+     1>Project "C:\Users\Tyler Wolverton\Desktop\CS334\trunk\CS334 asgn 4 parser\CS334 asgn 4 parser\CS334 asgn 4 parser.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Touching "Debug\CS334 asgn 4 parser.unsuccessfulbuild".
+         Creating "Debug\CS334 asgn 4 parser.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt parser.cpp
          parser.cpp
-     1>c:\users\tyler wolverton\documents\visual studio 2010\projects\cs334 asgn 4 parser\cs334 asgn 4 parser\parser.cpp(81): warning C4018: '>' : signed/unsigned mismatch
+     1>c:\users\tyler wolverton\desktop\cs334\trunk\cs334 asgn 4 parser\cs334 asgn 4 parser\parser.cpp(82): warning C4018: '>' : signed/unsigned mismatch
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Tyler Wolverton\Documents\Visual Studio 2010\Projects\CS334 asgn 4 parser\Debug\CS334 asgn 4 parser.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\CS334 asgn 4 parser.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Tyler Wolverton\Documents\Visual Studio 2010\Projects\CS334 asgn 4 parser\Debug\CS334 asgn 4 parser.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Tyler Wolverton\Documents\Visual Studio 2010\Projects\CS334 asgn 4 parser\Debug\CS334 asgn 4 parser.lib" /MACHINE:X86 Debug\parser.obj
-         LINK : C:\Users\Tyler Wolverton\Documents\Visual Studio 2010\Projects\CS334 asgn 4 parser\Debug\CS334 asgn 4 parser.exe not found or not built by the last incremental link; performing full link
-         CS334 asgn 4 parser.vcxproj -> C:\Users\Tyler Wolverton\Documents\Visual Studio 2010\Projects\CS334 asgn 4 parser\Debug\CS334 asgn 4 parser.exe
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Tyler Wolverton\Desktop\CS334\trunk\CS334 asgn 4 parser\Debug\CS334 asgn 4 parser.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\CS334 asgn 4 parser.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Tyler Wolverton\Desktop\CS334\trunk\CS334 asgn 4 parser\Debug\CS334 asgn 4 parser.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Tyler Wolverton\Desktop\CS334\trunk\CS334 asgn 4 parser\Debug\CS334 asgn 4 parser.lib" /MACHINE:X86 Debug\parser.obj
+         LINK : C:\Users\Tyler Wolverton\Desktop\CS334\trunk\CS334 asgn 4 parser\Debug\CS334 asgn 4 parser.exe not found or not built by the last incremental link; performing full link
+         CS334 asgn 4 parser.vcxproj -> C:\Users\Tyler Wolverton\Desktop\CS334\trunk\CS334 asgn 4 parser\Debug\CS334 asgn 4 parser.exe
        Manifest:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\Tyler Wolverton\Documents\Visual Studio 2010\Projects\CS334 asgn 4 parser\Debug\CS334 asgn 4 parser.exe;#1" /manifest "Debug\CS334 asgn 4 parser.exe.intermediate.manifest"
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\Tyler Wolverton\Desktop\CS334\trunk\CS334 asgn 4 parser\Debug\CS334 asgn 4 parser.exe;#1" /manifest "Debug\CS334 asgn 4 parser.exe.intermediate.manifest"
        FinalizeBuildStatus:
          Deleting file "Debug\CS334 asgn 4 parser.unsuccessfulbuild".
          Touching "Debug\CS334 asgn 4 parser.lastbuildstate".
-     1>Done Building Project "C:\Users\Tyler Wolverton\Documents\Visual Studio 2010\Projects\CS334 asgn 4 parser\CS334 asgn 4 parser\CS334 asgn 4 parser.vcxproj" (build target(s)).
+     1>Done Building Project "C:\Users\Tyler Wolverton\Desktop\CS334\trunk\CS334 asgn 4 parser\CS334 asgn 4 parser\CS334 asgn 4 parser.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.42
+Time Elapsed 00:00:02.36
