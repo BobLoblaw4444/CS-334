@@ -14,7 +14,7 @@ int fCount = 0;
 char*  fileName = new char(15);
 float turnAngle;
 int numOfIterations;
-string initialLetter;
+string initialString;
 
 string expandRules(string startString);
 
@@ -34,13 +34,12 @@ class ruleObject
 };
 
 list<ruleObject*> ruleList;
-ruleObject* ruleArray[15];
 
 int main()
 {
 	std::ifstream infile;
 	infile.open("rules.txt");
-
+	
 	string line;
 	int lineCount = 0;
 	int i = 0;
@@ -56,7 +55,7 @@ int main()
 		}
 		else if(lineCount == 3)
 		{
-			initialLetter = line;
+			initialString = line[0];
 		}
 		else if(lineCount > 3)
 		{
@@ -65,25 +64,55 @@ int main()
 				lineCount++;
 				continue;
 			}
+			// Default the weight to 1 and save the letter corresponding to the rule
+			float weight = 1.0f;
 			char letter = line[0];
-			unsigned pos = line.find(" -> ");
+
+			// Check if this rule has a weight, if so process it
+			unsigned pos = 0;
+			pos = line.find("(");
+			if(pos < line.length())
+			{
+				// Find position of parenteheses so the weight can be collected from in between them
+				int first = pos;
+				int last = line.find(")");
+				
+				// There isn't a closed parenthese, abandon everything
+				if(last > line.length())
+				{
+					cout << "Invalid input!";
+					exit(1);
+				}
+				// Save the weight of this rule
+				weight = stof(line.substr(first+1, last - first - 1));
+			}
+			// Locate the arrow and save the rest of the string as the rule
+			pos = line.find(" -> ");
 			string rule = line.substr(pos+4);
-			//ruleArray[i] = new ruleObject(letter, 1.0f, rule);
 			ruleList.push_front(new ruleObject(letter, 1.0f, rule));
 			i++;
 		}
 		lineCount++;
 	}
 	
-	string expandedRules = initialLetter;
+	// Expand the initial string using the rules for the given number of iterations
+	string expandedRules = initialString;
 	for(int i = 0; i < numOfIterations; i++)
 	{
 		if(i == numOfIterations-1)
 			count = true;
 		expandedRules = expandRules(expandedRules);
 	}
-	cout <<expandedRules <<std::endl;
+
+	// Output final string to console
+	cout <<expandedRules;
 	cout << fCount;
+
+	// Create tree.txt containing the string
+	std::ofstream outfile;
+	outfile.open ("tree.txt");
+	outfile << expandedRules;
+	outfile.close();
 }
 
 string expandRules(string startString)
@@ -109,8 +138,14 @@ string expandRules(string startString)
 			resultString += letter;
 		}
 		else
+		{
 			foundInRules = false;
+		}
 	}
-	//cout<<resultString;
 	return resultString;
+}
+
+string determineStochasticRule(char letter)
+{
+	return "woot";
 }
