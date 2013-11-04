@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -26,17 +25,40 @@ class ruleObject
 bool count = false;
 int fCount = 0;
 
-char*  fileName = new char(15);
 float turnAngle;
 int numOfIterations;
 string initialString;
 list<ruleObject*> ruleList;
 
+void parseInput();
 string expandRules(string startString);
 string determineStochasticRule(char letter);
 bool compareWeights(ruleObject* first, ruleObject* second);
 
 int main()
+{
+	parseInput();
+		// Expand the initial string using the rules for the given number of iterations
+	string expandedRules = initialString;
+	for(int i = 0; i < numOfIterations; i++)
+	{
+		if(i == numOfIterations-1)
+			count = true;
+		expandedRules = expandRules(expandedRules);
+	}
+
+	// Output final string to console
+	cout <<expandedRules;
+	cout << fCount;
+
+	// Create tree.txt containing the string
+	std::ofstream outfile;
+	outfile.open ("tree.txt");
+	outfile << expandedRules;
+	outfile.close();
+}
+
+void parseInput()
 {
 	std::ifstream infile;
 	infile.open("rules.txt");
@@ -95,26 +117,9 @@ int main()
 		}
 		lineCount++;
 	}
-	
-	// Expand the initial string using the rules for the given number of iterations
-	string expandedRules = initialString;
-	for(int i = 0; i < numOfIterations; i++)
-	{
-		if(i == numOfIterations-1)
-			count = true;
-		expandedRules = expandRules(expandedRules);
-	}
-
-	// Output final string to console
-	cout <<expandedRules;
-	cout << fCount;
-
-	// Create tree.txt containing the string
-	std::ofstream outfile;
-	outfile.open ("tree.txt");
-	outfile << expandedRules;
-	outfile.close();
 }
+
+
 
 string expandRules(string startString)
 {

@@ -1,12 +1,12 @@
 Application Log
-Start: Wed Oct 23 13:06:28 2013
+Start: Mon Nov 04 11:08:54 2013
 
-Initializing System::findDataFile took 0.002387s
+Initializing System::findDataFile took 0.009322s
 
 Entering GApp::GApp()
-cwd = C:\Users\twolvert\Desktop\CS-334\trunk\asgn-4\data-files
-System::setAppDataDir("C:\Users\twolvert\Desktop\CS-334\trunk\asgn-4\Debug\")
-Initializing System::findDataFile took 0.001590s
+cwd = H:\CS334\trunk\asgn-4\data-files
+System::setAppDataDir("H:\CS334\trunk\asgn-4\Release\")
+Initializing System::findDataFile took 0.000520s
 Setting video mode
 wglSwapIntervalEXT(0);
 Enabling separate specular lighting.
@@ -119,8 +119,8 @@ Done initializing RenderDevice.
 Network StartupStarting WinSock networking.
 System = { 
     App { 
-        Name = "C:\\Users\\twolvert\\Desktop\\CS-334\\trunk\\asgn-4\\Debug\\asgn-4.exe"
-        cwd = "C:\\Users\\twolvert\\Desktop\\CS-334\\trunk\\asgn-4\\data-files"
+        Name = "H:\\CS334\\trunk\\asgn-4\\Release\\asgn-4.exe"
+        cwd = "H:\\CS334\\trunk\\asgn-4\\data-files"
     } 
     
     OS { 
@@ -142,8 +142,8 @@ System = {
     
     G3D { 
         Link version = 90000 
-        Compile version = "G3D Innovation Engine 9.00, 32-bit (Debug)"
-        G3D9DATA = "C:\\G3D9\\data"
+        Compile version = "G3D Innovation Engine 9.00, 32-bit"
+        G3D9DATA = "c:\\G3D9\\data"
     } 
     
     GPU = { 
@@ -399,9 +399,9 @@ System = {
     
     Network = { 
         Adapter0 ={ 
-            hostname = "K9-16.ad.cs.purdue.edu;"
+            hostname = "K9-10.ad.cs.purdue.edu;"
             name = ";"
-            ip = "128. 10. 15.116"; 
+            ip = "128. 10. 15.110"; 
             subnet = "  0.  0.255.255"; 
             broadcast = "255.255.255.255"; 
             mac = "00:00:00:00:00:00"; 
@@ -412,7 +412,7 @@ System = {
     }; 
 
 Entering GApp::loadFont("console-small.fnt")
-Found "console-small.fnt" at "C:\G3D9\data/font/console-small.fnt"
+Found "console-small.fnt" at "c:\G3D9\data/font/console-small.fnt"
 Done GApp::loadFont(...)
 Done GApp::GApp()
 
@@ -443,37 +443,37 @@ _____________________________________________________
 
     ###    Files Used    ###
 
-C:/G3D9/data/font/greek.fnt
-C:/G3D9/data/model/teapot/default.mtl
-C:/G3D9/data/shader/Film/Film_FXAA.pix
-C:\G3D9\data/shader/GaussianBlur/GaussianBlur_apply.pix
-C:/G3D9/data/cubemap/noonclouds/noonclouds_up.png
-C:/G3D9/data/shader/GaussianBlur/GaussianBlur_apply.pix
-../heightMap.png
-C:/G3D9/data/font/arial.fnt
-C:/Users/twolvert/Desktop/CS-334/trunk/asgn-4/data-files/..
-C:\Users\twolvert\Desktop\CS-334\trunk\asgn-4\data-files/../myprog.vrt
-../lightMap.png
-C:/Users/twolvert/Desktop/CS-334/trunk/asgn-4/data-files/../myprog.pix
-C:/G3D9/data/cubemap/noonclouds/noonclouds_bk.png
-C:/G3D9/data/font/icon.fnt
-C:/G3D9/data/cubemap/noonclouds/noonclouds_rt.png
-log.txt
-C:\Users\twolvert\Desktop\CS-334\trunk\asgn-4\data-files/../myprog.pix
-C:/G3D9/data/icon/tango.icn
-C:/G3D9/data/model/teapot/teapot.obj
-C:/G3D9/data/cubemap/noonclouds/noonclouds_lf.png
-C:\G3D9\data/shader/compatibility.glsl
-C:/G3D9/data/gui/osx-10.7.gtm
-C:/G3D9/data/cubemap/noonclouds/noonclouds_dn.png
-C:\G3D9\data/shader/Film/Film_expose.pix
-C:/G3D9/data/shader/Film/Film_expose.pix
-C:/Users/twolvert/Desktop/CS-334/trunk/asgn-4/data-files/../myprog.vrt
-C:/G3D9/data/cubemap/noonclouds/noonclouds_ft.png
-C:/G3D9/data/shader/Film/Film_compositeAndTone.pix
-C:/G3D9/data/shader/compatibility.glsl
-C:\G3D9\data/shader/Film/Film_compositeAndTone.pix
-C:\G3D9\data/shader/Film/Film_FXAA.pix
-C:/G3D9/data/font/console-small.fnt
+c:\G3D9\data/shader/GaussianBlur/GaussianBlur_apply.pix
+c:\G3D9\data/shader/Film/Film_expose.pix
+c:/G3D9/data/cubemap/noonclouds/noonclouds_up.png
+c:/G3D9/data/font/icon.fnt
+c:/G3D9/data/font/console-small.fnt
+c:\G3D9\data/shader/compatibility.glsl
+c:/G3D9/data/cubemap/noonclouds/noonclouds_rt.png
+H:/CS334/trunk/asgn-4/data-files/..
 ..
+c:/G3D9/data/icon/tango.icn
+c:/G3D9/data/shader/Film/Film_expose.pix
+c:/G3D9/data/cubemap/noonclouds/noonclouds_ft.png
+../heightMap.png
+../lightMap.png
+H:/CS334/trunk/asgn-4/data-files/../myprog.pix
+c:/G3D9/data/model/teapot/default.mtl
+c:/G3D9/data/cubemap/noonclouds/noonclouds_dn.png
+c:/G3D9/data/cubemap/noonclouds/noonclouds_lf.png
+log.txt
+c:/G3D9/data/gui/osx-10.7.gtm
+c:\G3D9\data/shader/Film/Film_FXAA.pix
+c:/G3D9/data/shader/compatibility.glsl
+H:/CS334/trunk/asgn-4/data-files/../myprog.vrt
+H:\CS334\trunk\asgn-4\data-files/../myprog.vrt
+c:/G3D9/data/cubemap/noonclouds/noonclouds_bk.png
+c:/G3D9/data/shader/Film/Film_FXAA.pix
+H:\CS334\trunk\asgn-4\data-files/../myprog.pix
+c:/G3D9/data/font/arial.fnt
+c:/G3D9/data/font/greek.fnt
+c:/G3D9/data/shader/Film/Film_compositeAndTone.pix
+c:\G3D9\data/shader/Film/Film_compositeAndTone.pix
+c:/G3D9/data/shader/GaussianBlur/GaussianBlur_apply.pix
+c:/G3D9/data/model/teapot/teapot.obj
 
