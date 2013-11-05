@@ -9,6 +9,7 @@
 #include <GLG3D/GLG3D.h>
 #include <string.h>
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <list>
 
@@ -98,25 +99,25 @@ void App::onInit() {
 	std::string dataFile = modelName;
 	
 	// Load each model depending on the input 
-	if(modelName.empty())
-	{
-		dataFile = "teapot/teapot.obj";
-		spec.scale = 0.015f;
-		spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), Point3(0, -0.5, 0));")));
-	}
-	// Special case to handle viper since the model isn't named like the folder
-	else if(!modelName.compare("viper"))
-	{
-		dataFile = "viper/Viper-mk-IV-fighter.obj";
-		spec.scale = 0.06f;
-		spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), CFrame::fromXYZYPRDegrees(0,0,0,-90));")));
-	}
-	else
-	{
-		dataFile += "/";
-		dataFile+= modelName;
-		dataFile += ".obj";
-	}
+	//if(modelName.empty())
+	//{
+	//	dataFile = "teapot/teapot.obj";
+	//	spec.scale = 0.015f;
+	//	spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), Point3(0, -0.5, 0));")));
+	//}
+	//// Special case to handle viper since the model isn't named like the folder
+	//else if(!modelName.compare("viper"))
+	//{
+	//	dataFile = "viper/Viper-mk-IV-fighter.obj";
+	//	spec.scale = 0.06f;
+	//	spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), CFrame::fromXYZYPRDegrees(0,0,0,-90));")));
+	//}
+	//else
+	//{
+	//	dataFile += "/";
+	//	dataFile+= modelName;
+	//	dataFile += ".obj";
+	//}
 
 	spec.filename = System::findDataFile(dataFile);
     spec.stripMaterials = true;
@@ -344,9 +345,6 @@ int main(int argc, const char* argv[]) {
     settings.colorGuardBandThickness  = Vector2int16(0, 0);
     settings.depthGuardBandThickness  = Vector2int16(0, 0);
 
-	if(argc > 1)
-		modelName = argv[1];
-
 	parseInput();
 
 	// Expand the initial string using the rules for the given number of iterations
@@ -364,9 +362,67 @@ int main(int argc, const char* argv[]) {
 
 	// Create tree.txt containing the string
 	std::ofstream outfile;
-	outfile.open ("tree.txt");
+	outfile.open ("../data-files/tree.txt");
 	outfile << expandedRules;
 	outfile.close();
+
+	int iter = 1;
+	int iter2 = 2;
+	int iter3 = 3;
+	int iter4 = 4;
+
+	float x = 0.0f;
+	float y = 0.0f;
+	float angle = 0.0f;
+
+	std::stringstream objString;
+
+	for(int i = 0; i < expandedRules.size(); i++)
+	{
+		if(expandedRules[i] == initialString[0])
+		{
+			objString << "v " << x << " " << y << " " << "0 \n";
+			y += .01;
+			objString << "v " << x << " " << y << " " << "0 \n";
+			x += .1;
+			objString << "v " << x << " " << y << " " << "0 \n";
+			y -= .01;
+			objString << "v " << x << " " << y << " " << "0 \n";
+			objString << "f " << iter << " " << iter2 << " " << iter3 <<"\n";
+			objString << "f " << iter3 << " " << iter4 << " " << iter <<"\n";
+			objString << "f " << iter3 << " " << iter2 << " " << iter <<"\n";
+			objString << "f " << iter << " " << iter4 << " " << iter3 <<"\n";
+			y += .01;
+			x-=.1;
+			iter+=3;
+			iter2+=3;
+			iter3+=3;
+			iter4+=3;
+		}
+		else if(expandedRules[i] == '+')
+		{
+
+		}
+		else if(expandedRules[i] == '-')
+		{
+			
+		}
+		else if(expandedRules[i] == '[')
+		{
+
+		}
+		else if(expandedRules[i] == ']')
+		{
+
+		}
+	}
+	
+	std::ofstream objfile;
+	objfile.open ("../data-files/tree.obj");
+	objfile << objString.rdbuf();
+	objfile.close();
+
+	modelName = "../data-files/tree.obj";
 
     return App(settings).run();
 }
@@ -374,7 +430,7 @@ int main(int argc, const char* argv[]) {
 void parseInput()
 {
 	std::ifstream infile;
-	infile.open("rules.txt");
+	infile.open("../data-files/rules.txt");
 	
 	string line;
 	int lineCount = 0;

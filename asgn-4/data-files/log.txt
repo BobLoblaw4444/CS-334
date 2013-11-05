@@ -1,12 +1,12 @@
 Application Log
-Start: Mon Nov 04 11:08:54 2013
+Start: Mon Nov 04 21:52:42 2013
 
-Initializing System::findDataFile took 0.009322s
+Initializing System::findDataFile took 0.009518s
 
 Entering GApp::GApp()
 cwd = H:\CS334\trunk\asgn-4\data-files
-System::setAppDataDir("H:\CS334\trunk\asgn-4\Release\")
-Initializing System::findDataFile took 0.000520s
+System::setAppDataDir("H:\CS334\trunk\asgn-4\Debug\")
+Initializing System::findDataFile took 0.001631s
 Setting video mode
 wglSwapIntervalEXT(0);
 Enabling separate specular lighting.
@@ -119,7 +119,7 @@ Done initializing RenderDevice.
 Network StartupStarting WinSock networking.
 System = { 
     App { 
-        Name = "H:\\CS334\\trunk\\asgn-4\\Release\\asgn-4.exe"
+        Name = "H:\\CS334\\trunk\\asgn-4\\Debug\\asgn-4.exe"
         cwd = "H:\\CS334\\trunk\\asgn-4\\data-files"
     } 
     
@@ -142,7 +142,7 @@ System = {
     
     G3D { 
         Link version = 90000 
-        Compile version = "G3D Innovation Engine 9.00, 32-bit"
+        Compile version = "G3D Innovation Engine 9.00, 32-bit (Debug)"
         G3D9DATA = "c:\\G3D9\\data"
     } 
     
@@ -399,9 +399,9 @@ System = {
     
     Network = { 
         Adapter0 ={ 
-            hostname = "K9-10.ad.cs.purdue.edu;"
+            hostname = "K9-22.ad.cs.purdue.edu;"
             name = ";"
-            ip = "128. 10. 15.110"; 
+            ip = "128. 10. 15.122"; 
             subnet = "  0.  0.255.255"; 
             broadcast = "255.255.255.255"; 
             mac = "00:00:00:00:00:00"; 
@@ -443,37 +443,36 @@ _____________________________________________________
 
     ###    Files Used    ###
 
-c:\G3D9\data/shader/GaussianBlur/GaussianBlur_apply.pix
 c:\G3D9\data/shader/Film/Film_expose.pix
-c:/G3D9/data/cubemap/noonclouds/noonclouds_up.png
-c:/G3D9/data/font/icon.fnt
-c:/G3D9/data/font/console-small.fnt
-c:\G3D9\data/shader/compatibility.glsl
-c:/G3D9/data/cubemap/noonclouds/noonclouds_rt.png
-H:/CS334/trunk/asgn-4/data-files/..
-..
-c:/G3D9/data/icon/tango.icn
-c:/G3D9/data/shader/Film/Film_expose.pix
-c:/G3D9/data/cubemap/noonclouds/noonclouds_ft.png
-../heightMap.png
-../lightMap.png
-H:/CS334/trunk/asgn-4/data-files/../myprog.pix
-c:/G3D9/data/model/teapot/default.mtl
-c:/G3D9/data/cubemap/noonclouds/noonclouds_dn.png
-c:/G3D9/data/cubemap/noonclouds/noonclouds_lf.png
+H:\CS334\trunk\asgn-4\data-files/../myprog.pix
 log.txt
-c:/G3D9/data/gui/osx-10.7.gtm
+c:/G3D9/data/shader/Film/Film_compositeAndTone.pix
+..
+H:/CS334/trunk/asgn-4/data-files/../myprog.vrt
+c:/G3D9/data/icon/tango.icn
+c:/G3D9/data/cubemap/noonclouds/noonclouds_lf.png
+c:/G3D9/data/shader/GaussianBlur/GaussianBlur_apply.pix
+c:\G3D9\data/shader/GaussianBlur/GaussianBlur_apply.pix
+c:/G3D9/data/font/console-small.fnt
+c:/G3D9/data/cubemap/noonclouds/noonclouds_dn.png
 c:\G3D9\data/shader/Film/Film_FXAA.pix
 c:/G3D9/data/shader/compatibility.glsl
-H:/CS334/trunk/asgn-4/data-files/../myprog.vrt
 H:\CS334\trunk\asgn-4\data-files/../myprog.vrt
 c:/G3D9/data/cubemap/noonclouds/noonclouds_bk.png
-c:/G3D9/data/shader/Film/Film_FXAA.pix
-H:\CS334\trunk\asgn-4\data-files/../myprog.pix
+H:/CS334/trunk/asgn-4/data-files/../myprog.pix
+c:/G3D9/data/font/icon.fnt
+c:\G3D9\data/shader/compatibility.glsl
+c:/G3D9/data/cubemap/noonclouds/noonclouds_rt.png
+../data-files/tree.obj
+H:/CS334/trunk/asgn-4/data-files/..
+c:/G3D9/data/cubemap/noonclouds/noonclouds_up.png
+c:/G3D9/data/shader/Film/Film_expose.pix
 c:/G3D9/data/font/arial.fnt
 c:/G3D9/data/font/greek.fnt
-c:/G3D9/data/shader/Film/Film_compositeAndTone.pix
+c:/G3D9/data/cubemap/noonclouds/noonclouds_ft.png
+c:/G3D9/data/gui/osx-10.7.gtm
 c:\G3D9\data/shader/Film/Film_compositeAndTone.pix
-c:/G3D9/data/shader/GaussianBlur/GaussianBlur_apply.pix
-c:/G3D9/data/model/teapot/teapot.obj
+../heightMap.png
+c:/G3D9/data/shader/Film/Film_FXAA.pix
+../lightMap.png
 
