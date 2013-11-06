@@ -1,21 +1,21 @@
-﻿Build started 11/4/2013 9:52:29 PM.
+﻿Build started 11/6/2013 10:49:54 AM.
      1>Project "H:\CS334\trunk\asgn-4\main.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Creating "Debug\asgn-4.unsuccessfulbuild" because "AlwaysCreate" was specified.
+         Touching "Debug\asgn-4.unsuccessfulbuild".
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /MP /Od /Oy- /D G3D_STATIC_LINK_FFMPEG /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /MP /Od /Oy- /D G3D_STATIC_LINK_FFMPEG /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
-     1>main.cpp(380): warning C4018: '<' : signed/unsigned mismatch
-     1>main.cpp(385): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>main.cpp(387): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>main.cpp(389): warning C4305: '-=' : truncation from 'double' to 'float'
-     1>main.cpp(395): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>main.cpp(396): warning C4305: '-=' : truncation from 'double' to 'float'
-     1>main.cpp(473): warning C4018: '>' : signed/unsigned mismatch
+     1>main.cpp(345): warning C4018: '<' : signed/unsigned mismatch
+     1>main.cpp(388): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>main.cpp(390): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>main.cpp(392): warning C4305: '-=' : truncation from 'double' to 'float'
+     1>main.cpp(398): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>main.cpp(399): warning C4305: '-=' : truncation from 'double' to 'float'
+     1>main.cpp(449): warning C4018: '>' : signed/unsigned mismatch
        ResourceCompile:
          All outputs are up-to-date.
        Link:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"H:\CS334\trunk\asgn-4\Debug\asgn-4.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\asgn-4.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"H:\CS334\trunk\asgn-4\Debug\asgn-4.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE:NO /NXCOMPAT /IMPLIB:"H:\CS334\trunk\asgn-4\Debug\asgn-4.lib" /MACHINE:X86 Debug\resources.res
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"H:\CS334\trunk\asgn-4\Debug\asgn-4.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\asgn-4.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"H:\CS334\trunk\asgn-4\Debug\asgn-4.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE:NO /NXCOMPAT /IMPLIB:"H:\CS334\trunk\asgn-4\Debug\asgn-4.lib" /MACHINE:X86 Debug\resources.res
          Debug\main.obj
             Creating library H:\CS334\trunk\asgn-4\Debug\asgn-4.lib and object H:\CS334\trunk\asgn-4\Debug\asgn-4.exp
      1>zlib.lib(adler32.obj) : warning LNK4099: PDB 'vcwindows7.1sdk.pdb' was not found with 'zlib.lib(adler32.obj)' or at 'H:\CS334\trunk\asgn-4\Debug\vcwindows7.1sdk.pdb'; linking object as if no debug info
@@ -105,4 +105,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:11.98
+Time Elapsed 00:00:19.89

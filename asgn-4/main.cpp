@@ -32,6 +32,16 @@ class ruleObject
 		}
 };
 
+class state
+{
+	public:
+		float x;
+		float y;
+		float z;
+		float angle;
+		int vertexNum;
+};
+
 bool count = false;
 int fCount = 0;
 
@@ -39,11 +49,15 @@ float turnAngle;
 int numOfIterations;
 string initialString;
 list<ruleObject*> ruleList;
+std::stringstream objString;
 
 void parseInput();
 string expandRules(string startString);
 string determineStochasticRule(char letter);
 bool compareWeights(ruleObject* first, ruleObject* second);
+
+void buildCylinder(state* currentState);
+
 
 string								 modelName;
 
@@ -98,42 +112,8 @@ void App::onInit() {
 
 	std::string dataFile = modelName;
 	
-	// Load each model depending on the input 
-	//if(modelName.empty())
-	//{
-	//	dataFile = "teapot/teapot.obj";
-	//	spec.scale = 0.015f;
-	//	spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), Point3(0, -0.5, 0));")));
-	//}
-	//// Special case to handle viper since the model isn't named like the folder
-	//else if(!modelName.compare("viper"))
-	//{
-	//	dataFile = "viper/Viper-mk-IV-fighter.obj";
-	//	spec.scale = 0.06f;
-	//	spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), CFrame::fromXYZYPRDegrees(0,0,0,-90));")));
-	//}
-	//else
-	//{
-	//	dataFile += "/";
-	//	dataFile+= modelName;
-	//	dataFile += ".obj";
-	//}
-
 	spec.filename = System::findDataFile(dataFile);
     spec.stripMaterials = true;
-
-	/*spec.filename = System::findDataFile("dragon/dragon.obj");
-    spec.stripMaterials = true;*/
-
-    /*spec.filename = System::findDataFile("teapot/teapot.obj");
-    spec.scale = 0.015f;
-    spec.stripMaterials = true;
-    spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), Point3(0, -0.5, 0));")));*/
-
-    /*spec.filename = System::findDataFile("viper/Viper-mk-IV-fighter.obj");
-    spec.scale = 0.06f;
-    spec.stripMaterials = true;
-    spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("setCFrame(root(), CFrame::fromXYZYPRDegrees(0,0,0,-90));")));*/
 
     model = ArticulatedModel::create(spec);
 
@@ -366,38 +346,25 @@ int main(int argc, const char* argv[]) {
 	outfile << expandedRules;
 	outfile.close();
 
-	int iter = 1;
-	int iter2 = 2;
-	int iter3 = 3;
-	int iter4 = 4;
 
 	float x = 0.0f;
 	float y = 0.0f;
 	float angle = 0.0f;
 
-	std::stringstream objString;
+	state* currentState;
+	currentState->x = 0.0f;
+	currentState->y = 0.0f;
+	currentState->z = 0.0f;
+	currentState->angle = 90.0f;
+	currentState->vertexNum = 1;
 
-	for(int i = 0; i < expandedRules.size(); i++)
+	for(int i = 0; i < 10; i++)
 	{
 		if(expandedRules[i] == initialString[0])
 		{
-			objString << "v " << x << " " << y << " " << "0 \n";
-			y += .01;
-			objString << "v " << x << " " << y << " " << "0 \n";
-			x += .1;
-			objString << "v " << x << " " << y << " " << "0 \n";
-			y -= .01;
-			objString << "v " << x << " " << y << " " << "0 \n";
-			objString << "f " << iter << " " << iter2 << " " << iter3 <<"\n";
-			objString << "f " << iter3 << " " << iter4 << " " << iter <<"\n";
-			objString << "f " << iter3 << " " << iter2 << " " << iter <<"\n";
-			objString << "f " << iter << " " << iter4 << " " << iter3 <<"\n";
-			y += .01;
-			x-=.1;
-			iter+=3;
-			iter2+=3;
-			iter3+=3;
-			iter4+=3;
+			buildCylinder(currentState);
+			currentState->x+=1;
+			currentState->y+=1;
 		}
 		else if(expandedRules[i] == '+')
 		{
@@ -425,6 +392,41 @@ int main(int argc, const char* argv[]) {
 	modelName = "../data-files/tree.obj";
 
     return App(settings).run();
+}
+
+void buildCylinder(state* currentState)
+{
+	float x = currentState->x;
+	float y = currentState->y;
+	float z = currentState->z;
+	float angle = currentState->angle;
+
+	objString << "v " << x + cos(angle) << " " << y + sin(angle) << " " << z << "\n";
+	x+=1;
+	objString << "v " << x + cos(angle) << " " << y + sin(angle) << " " << z << "\n";
+	y+=1;
+	x-=1;
+	objString << "v " << x + cos(angle) << " " << y + sin(angle) << " " << z << "\n";
+
+	objString << "f " << currentState->vertexNum << " " << currentState->vertexNum + 1 << " " << currentState->vertexNum + 2 <<"\n";
+	objString << "f " << currentState->vertexNum + 2 << " " << currentState->vertexNum + 1 << " " << currentState->vertexNum <<"\n";
+	currentState->vertexNum+=3;
+			/*y += .01;
+			objString << "v " << x << " " << y << " " << "0 \n";
+			x += .1;
+			objString << "v " << x << " " << y << " " << "0 \n";
+			y -= .01;
+			objString << "v " << x << " " << y << " " << "0 \n";
+			objString << "f " << iter << " " << iter2 << " " << iter3 <<"\n";
+			objString << "f " << iter3 << " " << iter4 << " " << iter <<"\n";
+			objString << "f " << iter3 << " " << iter2 << " " << iter <<"\n";
+			objString << "f " << iter << " " << iter4 << " " << iter3 <<"\n";
+			y += .01;
+			x-=.1;
+			iter+=3;
+			iter2+=3;
+			iter3+=3;
+			iter4+=3;*/
 }
 
 void parseInput()
