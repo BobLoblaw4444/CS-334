@@ -1,12 +1,12 @@
 Application Log
-Start: Wed Nov 06 11:21:07 2013
+Start: Wed Nov 06 16:53:02 2013
 
-Initializing System::findDataFile took 0.008041s
+Initializing System::findDataFile took 0.000458s
 
 Entering GApp::GApp()
-cwd = H:\CS334\trunk\asgn-4\data-files
-System::setAppDataDir("H:\CS334\trunk\asgn-4\Release\")
-Initializing System::findDataFile took 0.000367s
+cwd = C:\Users\Tyler Wolverton\Documents\CS334\trunk\asgn-4\data-files
+System::setAppDataDir("C:\Users\Tyler Wolverton\Documents\CS334\trunk\asgn-4\Release\")
+Initializing System::findDataFile took 0.000195s
 Setting video mode
 wglSwapIntervalEXT(0);
 Enabling separate specular lighting.
@@ -14,19 +14,19 @@ Setting initial rendering state.
 Done setting initial state.
 Supported Formats:
               Format  Texture RenderBuffer Can bind Texture as render target
-                  L8  Yes       Yes         Yes
-                 L16  Yes       Yes         No 
-                L16F  Yes       Yes         Yes
-                L32F  Yes       Yes         Yes
+                  L8  Yes       No          Yes
+                 L16  Yes       No          No 
+                L16F  Yes       No          Yes
+                L32F  Yes       No          Yes
                   A8  Yes       Yes         Yes
                  A16  Yes       Yes         Yes
                 A16F  Yes       Yes         Yes
                 A32F  Yes       Yes         Yes
-                 LA4  Yes       Yes         Yes
-                 LA8  Yes       Yes         Yes
-                LA16  Yes       Yes         Yes
-               LA16F  Yes       Yes         Yes
-               LA32F  Yes       Yes         Yes
+                 LA4  Yes       No          Yes
+                 LA8  Yes       No          Yes
+                LA16  Yes       No          Yes
+               LA16F  Yes       No          Yes
+               LA32F  Yes       No          Yes
                 RGB5  Yes       Yes         Yes
               RGB5A1  Yes       Yes         Yes
                 RGB8  Yes       Yes         Yes
@@ -40,10 +40,10 @@ Supported Formats:
               RGB8UI  Yes       Yes         No 
               RGBA8I  Yes       Yes         No 
              RGBA8UI  Yes       Yes         No 
-          RGB8_SNORM  Yes       No          No 
-         RGBA8_SNORM  Yes       No          Yes
-         RGB16_SNORM  Yes       No          No 
-        RGBA16_SNORM  Yes       No          No 
+          RGB8_SNORM  Yes       Yes         No 
+         RGBA8_SNORM  Yes       Yes         Yes
+         RGB16_SNORM  Yes       Yes         No 
+        RGBA16_SNORM  Yes       Yes         No 
                 BGR8  Yes       Yes         Yes
                BGRA8  Yes       Yes         Yes
                   R8  Yes       Yes         No 
@@ -52,8 +52,8 @@ Supported Formats:
                  R16  Yes       Yes         Yes
                 R16I  Yes       Yes         No 
                R16UI  Yes       Yes         No 
-                R32I  Yes       Yes         No 
-               R32UI  Yes       Yes         No 
+                R32I  Yes       Yes         Yes
+               R32UI  Yes       Yes         Yes
                  RG8  Yes       Yes         No 
                 RG8I  Yes       Yes         No 
                RG8UI  Yes       Yes         No 
@@ -67,8 +67,8 @@ Supported Formats:
              RGBA32F  Yes       Yes         Yes
               RGB32I  Yes       Yes         No 
              RGB32UI  Yes       Yes         No 
-             RGBA32I  Yes       Yes         No 
-            RGBA32UI  Yes       Yes         No 
+             RGBA32I  Yes       Yes         Yes
+            RGBA32UI  Yes       Yes         Yes
        YUV420_PLANAR  No        No          No 
               YUV422  No        No          No 
               YUV444  No        No          No 
@@ -76,8 +76,8 @@ Supported Formats:
            RGBA_DXT1  Yes       No          No 
            RGBA_DXT3  Yes       No          No 
            RGBA_DXT5  Yes       No          No 
-               SRGB8  Yes       No          Yes
-              SRGBA8  Yes       No          Yes
+               SRGB8  Yes       Yes         Yes
+              SRGBA8  Yes       Yes         Yes
                  SL8  Yes       No          Yes
                 SLA8  Yes       No          Yes
            SRGB_DXT1  Yes       No          No 
@@ -109,8 +109,8 @@ Height                 600 pixels           ok
 Mode                   Windowed             ok
 
 This driver will support G3D 9.00:
-GLSL version 3.30                   yes - GLSL version on this driver is 4.10
-GPU Supports OpenGL 3.3 or later    yes - OpenGL version on this driver is 4.1
+GLSL version 3.30                   yes - GLSL version on this driver is 4.30
+GPU Supports OpenGL 3.3 or later    yes - OpenGL version on this driver is 4.2
          GL_ARB_seamless_cube_map   yes 
             GL_ARB_sample_shading   yes - Optional
 
@@ -119,17 +119,17 @@ Done initializing RenderDevice.
 Network StartupStarting WinSock networking.
 System = { 
     App { 
-        Name = "H:\\CS334\\trunk\\asgn-4\\Release\\asgn-4.exe"
-        cwd = "H:\\CS334\\trunk\\asgn-4\\data-files"
+        Name = "C:\\Users\\Tyler Wolverton\\Documents\\CS334\\trunk\\asgn-4\\Release\\asgn-4.exe"
+        cwd = "C:\\Users\\Tyler Wolverton\\Documents\\CS334\\trunk\\asgn-4\\data-files"
     } 
     
     OS { 
-        Name = "Windows 6.1 build 7601 Platform 2 S"
+        Name = "Windows 6.2 build 9200 Platform 2 "
     } 
     
     CPU { 
         Vendor = "GenuineIntel"
-        Architecture = "8 - x86 Intel cores"
+        Architecture = "4 - x86 Intel cores"
         hasCPUID = Yes 
         hasMMX = Yes 
         hasSSE = Yes 
@@ -137,21 +137,21 @@ System = {
         hasSSE3 = Yes 
         has3DNow = No 
         hasRDTSC = Yes 
-        numCores = 8 
+        numCores = 4 
     } 
     
     G3D { 
         Link version = 90000 
         Compile version = "G3D Innovation Engine 9.00, 32-bit"
-        G3D9DATA = "c:\\G3D9\\data"
+        G3D9DATA = "C:\\G3D9\\data"
     } 
     
     GPU = { 
-        Chipset = "AMD Radeon HD 6450;"
+        Chipset = "AMD Radeon HD 7800 Series;"
         Vendor = "ATI Technologies Inc.;"
-        Driver = "8.17.10.1077;"
-        OpenGL version = "4.1.10750 Compatibility Profile Context;"
-        Textures = 16 ;
+        Driver = "Unknown (Can't find driver);"
+        OpenGL version = "4.2.12422 Compatibility Profile Context 13.152.0.0;"
+        Textures = 32 ;
         Texture coordinates = 16 ;
         Texture units = 8 ;
         GL_MAX_TEXTURE_SIZE = 16384 ;
@@ -185,26 +185,46 @@ System = {
         Stereo = false; 
         FSAA samples = 1 ;
         GL extensions = [ GL_AMDX_debug_output,
-             GL_AMDX_vertex_shader_tessellator,
+             GL_AMD_blend_minmax_factor,
              GL_AMD_conservative_depth,
              GL_AMD_debug_output,
              GL_AMD_depth_clamp_separate,
              GL_AMD_draw_buffers_blend,
+             GL_AMD_interleaved_elements,
              GL_AMD_multi_draw_indirect,
              GL_AMD_name_gen_delete,
              GL_AMD_performance_monitor,
+             GL_AMD_pinned_memory,
+             GL_AMD_query_buffer_object,
              GL_AMD_sample_positions,
              GL_AMD_seamless_cubemap_per_texture,
+             GL_AMD_shader_atomic_counter_ops,
              GL_AMD_shader_stencil_export,
+             GL_AMD_shader_stencil_value_export,
              GL_AMD_shader_trace,
+             GL_AMD_shader_trinary_minmax,
+             GL_AMD_sparse_texture,
+             GL_AMD_stencil_operation_extended,
              GL_AMD_texture_cube_map_array,
              GL_AMD_texture_texture4,
              GL_AMD_transform_feedback3_lines_triangles,
-             GL_AMD_vertex_shader_tessellator,
+             GL_AMD_transform_feedback4,
+             GL_AMD_vertex_shader_layer,
+             GL_AMD_vertex_shader_viewport_index,
              GL_ARB_ES2_compatibility,
+             GL_ARB_ES3_compatibility,
+             GL_ARB_arrays_of_arrays,
+             GL_ARB_base_instance,
              GL_ARB_blend_func_extended,
+             GL_ARB_clear_buffer_object,
              GL_ARB_color_buffer_float,
+             GL_ARB_compatibility,
+             GL_ARB_compressed_texture_pixel_storage,
+             GL_ARB_compute_shader,
+             GL_ARB_conservative_depth,
              GL_ARB_copy_buffer,
+             GL_ARB_copy_image,
+             GL_ARB_debug_output,
              GL_ARB_depth_buffer_float,
              GL_ARB_depth_clamp,
              GL_ARB_depth_texture,
@@ -214,10 +234,13 @@ System = {
              GL_ARB_draw_indirect,
              GL_ARB_draw_instanced,
              GL_ARB_explicit_attrib_location,
+             GL_ARB_explicit_uniform_location,
              GL_ARB_fragment_coord_conventions,
+             GL_ARB_fragment_layer_viewport,
              GL_ARB_fragment_program,
              GL_ARB_fragment_program_shadow,
              GL_ARB_fragment_shader,
+             GL_ARB_framebuffer_no_attachments,
              GL_ARB_framebuffer_object,
              GL_ARB_framebuffer_sRGB,
              GL_ARB_geometry_shader4,
@@ -228,7 +251,11 @@ System = {
              GL_ARB_half_float_vertex,
              GL_ARB_imaging,
              GL_ARB_instanced_arrays,
+             GL_ARB_internalformat_query,
+             GL_ARB_invalidate_subdata,
+             GL_ARB_map_buffer_alignment,
              GL_ARB_map_buffer_range,
+             GL_ARB_multi_draw_indirect,
              GL_ARB_multisample,
              GL_ARB_multitexture,
              GL_ARB_occlusion_query,
@@ -236,25 +263,34 @@ System = {
              GL_ARB_pixel_buffer_object,
              GL_ARB_point_parameters,
              GL_ARB_point_sprite,
+             GL_ARB_program_interface_query,
              GL_ARB_provoking_vertex,
              GL_ARB_sample_shading,
              GL_ARB_sampler_objects,
              GL_ARB_seamless_cube_map,
              GL_ARB_separate_shader_objects,
+             GL_ARB_shader_atomic_counters,
              GL_ARB_shader_bit_encoding,
+             GL_ARB_shader_image_load_store,
+             GL_ARB_shader_image_size,
              GL_ARB_shader_objects,
              GL_ARB_shader_precision,
              GL_ARB_shader_stencil_export,
+             GL_ARB_shader_storage_buffer_object,
              GL_ARB_shader_subroutine,
              GL_ARB_shader_texture_lod,
              GL_ARB_shading_language_100,
+             GL_ARB_shading_language_420pack,
+             GL_ARB_shading_language_packing,
              GL_ARB_shadow,
              GL_ARB_shadow_ambient,
+             GL_ARB_stencil_texturing,
              GL_ARB_sync,
              GL_ARB_tessellation_shader,
              GL_ARB_texture_border_clamp,
              GL_ARB_texture_buffer_object,
              GL_ARB_texture_buffer_object_rgb32,
+             GL_ARB_texture_buffer_range,
              GL_ARB_texture_compression,
              GL_ARB_texture_compression_bptc,
              GL_ARB_texture_compression_rgtc,
@@ -269,14 +305,18 @@ System = {
              GL_ARB_texture_mirrored_repeat,
              GL_ARB_texture_multisample,
              GL_ARB_texture_non_power_of_two,
+             GL_ARB_texture_query_levels,
              GL_ARB_texture_query_lod,
              GL_ARB_texture_rectangle,
              GL_ARB_texture_rg,
              GL_ARB_texture_rgb10_a2ui,
              GL_ARB_texture_snorm,
+             GL_ARB_texture_storage,
+             GL_ARB_texture_storage_multisample,
              GL_ARB_timer_query,
              GL_ARB_transform_feedback2,
              GL_ARB_transform_feedback3,
+             GL_ARB_transform_feedback_instanced,
              GL_ARB_transpose_matrix,
              GL_ARB_uniform_buffer_object,
              GL_ARB_vertex_array_bgra,
@@ -291,7 +331,6 @@ System = {
              GL_ATI_draw_buffers,
              GL_ATI_envmap_bumpmap,
              GL_ATI_fragment_shader,
-             GL_ATI_meminfo,
              GL_ATI_separate_stencil,
              GL_ATI_texture_compression_3dc,
              GL_ATI_texture_env_combine3,
@@ -308,6 +347,7 @@ System = {
              GL_EXT_compiled_vertex_array,
              GL_EXT_copy_buffer,
              GL_EXT_copy_texture,
+             GL_EXT_depth_bounds_test,
              GL_EXT_direct_state_access,
              GL_EXT_draw_buffers2,
              GL_EXT_draw_instanced,
@@ -356,8 +396,10 @@ System = {
              GL_EXT_texture_object,
              GL_EXT_texture_rectangle,
              GL_EXT_texture_sRGB,
+             GL_EXT_texture_sRGB_decode,
              GL_EXT_texture_shared_exponent,
              GL_EXT_texture_snorm,
+             GL_EXT_texture_storage,
              GL_EXT_texture_swizzle,
              GL_EXT_timer_query,
              GL_EXT_transform_feedback,
@@ -365,10 +407,12 @@ System = {
              GL_EXT_vertex_array_bgra,
              GL_EXT_vertex_attrib_64bit,
              GL_IBM_texture_mirrored_repeat,
+             GL_KHR_debug,
              GL_KTX_buffer_region,
              GL_NV_blend_square,
              GL_NV_conditional_render,
              GL_NV_copy_depth_to_color,
+             GL_NV_copy_image,
              GL_NV_explicit_multisample,
              GL_NV_float_buffer,
              GL_NV_half_float,
@@ -385,9 +429,9 @@ System = {
     
     Network = { 
         Adapter0 ={ 
-            hostname = "K9-04.ad.cs.purdue.edu;"
+            hostname = "Mach-6;"
             name = ";"
-            ip = "128. 10. 15. 10"; 
+            ip = "173.230. 57. 65"; 
             subnet = "  0.  0.255.255"; 
             broadcast = "255.255.255.255"; 
             mac = "00:00:00:00:00:00"; 
@@ -398,67 +442,54 @@ System = {
     }; 
 
 Entering GApp::loadFont("console-small.fnt")
-Found "console-small.fnt" at "c:\G3D9\data/font/console-small.fnt"
+Found "console-small.fnt" at "C:\G3D9\data/font/console-small.fnt"
 Done GApp::loadFont(...)
 Done GApp::GApp()
 
-: Vertex shader was successfully compiled to run on hardware.
-: Fragment shader was successfully compiled to run on hardware.
-Vertex shader(s) linked, fragment shader(s) linked.
-
-: Vertex shader was successfully compiled to run on hardware.
-: Fragment shader was successfully compiled to run on hardware.
-Vertex shader(s) linked, fragment shader(s) linked.
-
-: Fragment shader was successfully compiled to run on hardware.
-Fragment shader(s) linked.
-
-: Fragment shader was successfully compiled to run on hardware.
-Fragment shader(s) linked.
-
-: Fragment shader was successfully compiled to run on hardware.
-Fragment shader(s) linked.
-
-: Fragment shader was successfully compiled to run on hardware.
-Fragment shader(s) linked.
-
-: Fragment shader was successfully compiled to run on hardware.
-Fragment shader(s) linked.
-
+Ð×f˜þ
+: °lIHWS
+: °lIHWS
+€ì
+: WARNING: 1:10: warning(#402) Implicit truncation of vector from size: 2 to size: 1
+¸é
+På
+<è
+source
+Øé
 _____________________________________________________
 
     ###    Files Used    ###
 
-c:\G3D9\data/shader/Film/Film_expose.pix
-H:\CS334\trunk\asgn-4\data-files/../myprog.pix
-log.txt
-c:/G3D9/data/shader/Film/Film_compositeAndTone.pix
-..
-H:/CS334/trunk/asgn-4/data-files/../myprog.vrt
-c:/G3D9/data/icon/tango.icn
-c:/G3D9/data/cubemap/noonclouds/noonclouds_lf.png
-c:/G3D9/data/shader/GaussianBlur/GaussianBlur_apply.pix
-c:\G3D9\data/shader/GaussianBlur/GaussianBlur_apply.pix
-c:/G3D9/data/font/console-small.fnt
-c:/G3D9/data/cubemap/noonclouds/noonclouds_dn.png
-c:\G3D9\data/shader/Film/Film_FXAA.pix
-c:/G3D9/data/shader/compatibility.glsl
-H:\CS334\trunk\asgn-4\data-files/../myprog.vrt
-c:/G3D9/data/cubemap/noonclouds/noonclouds_bk.png
-H:/CS334/trunk/asgn-4/data-files/../myprog.pix
-c:/G3D9/data/font/icon.fnt
-c:\G3D9\data/shader/compatibility.glsl
-c:/G3D9/data/cubemap/noonclouds/noonclouds_rt.png
+C:\G3D9\data/shader/GaussianBlur/GaussianBlur_apply.pix
+C:\G3D9\data/shader/Film/Film_FXAA.pix
+C:/G3D9/data/shader/compatibility.glsl
+C:/Users/Tyler Wolverton/Documents/CS334/trunk/asgn-4/data-files/../myprog.pix
+C:\G3D9\data/shader/compatibility.glsl
+C:/G3D9/data/cubemap/noonclouds/noonclouds_up.png
+C:/G3D9/data/cubemap/noonclouds/noonclouds_rt.png
+C:/G3D9/data/font/greek.fnt
+C:/G3D9/data/font/icon.fnt
+C:\G3D9\data/shader/Film/Film_expose.pix
+C:/G3D9/data/font/arial.fnt
+C:\Users\Tyler Wolverton\Documents\CS334\trunk\asgn-4\data-files/../myprog.pix
 ../data-files/tree.obj
-H:/CS334/trunk/asgn-4/data-files/..
-c:/G3D9/data/cubemap/noonclouds/noonclouds_up.png
-c:/G3D9/data/shader/Film/Film_expose.pix
-c:/G3D9/data/font/arial.fnt
-c:/G3D9/data/font/greek.fnt
-c:/G3D9/data/cubemap/noonclouds/noonclouds_ft.png
-c:/G3D9/data/gui/osx-10.7.gtm
-c:\G3D9\data/shader/Film/Film_compositeAndTone.pix
 ../heightMap.png
-c:/G3D9/data/shader/Film/Film_FXAA.pix
+C:/Users/Tyler Wolverton/Documents/CS334/trunk/asgn-4/data-files/..
+C:\Users\Tyler Wolverton\Documents\CS334\trunk\asgn-4\data-files/../myprog.vrt
 ../lightMap.png
+C:/G3D9/data/cubemap/noonclouds/noonclouds_dn.png
+C:/G3D9/data/gui/osx-10.7.gtm
+C:/Users/Tyler Wolverton/Documents/CS334/trunk/asgn-4/data-files/../myprog.vrt
+C:/G3D9/data/shader/Film/Film_compositeAndTone.pix
+C:/G3D9/data/cubemap/noonclouds/noonclouds_ft.png
+C:/G3D9/data/font/console-small.fnt
+C:/G3D9/data/shader/GaussianBlur/GaussianBlur_apply.pix
+C:/G3D9/data/shader/Film/Film_FXAA.pix
+C:/G3D9/data/cubemap/noonclouds/noonclouds_lf.png
+C:\G3D9\data/shader/Film/Film_compositeAndTone.pix
+C:/G3D9/data/cubemap/noonclouds/noonclouds_bk.png
+C:/G3D9/data/icon/tango.icn
+log.txt
+C:/G3D9/data/shader/Film/Film_expose.pix
+..
 

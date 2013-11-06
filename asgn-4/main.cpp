@@ -351,24 +351,24 @@ int main(int argc, const char* argv[]) {
 	float y = 0.0f;
 	float angle = 0.0f;
 
-	state* currentState;
+	state* currentState = new state;
 	currentState->x = 0.0f;
 	currentState->y = 0.0f;
 	currentState->z = 0.0f;
 	currentState->angle = 90.0f;
 	currentState->vertexNum = 1;
 
-	for(int i = 0; i < 10; i++)
+	for(int i = 0; i < 50; i++)
 	{
 		if(expandedRules[i] == initialString[0])
 		{
 			buildCylinder(currentState);
-			currentState->x+=1;
-			currentState->y+=1;
+			currentState->x+=1 + (x * cos(currentState->angle));
+			currentState->y+=1 + (y * sin(currentState->angle));
 		}
 		else if(expandedRules[i] == '+')
 		{
-
+			currentState->angle += turnAngle;
 		}
 		else if(expandedRules[i] == '-')
 		{
@@ -384,6 +384,8 @@ int main(int argc, const char* argv[]) {
 		}
 	}
 	
+	delete(currentState);
+
 	std::ofstream objfile;
 	objfile.open ("../data-files/tree.obj");
 	objfile << objString.rdbuf();
@@ -401,32 +403,20 @@ void buildCylinder(state* currentState)
 	float z = currentState->z;
 	float angle = currentState->angle;
 
-	objString << "v " << x + cos(angle) << " " << y + sin(angle) << " " << z << "\n";
+	objString << "v " << x + (x * cos(angle)) << " " << y + (y * sin(angle)) << " " << z << "\n";
 	x+=1;
-	objString << "v " << x + cos(angle) << " " << y + sin(angle) << " " << z << "\n";
+	objString << "v " << x + (x * cos(angle)) << " " << y + (y * sin(angle)) << " " << z << "\n";
 	y+=1;
+	objString << "v " << x + (x * cos(angle)) << " " << y + (y * sin(angle)) << " " << z << "\n";
 	x-=1;
-	objString << "v " << x + cos(angle) << " " << y + sin(angle) << " " << z << "\n";
+	objString << "v " << x + (x * cos(angle)) << " " << y + (y * sin(angle)) << " " << z << "\n";
 
 	objString << "f " << currentState->vertexNum << " " << currentState->vertexNum + 1 << " " << currentState->vertexNum + 2 <<"\n";
 	objString << "f " << currentState->vertexNum + 2 << " " << currentState->vertexNum + 1 << " " << currentState->vertexNum <<"\n";
-	currentState->vertexNum+=3;
-			/*y += .01;
-			objString << "v " << x << " " << y << " " << "0 \n";
-			x += .1;
-			objString << "v " << x << " " << y << " " << "0 \n";
-			y -= .01;
-			objString << "v " << x << " " << y << " " << "0 \n";
-			objString << "f " << iter << " " << iter2 << " " << iter3 <<"\n";
-			objString << "f " << iter3 << " " << iter4 << " " << iter <<"\n";
-			objString << "f " << iter3 << " " << iter2 << " " << iter <<"\n";
-			objString << "f " << iter << " " << iter4 << " " << iter3 <<"\n";
-			y += .01;
-			x-=.1;
-			iter+=3;
-			iter2+=3;
-			iter3+=3;
-			iter4+=3;*/
+	objString << "f " << currentState->vertexNum << " " << currentState->vertexNum + 3 << " " << currentState->vertexNum + 2 <<"\n";
+	objString << "f " << currentState->vertexNum + 2 << " " << currentState->vertexNum + 3 << " " << currentState->vertexNum <<"\n";
+	
+	currentState->vertexNum+=4;
 }
 
 void parseInput()
@@ -547,10 +537,17 @@ string determineStochasticRule(char letter)
 	}
 
 	rules.sort(compareWeights);
+	std::wstringstream s;
 	for(list<ruleObject*>::iterator it = rules.begin(); it != rules.end(); it++)
 	{
-		//cout << (*it)->weight;
+		
+		s << L"" <<(*it)->weight <<" ";
+		
+		cout << (*it)->weight;
 	}
+	s << "\n";
+	std::wstring ws = s.str();
+		OutputDebugString(ws.c_str());
 
 	return rules.front()->rule;
 }
