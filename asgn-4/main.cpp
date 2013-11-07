@@ -12,14 +12,15 @@
 #include <sstream>
 #include <fstream>
 #include <list>
+#include <stack>
 
 using std::cout;
 using std::string;
 using std::list;
 
-int numVertices = 7;
-float radius = 1;
-float height = 1;
+int numVertices = 3;
+float radius = 1.0f/60;
+float height = 1.0f/60;
 
 
 class ruleObject
@@ -53,7 +54,10 @@ float turnAngle;
 int numOfIterations;
 string initialString;
 list<ruleObject*> ruleList;
+list<state*> vertexList;
 std::stringstream objString;
+int vertexNum = 1;
+
 
 void parseInput();
 string expandRules(string startString);
@@ -61,7 +65,6 @@ string determineStochasticRule(char letter);
 bool compareWeights(ruleObject* first, ruleObject* second);
 
 void buildCylinder(state* currentState);
-int vertexNum = 1;
 
 string								 modelName;
 
@@ -351,35 +354,38 @@ int main(int argc, const char* argv[]) {
 	outfile.close();
 
 	
+	std::stack<state> stateList;
+
 	state* currentState = new state;
 	currentState->x = 0.0f;
 	currentState->y = 0.0f;
 	currentState->z = 0.0f;
-	currentState->angle = 45.0f * (3.14f/180.0f);
+	currentState->angle = 90.0f * (3.14f/180.0f);
 
-	for(int i = 0; i < 4; i++)
+	for(int i = 0; i < expandedRules.size(); i++)
 	{
 		if(expandedRules[i] == initialString[0])
 		{
 			buildCylinder(currentState);
-			//currentState->x += radius;// * cos(currentState->angle));
-			currentState->y += height;// * sin(currentState->angle));
+			currentState->x += radius * cos(currentState->angle);
+			currentState->y += height * sin(currentState->angle);
 		}
 		else if(expandedRules[i] == '+')
 		{
-			currentState->angle += turnAngle;
+			currentState->angle += turnAngle * (3.14f/180.0f);
 		}
 		else if(expandedRules[i] == '-')
 		{
-			
+			currentState->angle -= turnAngle * (3.14f/180.0f);
 		}
 		else if(expandedRules[i] == '[')
 		{
-
+			stateList.push(*currentState);
 		}
 		else if(expandedRules[i] == ']')
 		{
-
+			*currentState = stateList.top();
+			stateList.pop();
 		}
 	}
 	
@@ -447,13 +453,6 @@ void buildCylinder(state* currentState)
 		vertexNum+=5;
 	}
 	vertexNum++;
-}
-
-void buildCircle(float radius)
-{
-	int centralVertex = vertexNum + 1;
-
-
 }
 
 void parseInput()
