@@ -426,7 +426,7 @@ void buildCylinder(state* currentState)
 
 	// build bottom circle point
 	int centralVertex1 = vertexNum;
-	int centralVertex2 = vertexNum + 5;
+	int centralVertex2 = vertexNum + 3;
 	vertexList.push_back(new state(x,y,z));
 
 	for(int i = 0; i < 1; i++)
@@ -436,36 +436,6 @@ void buildCylinder(state* currentState)
 		x = currentState->x + (radius * sin(angle * angleNum));
 		y = currentState->y + (radius * sin(currentState->angle))*(currentState->x - x );
 
-		//if(currentState->angle <= inRadians(45))
-		//{
-		//	y = currentState->y + (radius * sin(currentState->angle))*(currentState->x - x );
-		//}
-		//else if(currentState->angle > inRadians(45))
-		//{
-		//	y = currentState->y - (radius * cos(currentState->angle))*(currentState->x - x );
-		//}
-		//else
-		//	y=0;
-		//if(currentState->x - x > 0)
-		//{
-		//	y = currentState->y + (radius * sin(currentState->angle))*(currentState->x - x );
-		//}
-		//else if(currentState->x - x < 0)
-		//{
-		//	y = currentState->y - (radius * sin(currentState->angle))*(currentState->x - x );
-		//}
-		//else
-		//	y=0;
-
-		//if(currentState->y - y > 0)
-		//{
-			//x = x + (cos(currentState->angle))*(currentState->y - y );
-		//}
-		//else if(currentState->y - y < 0)
-		//{
-		//	x = x - (cos(currentState->angle));
-		//}
-
 		vertexList.push_back(new state(x,y,z));
 	
 		// bottom circle slice 2nd vertex
@@ -473,76 +443,47 @@ void buildCylinder(state* currentState)
 		z = currentState->z + (radius * cos(angle * angleNum));// +  (radius * cos(currentState->angle));
 		x = currentState->x + (radius * sin(angle * angleNum));// +  (radius * cos(currentState->angle));
 		y = currentState->y + (radius * sin(currentState->angle))*(currentState->x - x );
-		
-	/*	if(currentState->angle <= inRadians(45))
-		{
-			y = currentState->y + (radius * sin(currentState->angle))*(currentState->x - x );
-		}
-		else if(currentState->angle > inRadians(45))
-		{
-			y = currentState->y - (radius * cos(currentState->angle))*(currentState->x - x );
-		}
-		else
-			y=0;*/
-
-		/*if(currentState->y - y > 0)
-		{
-			x = x + (cos(currentState->angle));
-		}
-		else if(currentState->y - y < 0)
-		{
-			x = x - (cos(currentState->angle));
-		}*/
-		//x = x + (cos(currentState->angle))*(currentState->y - y );
+	
 		vertexList.push_back(new state(x,y,z));
 	
 		faceString << "f " << centralVertex1 << " " << vertexNum + 1 << " " << vertexNum + 2 <<"\n";
 		faceString << "f " << vertexNum + 2 << " " << vertexNum + 1 << " " << centralVertex1 <<"\n";
 
 		// central point of top circle
-		int centralY2 =currentState->y + (height * sin(currentState->angle));
-		x = currentState->x + (radius * cos(currentState->angle));
-		vertexList.push_back(new state(x,centralY2,z));
-
-		faceString << "f " << vertexNum + 1 << " " << vertexNum + 2 << " " << vertexNum + 3 <<"\n";
-		faceString << "f " << vertexNum + 3 << " " << vertexNum + 2 << " " << vertexNum + 1 <<"\n";
-
-		// top circle 1st vertex
-		z = currentState->z + (radius * cos(angle * (angleNum - 1)));
-		x = (currentState->x + (radius * cos(currentState->angle)));// + (radius * sin(angle * (angleNum - 1)));
-		y = centralY2 + (radius * sin(currentState->angle))*(currentState->x - x );
-		/*if(currentState->x - x > 0)
-		{
-			y = currentState->y + (radius * sin(currentState->angle));
-		}
-		else
-		{
-			y = currentState->y - (radius * sin(currentState->angle));
-		}*/
-		vertexList.push_back(new state(x,y,z));
-
-		faceString << "f " << vertexNum + 1 << " " << vertexNum + 3 << " " << vertexNum + 4 <<"\n";
-		faceString << "f " << vertexNum + 4 << " " << vertexNum + 3 << " " << vertexNum + 1 <<"\n";
-	
-		// top circle 2nd vertex
+		angleNum--;
+		float centralY2 = currentState->y + (height * sin(currentState->angle));
+		float centralX2 = currentState->x + (radius * cos(currentState->angle));
 		z = currentState->z;
-		x = currentState->x + (radius * cos(currentState->angle));
-		y = centralY2 + (radius * sin(currentState->angle))*(currentState->x - x );
-		/*if(currentState->x - x > 0)
-		{
-			y = currentState->y + (radius * sin(currentState->angle));
-		}
-		else
-		{
-			y = currentState->y - (radius * sin(currentState->angle));
-		}*/
+
+		vertexList.push_back(new state(centralX2,centralY2,z));
+
+		faceString << "f " << vertexNum + 1 << " " << vertexNum + 2 << " " << vertexNum + 4 <<"\n";
+		faceString << "f " << vertexNum + 4 << " " << vertexNum + 2 << " " << vertexNum + 1 <<"\n";
+
+		// top circle slice 1st vertex
+		z = currentState->z + (radius * cos(angle * angleNum));
+		x = centralX2 + (radius * sin(angle * angleNum));
+		y = centralY2 + (radius * sin(currentState->angle))*(centralX2 - x );
+		
 		vertexList.push_back(new state(x,y,z));
 
-		faceString << "f " << centralVertex2 << " " << vertexNum + 3 << " " << vertexNum + 4 <<"\n";
-		faceString << "f " << vertexNum + 4 << " " << vertexNum + 3 << " " << centralVertex2 <<"\n";
+		faceString << "f " << vertexNum + 2 << " " << vertexNum + 5 << " " << vertexNum + 4 <<"\n";
+		faceString << "f " << vertexNum + 4 << " " << vertexNum + 5 << " " << vertexNum + 2 <<"\n";
+	
+		// top circle slice 2nd vertex
+		angleNum++;
+		z = currentState->z + (radius * cos(angle * angleNum));
+		x = centralX2 + (radius * sin(angle * angleNum));
+		y = centralY2 + (radius * sin(currentState->angle))*(centralX2 - x);
+		
+		vertexList.push_back(new state(x,y,z));
+
+		faceString << "f " << centralVertex2 << " " << vertexNum + 5 << " " << vertexNum + 4 <<"\n";
+		faceString << "f " << vertexNum + 4 << " " << vertexNum + 5 << " " << centralVertex2 <<"\n";
 		
 		x = currentState->x;
 		y = currentState->y;
+		z = currentState->z;
 		vertexNum+=5;
 	}
 	vertexNum++;

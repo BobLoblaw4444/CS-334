@@ -1,12 +1,12 @@
 Application Log
-Start: Thu Nov 07 17:03:01 2013
+Start: Thu Nov 07 17:29:27 2013
 
-Initializing System::findDataFile took 0.010426s
+Initializing System::findDataFile took 0.007928s
 
 Entering GApp::GApp()
 cwd = H:\CS334\trunk\asgn-4\data-files
 System::setAppDataDir("H:\CS334\trunk\asgn-4\Debug\")
-Initializing System::findDataFile took 0.002906s
+Initializing System::findDataFile took 0.002007s
 Setting video mode
 wglSwapIntervalEXT(0);
 Enabling separate specular lighting.
