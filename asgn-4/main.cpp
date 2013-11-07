@@ -477,23 +477,23 @@ void rotateVertices(float angle)
 	for(list<state*>::iterator it = vertexList.begin(); it != vertexList.end(); it++)
 	{
 	//	//px+(x-px)cos(alpha)
-		/*if((*it)->x - px < 0)
-		{
-			(*it)->x = px + ((*it)->x - px) * cos(angle - inRadians(90.0f));
-		}
-		else
-		{
-			(*it)->x = px + ((*it)->x - px) * cos(angle - inRadians(270.0f));
-		}
+		//if((*it)->x - px < 0)
+		//{
+			(*it)->x = (*it)->x + ((*it)->x - px) * cos(angle - inRadians(90.0f));
+		//}
+		//else
+		//{
+		//	(*it)->x = px + ((*it)->x - px) * cos(angle - inRadians(270.0f));
+		//}
 
-		if((*it)->y - py < 0)
-		{
-			(*it)->y = py + ((*it)->y - py) * sin(angle - inRadians(90.0f));
-		}
-		else
-		{
-			(*it)->y = py + ((*it)->y - py) * sin(angle - inRadians(270.0f));
-		}*/
+		//if((*it)->y - py < 0)
+		//{
+			(*it)->y = (*it)->y + ((*it)->y - py) * sin(angle - inRadians(90.0f));
+		//}
+		//else
+		//{
+			//(*it)->y = py + ((*it)->y - py) * sin(angle - inRadians(270.0f));
+		//}
 
 		
 
@@ -606,31 +606,28 @@ bool compareWeights(ruleObject* first, ruleObject* second)
 string determineStochasticRule(char letter)
 {
 	list<ruleObject*> rules;
+	ruleObject* weightedArray[10];
+	int count = 0;
 
 	for(list<ruleObject*>::iterator it = ruleList.begin(); it != ruleList.end(); it++)
 	{
 		if(letter == (*it)->letter)
 		{
-			rules.push_front(*it);
+			if((*it)->weight != 1.0f)
+			{
+				for(int i = 0; i < std::floor((*it)->weight *10); i++)
+				{
+					weightedArray[count] = (*it);
+					count++;
+				}
+			}
+			else
+			{
+				return (*it)->rule;
+			}
 		}
 	}
-	if(rules.size() == 1)
-	{
-		return rules.front()->rule;
-	}
-
-	rules.sort(compareWeights);
-	std::wstringstream s;
-	for(list<ruleObject*>::iterator it = rules.begin(); it != rules.end(); it++)
-	{
-		
-		s << L"" <<(*it)->weight <<" ";
-		
-		cout << (*it)->weight;
-	}
-	s << "\n";
-	std::wstring ws = s.str();
-		OutputDebugString(ws.c_str());
-
-	return rules.front()->rule;
+	
+	Random rand;
+	return weightedArray[rand.integer(0,9)]->rule;
 }
