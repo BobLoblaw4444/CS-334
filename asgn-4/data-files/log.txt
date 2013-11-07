@@ -1,12 +1,12 @@
 Application Log
-Start: Thu Nov 07 11:07:26 2013
+Start: Thu Nov 07 17:03:01 2013
 
-Initializing System::findDataFile took 0.008612s
+Initializing System::findDataFile took 0.010426s
 
 Entering GApp::GApp()
 cwd = H:\CS334\trunk\asgn-4\data-files
-System::setAppDataDir("H:\CS334\trunk\asgn-4\Release\")
-Initializing System::findDataFile took 0.000451s
+System::setAppDataDir("H:\CS334\trunk\asgn-4\Debug\")
+Initializing System::findDataFile took 0.002906s
 Setting video mode
 wglSwapIntervalEXT(0);
 Enabling separate specular lighting.
@@ -119,7 +119,7 @@ Done initializing RenderDevice.
 Network StartupStarting WinSock networking.
 System = { 
     App { 
-        Name = "H:\\CS334\\trunk\\asgn-4\\Release\\asgn-4.exe"
+        Name = "H:\\CS334\\trunk\\asgn-4\\Debug\\asgn-4.exe"
         cwd = "H:\\CS334\\trunk\\asgn-4\\data-files"
     } 
     
@@ -142,7 +142,7 @@ System = {
     
     G3D { 
         Link version = 90000 
-        Compile version = "G3D Innovation Engine 9.00, 32-bit"
+        Compile version = "G3D Innovation Engine 9.00, 32-bit (Debug)"
         G3D9DATA = "c:\\G3D9\\data"
     } 
     
@@ -399,9 +399,9 @@ System = {
     
     Network = { 
         Adapter0 ={ 
-            hostname = "K9-05.ad.cs.purdue.edu;"
+            hostname = "K9-21.ad.cs.purdue.edu;"
             name = ";"
-            ip = "128. 10. 15.105"; 
+            ip = "128. 10. 15.121"; 
             subnet = "  0.  0.255.255"; 
             broadcast = "255.255.255.255"; 
             mac = "00:00:00:00:00:00"; 
