@@ -17,6 +17,11 @@ using std::cout;
 using std::string;
 using std::list;
 
+int numVertices = 20;
+float radius = 1;
+float height = 1;
+
+
 class ruleObject
 {
 	public:
@@ -39,7 +44,6 @@ class state
 		float y;
 		float z;
 		float angle;
-		int vertexNum;
 };
 
 bool count = false;
@@ -57,7 +61,7 @@ string determineStochasticRule(char letter);
 bool compareWeights(ruleObject* first, ruleObject* second);
 
 void buildCylinder(state* currentState);
-
+int vertexNum = 1;
 
 string								 modelName;
 
@@ -346,25 +350,20 @@ int main(int argc, const char* argv[]) {
 	outfile << expandedRules;
 	outfile.close();
 
-
-	float x = 0.0f;
-	float y = 0.0f;
-	float angle = 0.0f;
-
+	
 	state* currentState = new state;
 	currentState->x = 0.0f;
 	currentState->y = 0.0f;
 	currentState->z = 0.0f;
 	currentState->angle = 90.0f;
-	currentState->vertexNum = 1;
 
-	for(int i = 0; i < 50; i++)
+	for(int i = 0; i < 1; i++)
 	{
 		if(expandedRules[i] == initialString[0])
 		{
 			buildCylinder(currentState);
-			currentState->x+=1 + (x * cos(currentState->angle));
-			currentState->y+=1 + (y * sin(currentState->angle));
+			currentState->x+=1 + (currentState->x * cos(currentState->angle));
+			currentState->y+=1 + (currentState->y * sin(currentState->angle));
 		}
 		else if(expandedRules[i] == '+')
 		{
@@ -401,22 +400,58 @@ void buildCylinder(state* currentState)
 	float x = currentState->x;
 	float y = currentState->y;
 	float z = currentState->z;
-	float angle = currentState->angle;
+	float angle = 6.28f/numVertices;
 
-	objString << "v " << x + (x * cos(angle)) << " " << y + (y * sin(angle)) << " " << z << "\n";
-	x+=1;
-	objString << "v " << x + (x * cos(angle)) << " " << y + (y * sin(angle)) << " " << z << "\n";
-	y+=1;
-	objString << "v " << x + (x * cos(angle)) << " " << y + (y * sin(angle)) << " " << z << "\n";
-	x-=1;
-	objString << "v " << x + (x * cos(angle)) << " " << y + (y * sin(angle)) << " " << z << "\n";
+	int angleNum = 1;
 
-	objString << "f " << currentState->vertexNum << " " << currentState->vertexNum + 1 << " " << currentState->vertexNum + 2 <<"\n";
-	objString << "f " << currentState->vertexNum + 2 << " " << currentState->vertexNum + 1 << " " << currentState->vertexNum <<"\n";
-	objString << "f " << currentState->vertexNum << " " << currentState->vertexNum + 3 << " " << currentState->vertexNum + 2 <<"\n";
-	objString << "f " << currentState->vertexNum + 2 << " " << currentState->vertexNum + 3 << " " << currentState->vertexNum <<"\n";
+	// build bottom circle
+	int centralVertex1 = vertexNum;
+	int centralVertex2 = vertexNum + 5;
+	objString << "v " << x  << " " << y  << " " << z << "\n";
+	for(int i = 0; i < numVertices; i++)
+	{
+		z = currentState->z + (radius * cos(angle * angleNum));
+		x = currentState->x + (radius * sin(angle * angleNum));
+		objString << "v " << x << " " << y << " " << z << "\n";
 	
-	currentState->vertexNum+=4;
+		angleNum++;
+		z = currentState->z + (radius * cos(angle * angleNum));
+		x = currentState->x + (radius * sin(angle * angleNum));
+		objString << "v " << x << " " << y << " " << z << "\n";
+	
+		objString << "f " << centralVertex1 << " " << vertexNum + 1 << " " << vertexNum + 2 <<"\n";
+		objString << "f " << vertexNum + 2 << " " << vertexNum + 1 << " " << centralVertex1 <<"\n";
+
+		y += height;
+		objString << "v " << x << " " << y << " " << z << "\n";
+
+		objString << "f " << vertexNum + 1 << " " << vertexNum + 2 << " " << vertexNum + 3 <<"\n";
+		objString << "f " << vertexNum + 3 << " " << vertexNum + 2 << " " << vertexNum + 1 <<"\n";
+
+		z = currentState->z + (radius * cos(angle * (angleNum - 1)));
+		x = currentState->x + (radius * sin(angle * (angleNum - 1)));
+		objString << "v " << x << " " << y << " " << z << "\n";
+
+		objString << "f " << vertexNum + 1 << " " << vertexNum + 3 << " " << vertexNum + 4 <<"\n";
+		objString << "f " << vertexNum + 4 << " " << vertexNum + 3 << " " << vertexNum + 1 <<"\n";
+	
+		z = currentState->z;
+		x = currentState->x;
+		objString << "v " << x << " " << y << " " << z << "\n";
+
+		objString << "f " << centralVertex2 << " " << vertexNum + 3 << " " << vertexNum + 4 <<"\n";
+		objString << "f " << vertexNum + 4 << " " << vertexNum + 3 << " " << centralVertex2 <<"\n";
+		
+		y -= height;
+		vertexNum+=5;
+	}
+}
+
+void buildCircle(float radius)
+{
+	int centralVertex = vertexNum + 1;
+
+
 }
 
 void parseInput()
