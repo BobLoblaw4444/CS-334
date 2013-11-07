@@ -18,7 +18,7 @@ using std::cout;
 using std::string;
 using std::list;
 
-int numVertices = 3;
+int numVertices = 5;
 float radius = 1.0f/60;
 float height = 1.0f/60;
 
@@ -45,7 +45,19 @@ class state
 		float y;
 		float z;
 		float angle;
+
+		state(float X, float Y, float Z)
+		{
+			x = X;
+			y = Y;
+			z = Z;
+		}
 };
+
+float inRadians(float deg)
+{
+	return deg * (3.14f/180.0f);
+}
 
 bool count = false;
 int fCount = 0;
@@ -55,6 +67,8 @@ int numOfIterations;
 string initialString;
 list<ruleObject*> ruleList;
 list<state*> vertexList;
+std::stringstream vertexString;
+std::stringstream faceString;
 std::stringstream objString;
 int vertexNum = 1;
 
@@ -65,6 +79,7 @@ string determineStochasticRule(char letter);
 bool compareWeights(ruleObject* first, ruleObject* second);
 
 void buildCylinder(state* currentState);
+void rotateVertices(float angle);
 
 string								 modelName;
 
@@ -356,10 +371,7 @@ int main(int argc, const char* argv[]) {
 	
 	std::stack<state> stateList;
 
-	state* currentState = new state;
-	currentState->x = 0.0f;
-	currentState->y = 0.0f;
-	currentState->z = 0.0f;
+	state* currentState = new state(0.0f, 0.0f, 0.0f);
 	currentState->angle = 90.0f * (3.14f/180.0f);
 
 	for(int i = 0; i < expandedRules.size(); i++)
@@ -367,6 +379,7 @@ int main(int argc, const char* argv[]) {
 		if(expandedRules[i] == initialString[0])
 		{
 			buildCylinder(currentState);
+			rotateVertices(currentState->angle);
 			currentState->x += radius * cos(currentState->angle);
 			currentState->y += height * sin(currentState->angle);
 		}
@@ -393,7 +406,8 @@ int main(int argc, const char* argv[]) {
 
 	std::ofstream objfile;
 	objfile.open ("../data-files/tree.obj");
-	objfile << objString.rdbuf();
+	objfile << vertexString.rdbuf();
+	objfile << faceString.rdbuf();
 	objfile.close();
 
 	modelName = "../data-files/tree.obj";
@@ -413,46 +427,79 @@ void buildCylinder(state* currentState)
 	// build bottom circle
 	int centralVertex1 = vertexNum;
 	int centralVertex2 = vertexNum + 5;
-	objString << "v " << x  << " " << y  << " " << z << "\n";
+	vertexList.push_back(new state(x,y,z));
 
 	for(int i = 0; i < numVertices; i++)
 	{
 		z = currentState->z + (radius * cos(angle * angleNum));
 		x = currentState->x + (radius * sin(angle * angleNum));
-		objString << "v " << x << " " << y << " " << z << "\n";
+		vertexList.push_back(new state(x,y,z));
 	
 		angleNum++;
 		z = currentState->z + (radius * cos(angle * angleNum));
 		x = currentState->x + (radius * sin(angle * angleNum));
-		objString << "v " << x << " " << y << " " << z << "\n";
+		vertexList.push_back(new state(x,y,z));
 	
-		objString << "f " << centralVertex1 << " " << vertexNum + 1 << " " << vertexNum + 2 <<"\n";
-		objString << "f " << vertexNum + 2 << " " << vertexNum + 1 << " " << centralVertex1 <<"\n";
+		faceString << "f " << centralVertex1 << " " << vertexNum + 1 << " " << vertexNum + 2 <<"\n";
+		faceString << "f " << vertexNum + 2 << " " << vertexNum + 1 << " " << centralVertex1 <<"\n";
 
 		y += height;
-		objString << "v " << x << " " << y << " " << z << "\n";
+		vertexList.push_back(new state(x,y,z));
 
-		objString << "f " << vertexNum + 1 << " " << vertexNum + 2 << " " << vertexNum + 3 <<"\n";
-		objString << "f " << vertexNum + 3 << " " << vertexNum + 2 << " " << vertexNum + 1 <<"\n";
+		faceString << "f " << vertexNum + 1 << " " << vertexNum + 2 << " " << vertexNum + 3 <<"\n";
+		faceString << "f " << vertexNum + 3 << " " << vertexNum + 2 << " " << vertexNum + 1 <<"\n";
 
 		z = currentState->z + (radius * cos(angle * (angleNum - 1)));
 		x = currentState->x + (radius * sin(angle * (angleNum - 1)));
-		objString << "v " << x << " " << y << " " << z << "\n";
+		vertexList.push_back(new state(x,y,z));
 
-		objString << "f " << vertexNum + 1 << " " << vertexNum + 3 << " " << vertexNum + 4 <<"\n";
-		objString << "f " << vertexNum + 4 << " " << vertexNum + 3 << " " << vertexNum + 1 <<"\n";
+		faceString << "f " << vertexNum + 1 << " " << vertexNum + 3 << " " << vertexNum + 4 <<"\n";
+		faceString << "f " << vertexNum + 4 << " " << vertexNum + 3 << " " << vertexNum + 1 <<"\n";
 	
 		z = currentState->z;
 		x = currentState->x;
-		objString << "v " << x << " " << y << " " << z << "\n";
+		vertexList.push_back(new state(x,y,z));
 
-		objString << "f " << centralVertex2 << " " << vertexNum + 3 << " " << vertexNum + 4 <<"\n";
-		objString << "f " << vertexNum + 4 << " " << vertexNum + 3 << " " << centralVertex2 <<"\n";
+		faceString << "f " << centralVertex2 << " " << vertexNum + 3 << " " << vertexNum + 4 <<"\n";
+		faceString << "f " << vertexNum + 4 << " " << vertexNum + 3 << " " << centralVertex2 <<"\n";
 		
 		y -= height;
 		vertexNum+=5;
 	}
 	vertexNum++;
+}
+
+void rotateVertices(float angle)
+{
+	float px = vertexList.front()->x;
+	float py = vertexList.front()->y;
+
+	for(list<state*>::iterator it = vertexList.begin(); it != vertexList.end(); it++)
+	{
+	//	//px+(x-px)cos(alpha)
+		/*if((*it)->x - px < 0)
+		{
+			(*it)->x = px + ((*it)->x - px) * cos(angle - inRadians(90.0f));
+		}
+		else
+		{
+			(*it)->x = px + ((*it)->x - px) * cos(angle - inRadians(270.0f));
+		}
+
+		if((*it)->y - py < 0)
+		{
+			(*it)->y = py + ((*it)->y - py) * sin(angle - inRadians(90.0f));
+		}
+		else
+		{
+			(*it)->y = py + ((*it)->y - py) * sin(angle - inRadians(270.0f));
+		}*/
+
+		
+
+		vertexString << "v " << (*it)->x << " " << (*it)->y << " " << (*it)->z <<"\n";
+	}
+	vertexList.clear();
 }
 
 void parseInput()

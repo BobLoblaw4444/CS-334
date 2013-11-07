@@ -1,7 +1,7 @@
 Application Log
-Start: Wed Nov 06 21:50:55 2013
+Start: Wed Nov 06 23:38:01 2013
 
-Initializing System::findDataFile took 0.007959s
+Initializing System::findDataFile took 0.008209s
 
 Entering GApp::GApp()
 cwd = H:\CS334\trunk\asgn-4\data-files
