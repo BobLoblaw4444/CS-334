@@ -18,9 +18,9 @@ using std::cout;
 using std::string;
 using std::list;
 
-int numVertices = 5;
-float radius = 1.0f/60;
-float height = 1.0f/60;
+int numVertices = 12;
+float radius = 1.0f;
+float height = 1.0f;
 
 
 class ruleObject
@@ -372,9 +372,9 @@ int main(int argc, const char* argv[]) {
 	std::stack<state> stateList;
 
 	state* currentState = new state(0.0f, 0.0f, 0.0f);
-	currentState->angle = 90.0f * (3.14f/180.0f);
+	currentState->angle = inRadians(45.0f);
 
-	for(int i = 0; i < expandedRules.size(); i++)
+	for(int i = 0; i < 1; i++)
 	{
 		if(expandedRules[i] == initialString[0])
 		{
@@ -385,11 +385,11 @@ int main(int argc, const char* argv[]) {
 		}
 		else if(expandedRules[i] == '+')
 		{
-			currentState->angle += turnAngle * (3.14f/180.0f);
+			currentState->angle += inRadians(turnAngle);
 		}
 		else if(expandedRules[i] == '-')
 		{
-			currentState->angle -= turnAngle * (3.14f/180.0f);
+			currentState->angle -= inRadians(turnAngle);
 		}
 		else if(expandedRules[i] == '[')
 		{
@@ -429,41 +429,44 @@ void buildCylinder(state* currentState)
 	int centralVertex2 = vertexNum + 5;
 	vertexList.push_back(new state(x,y,z));
 
-	for(int i = 0; i < numVertices; i++)
+	for(int i = 0; i < 1; i++)
 	{
 		z = currentState->z + (radius * cos(angle * angleNum));
 		x = currentState->x + (radius * sin(angle * angleNum));
+		y += sin(currentState->angle);
 		vertexList.push_back(new state(x,y,z));
 	
 		angleNum++;
 		z = currentState->z + (radius * cos(angle * angleNum));
 		x = currentState->x + (radius * sin(angle * angleNum));
+		y += sin(currentState->angle);
 		vertexList.push_back(new state(x,y,z));
 	
 		faceString << "f " << centralVertex1 << " " << vertexNum + 1 << " " << vertexNum + 2 <<"\n";
 		faceString << "f " << vertexNum + 2 << " " << vertexNum + 1 << " " << centralVertex1 <<"\n";
 
-		y += height;
+		y += height * sin(currentState->angle);
+		x += 2 * radius * cos(currentState->angle);
 		vertexList.push_back(new state(x,y,z));
 
 		faceString << "f " << vertexNum + 1 << " " << vertexNum + 2 << " " << vertexNum + 3 <<"\n";
 		faceString << "f " << vertexNum + 3 << " " << vertexNum + 2 << " " << vertexNum + 1 <<"\n";
 
 		z = currentState->z + (radius * cos(angle * (angleNum - 1)));
-		x = currentState->x + (radius * sin(angle * (angleNum - 1)));
+		x = (currentState->x + (2 * radius * cos(currentState->angle))) + (radius * sin(angle * (angleNum - 1)));
 		vertexList.push_back(new state(x,y,z));
 
 		faceString << "f " << vertexNum + 1 << " " << vertexNum + 3 << " " << vertexNum + 4 <<"\n";
 		faceString << "f " << vertexNum + 4 << " " << vertexNum + 3 << " " << vertexNum + 1 <<"\n";
 	
 		z = currentState->z;
-		x = currentState->x;
+		x = currentState->x + (2 * radius * cos(currentState->angle));
 		vertexList.push_back(new state(x,y,z));
 
 		faceString << "f " << centralVertex2 << " " << vertexNum + 3 << " " << vertexNum + 4 <<"\n";
 		faceString << "f " << vertexNum + 4 << " " << vertexNum + 3 << " " << centralVertex2 <<"\n";
 		
-		y -= height;
+		y = currentState->y;
 		vertexNum+=5;
 	}
 	vertexNum++;
@@ -479,7 +482,7 @@ void rotateVertices(float angle)
 	//	//px+(x-px)cos(alpha)
 		//if((*it)->x - px < 0)
 		//{
-			(*it)->x = (*it)->x + ((*it)->x - px) * cos(angle - inRadians(90.0f));
+			//(*it)->x = (*it)->x + ((*it)->x - px) * cos(angle - inRadians(90.0f));
 		//}
 		//else
 		//{
@@ -488,7 +491,7 @@ void rotateVertices(float angle)
 
 		//if((*it)->y - py < 0)
 		//{
-			(*it)->y = (*it)->y + ((*it)->y - py) * sin(angle - inRadians(90.0f));
+			//(*it)->y = (*it)->y + ((*it)->y - py) * sin(angle - inRadians(90.0f));
 		//}
 		//else
 		//{
