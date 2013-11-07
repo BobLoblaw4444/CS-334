@@ -18,7 +18,7 @@ using std::cout;
 using std::string;
 using std::list;
 
-int numVertices = 12;
+int numVertices = 2;
 float radius = 1.0f;
 float height = 1.0f;
 
@@ -424,48 +424,84 @@ void buildCylinder(state* currentState)
 
 	int angleNum = 1;
 
-	// build bottom circle
+	// build bottom circle point
 	int centralVertex1 = vertexNum;
 	int centralVertex2 = vertexNum + 5;
 	vertexList.push_back(new state(x,y,z));
 
-	for(int i = 0; i < 1; i++)
+	for(int i = 0; i < numVertices; i++)
 	{
-		z = currentState->z + (radius * cos(angle * angleNum));
-		x = currentState->x + (radius * sin(angle * angleNum));
-		y += sin(currentState->angle);
+		// bottom circle 1st vertex
+		z = currentState->z + (radius * cos(angle * angleNum));// +  (radius * cos(currentState->angle));
+		x = currentState->x + (radius * sin(angle * angleNum)) +  (radius * cos(currentState->angle));
+		if(currentState->x - x > 0)
+		{
+			y = currentState->y + (radius * sin(currentState->angle));
+		}
+		else
+		{
+			y = currentState->y - (radius * sin(currentState->angle));
+		}
 		vertexList.push_back(new state(x,y,z));
 	
+		// bottom circle 2nd vertex
 		angleNum++;
-		z = currentState->z + (radius * cos(angle * angleNum));
-		x = currentState->x + (radius * sin(angle * angleNum));
-		y += sin(currentState->angle);
+		z = currentState->z + (radius * cos(angle * angleNum));// +  (radius * cos(currentState->angle));
+		x = currentState->x + (radius * sin(angle * angleNum)) +  (radius * cos(currentState->angle));
+		if(currentState->x - x > 0)
+		{
+			y = currentState->y + (radius * sin(currentState->angle));
+		}
+		else
+		{
+			y = currentState->y - (radius * sin(currentState->angle));
+		}
 		vertexList.push_back(new state(x,y,z));
 	
 		faceString << "f " << centralVertex1 << " " << vertexNum + 1 << " " << vertexNum + 2 <<"\n";
 		faceString << "f " << vertexNum + 2 << " " << vertexNum + 1 << " " << centralVertex1 <<"\n";
 
-		y += height * sin(currentState->angle);
+		// central point of top circle
+		y =currentState->y + (height * sin(currentState->angle));
 		x += 2 * radius * cos(currentState->angle);
 		vertexList.push_back(new state(x,y,z));
 
 		faceString << "f " << vertexNum + 1 << " " << vertexNum + 2 << " " << vertexNum + 3 <<"\n";
 		faceString << "f " << vertexNum + 3 << " " << vertexNum + 2 << " " << vertexNum + 1 <<"\n";
 
+		// top circle 1st vertex
 		z = currentState->z + (radius * cos(angle * (angleNum - 1)));
 		x = (currentState->x + (2 * radius * cos(currentState->angle))) + (radius * sin(angle * (angleNum - 1)));
+		if(currentState->x - x > 0)
+		{
+			y = currentState->y + (radius * sin(currentState->angle));
+		}
+		else
+		{
+			y = currentState->y - (radius * sin(currentState->angle));
+		}
 		vertexList.push_back(new state(x,y,z));
 
 		faceString << "f " << vertexNum + 1 << " " << vertexNum + 3 << " " << vertexNum + 4 <<"\n";
 		faceString << "f " << vertexNum + 4 << " " << vertexNum + 3 << " " << vertexNum + 1 <<"\n";
 	
+		// top circle 2nd vertex
 		z = currentState->z;
 		x = currentState->x + (2 * radius * cos(currentState->angle));
+		if(currentState->x - x > 0)
+		{
+			y = currentState->y + (radius * sin(currentState->angle));
+		}
+		else
+		{
+			y = currentState->y - (radius * sin(currentState->angle));
+		}
 		vertexList.push_back(new state(x,y,z));
 
 		faceString << "f " << centralVertex2 << " " << vertexNum + 3 << " " << vertexNum + 4 <<"\n";
 		faceString << "f " << vertexNum + 4 << " " << vertexNum + 3 << " " << centralVertex2 <<"\n";
 		
+		x = currentState->x;
 		y = currentState->y;
 		vertexNum+=5;
 	}
@@ -480,23 +516,23 @@ void rotateVertices(float angle)
 	for(list<state*>::iterator it = vertexList.begin(); it != vertexList.end(); it++)
 	{
 	//	//px+(x-px)cos(alpha)
-		//if((*it)->x - px < 0)
-		//{
-			//(*it)->x = (*it)->x + ((*it)->x - px) * cos(angle - inRadians(90.0f));
-		//}
-		//else
-		//{
-		//	(*it)->x = px + ((*it)->x - px) * cos(angle - inRadians(270.0f));
-		//}
+		if((*it)->x - px < 0)
+		{
+			(*it)->x += (*it)->x * cos(angle - inRadians(90.0f));
+		}
+		else
+		{
+			(*it)->x = px + ((*it)->x - px) * cos(angle - inRadians(270.0f));
+		}
 
-		//if((*it)->y - py < 0)
-		//{
-			//(*it)->y = (*it)->y + ((*it)->y - py) * sin(angle - inRadians(90.0f));
-		//}
-		//else
-		//{
-			//(*it)->y = py + ((*it)->y - py) * sin(angle - inRadians(270.0f));
-		//}
+		if((*it)->y - py < 0)
+		{
+			(*it)->y = (*it)->y + ((*it)->y - py) * sin(angle - inRadians(90.0f));
+		}
+		else
+		{
+			(*it)->y = py + ((*it)->y - py) * sin(angle - inRadians(270.0f));
+		}
 
 		
 
