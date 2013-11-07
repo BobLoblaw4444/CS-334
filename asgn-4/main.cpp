@@ -17,7 +17,7 @@ using std::cout;
 using std::string;
 using std::list;
 
-int numVertices = 20;
+int numVertices = 7;
 float radius = 1;
 float height = 1;
 
@@ -355,15 +355,15 @@ int main(int argc, const char* argv[]) {
 	currentState->x = 0.0f;
 	currentState->y = 0.0f;
 	currentState->z = 0.0f;
-	currentState->angle = 90.0f;
+	currentState->angle = 45.0f * (3.14f/180.0f);
 
-	for(int i = 0; i < 1; i++)
+	for(int i = 0; i < 4; i++)
 	{
 		if(expandedRules[i] == initialString[0])
 		{
 			buildCylinder(currentState);
-			currentState->x+=1 + (currentState->x * cos(currentState->angle));
-			currentState->y+=1 + (currentState->y * sin(currentState->angle));
+			//currentState->x += radius;// * cos(currentState->angle));
+			currentState->y += height;// * sin(currentState->angle));
 		}
 		else if(expandedRules[i] == '+')
 		{
@@ -408,6 +408,7 @@ void buildCylinder(state* currentState)
 	int centralVertex1 = vertexNum;
 	int centralVertex2 = vertexNum + 5;
 	objString << "v " << x  << " " << y  << " " << z << "\n";
+
 	for(int i = 0; i < numVertices; i++)
 	{
 		z = currentState->z + (radius * cos(angle * angleNum));
@@ -445,6 +446,7 @@ void buildCylinder(state* currentState)
 		y -= height;
 		vertexNum+=5;
 	}
+	vertexNum++;
 }
 
 void buildCircle(float radius)
