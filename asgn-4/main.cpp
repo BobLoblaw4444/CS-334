@@ -19,9 +19,9 @@ using std::cout;
 using std::string;
 using std::list;
 
-int numVertices = 6;
+int numVertices = 8;
 float radius = 1.0f/120;
-float height = 1.0f/120;
+float height = 1.0f/90;
 
 bool rotateZ = false;
 
@@ -384,11 +384,11 @@ int main(int argc, const char* argv[]) {
 		{
 			if((rand() % 2) == 0)
 			{
-				rotateZ = true;
+				//rotateZ = true;
 			}
 
 			state* newPos = buildCylinder(currentState);
-			rotateVertices(currentState->angle);
+			//rotateVertices(currentState->angle);
 
 			currentState->x = newPos->x;
 			currentState->y = newPos->y;
@@ -437,6 +437,9 @@ int main(int argc, const char* argv[]) {
     return App(settings).run();
 }
 
+/*
+	
+*/
 state* buildCylinder(state* currentState)
 {
 	float x = currentState->x;
@@ -446,48 +449,32 @@ state* buildCylinder(state* currentState)
 
 	int angleNum = 1;
 
-	// build bottom circle point
-	int centralVertex1 = vertexNum;
-	int centralVertex2 = vertexNum + 3;
-
 	float centralY2;
 	float centralX2;
 	float centralZ2;
 
-	vertexList.push_back(new state(x,y,z));
+	// build bottom circle point
+	int centralVertex1 = vertexNum;
+	int centralVertex2 = vertexNum + 3;
+
+	vertexString << "v " << x << " " << y << " " << z <<"\n";
 
 	for(int i = 0; i < numVertices; i++)
 	{
 		// bottom circle slice 1st vertex
 		z = currentState->z + (radius * cos(angle * angleNum));
 		x = currentState->x + (radius * sin(angle * angleNum));
+		y = currentState->y + (radius * sin(currentState->angle))*(currentState->x - x );
 
-		if(rotateZ)
-		{
-			y = currentState->y + (radius * cos(currentState->angle))*(currentState->z - z );
-		}
-		else
-		{
-			y = currentState->y + (radius * sin(currentState->angle))*(currentState->x - x );
-		}
-
-		vertexList.push_back(new state(x,y,z));
+		vertexString << "v " << x << " " << y << " " << z <<"\n";
 	
 		// bottom circle slice 2nd vertex
 		angleNum++;
 		z = currentState->z + (radius * cos(angle * angleNum));
 		x = currentState->x + (radius * sin(angle * angleNum));
+		y = currentState->y + (radius * sin(currentState->angle))*(currentState->x - x );
 		
-		if(rotateZ)
-		{
-			y = currentState->y + (radius * cos(currentState->angle))*(currentState->z - z );
-		}
-		else
-		{
-			y = currentState->y + (radius * sin(currentState->angle))*(currentState->x - x );
-		}
-	
-		vertexList.push_back(new state(x,y,z));
+		vertexString << "v " << x << " " << y << " " << z <<"\n";
 	
 		faceString << "f " << centralVertex1 << " " << vertexNum + 1 << " " << vertexNum + 2 <<"\n";
 		faceString << "f " << vertexNum + 2 << " " << vertexNum + 1 << " " << centralVertex1 <<"\n";
@@ -499,7 +486,7 @@ state* buildCylinder(state* currentState)
 		centralZ2 = currentState->z + (radius * cos(currentState->angle));
 		z = currentState->z;
 
-		vertexList.push_back(new state(centralX2,centralY2,z));
+		vertexString << "v " << centralX2 << " " << centralY2 << " " << z <<"\n";
 
 		faceString << "f " << vertexNum + 1 << " " << vertexNum + 2 << " " << vertexNum + 4 <<"\n";
 		faceString << "f " << vertexNum + 4 << " " << vertexNum + 2 << " " << vertexNum + 1 <<"\n";
@@ -507,17 +494,9 @@ state* buildCylinder(state* currentState)
 		// top circle slice 1st vertex
 		z = centralZ2 + (radius * cos(angle * angleNum));
 		x = centralX2 + (radius * sin(angle * angleNum));
+		y = centralY2 + (radius * sin(currentState->angle))*(centralX2 - x);
 		
-		if(rotateZ)
-		{
-			y = centralY2 + (radius * cos(currentState->angle))*(centralZ2 - z );
-		}
-		else
-		{
-			y = centralY2 + (radius * sin(currentState->angle))*(centralX2 - x);
-		}
-		
-		vertexList.push_back(new state(x,y,z));
+		vertexString << "v " << x << " " << y << " " << z <<"\n";
 
 		faceString << "f " << vertexNum + 2 << " " << vertexNum + 5 << " " << vertexNum + 4 <<"\n";
 		faceString << "f " << vertexNum + 4 << " " << vertexNum + 5 << " " << vertexNum + 2 <<"\n";
@@ -526,26 +505,20 @@ state* buildCylinder(state* currentState)
 		angleNum++;
 		z = centralZ2 + (radius * cos(angle * angleNum));
 		x = centralX2 + (radius * sin(angle * angleNum));
-		
-		if(rotateZ)
-		{
-			y = centralY2 + (radius * cos(currentState->angle))*(centralZ2 - z );
-		}
-		else
-		{
-			y = centralY2 + (radius * sin(currentState->angle))*(centralX2 - x);
-		}
-		
-		vertexList.push_back(new state(x,y,z));
+		y = centralY2 + (radius * sin(currentState->angle))*(centralX2 - x);
+
+		vertexString << "v " << x << " " << y << " " << z <<"\n";
 
 		faceString << "f " << centralVertex2 << " " << vertexNum + 5 << " " << vertexNum + 4 <<"\n";
 		faceString << "f " << vertexNum + 4 << " " << vertexNum + 5 << " " << centralVertex2 <<"\n";
 		
+		// restore x, y, and z values to prepare for next slice
 		x = currentState->x;
 		y = currentState->y;
 		z = currentState->z;
 		vertexNum+=5;
 	}
+	// increment vertex to next cylinder
 	vertexNum++;
 
 	return (new state(centralX2, centralY2, centralZ2));
