@@ -19,9 +19,10 @@ using std::cout;
 using std::string;
 using std::list;
 
-int numVertices = 8;
-float radius = 1.0f/120;
-float height = 1.0f/90;
+// the height needs to be scaled by more in order to avoid squishing the tree in the x direction
+int numVertices = 6;
+float radius = 1.0f/60;
+float height = 1.0f/80;
 
 
 class ruleObject
@@ -356,14 +357,11 @@ int main(int argc, const char* argv[]) {
 	string expandedRules = initialString;
 	for(int i = 0; i < numOfIterations; i++)
 	{
-		if(i == numOfIterations-1)
-			count = true;
 		expandedRules = expandRules(expandedRules);
 	}
 
 	// Output final string to console
 	cout <<expandedRules;
-	cout << fCount;
 
 	// Create tree.txt containing the string
 	std::ofstream outfile;
@@ -381,28 +379,11 @@ int main(int argc, const char* argv[]) {
 	{
 		if(expandedRules[i] == initialString[0])
 		{
-			if((rand() % 2) == 0)
-			{
-				//rotateZ = true;
-			}
-
 			state* newPos = buildCylinder(currentState);
-			//rotateVertices(currentState->angle);
 
 			currentState->x = newPos->x;
 			currentState->y = newPos->y;
-			currentState->z = newPos->z;
-
-			/*if(rotateZ)
-			{
-				currentState->z += radius * cos(currentState->angle);
-			}
-			else
-			{
-				currentState->x += radius * cos(currentState->angle);
-			}
-			currentState->y += height + height * sin(currentState->angle);*/
-			
+			currentState->z = newPos->z;		
 		}
 		else if(expandedRules[i] == '+')
 		{
@@ -425,6 +406,7 @@ int main(int argc, const char* argv[]) {
 	
 	delete(currentState);
 
+	// combine vertex and face strings into the obj file
 	std::ofstream objfile;
 	objfile.open ("../data-files/tree.obj");
 	objfile << vertexString.rdbuf();
@@ -594,17 +576,20 @@ string expandRules(string startString)
 	string resultString;
 	bool foundInRules = false;
 
+	// look for a rule that matches the letter
 	for each(char letter in startString)
 	{
 		for(list<ruleObject*>::iterator it = ruleList.begin(); it != ruleList.end(); it++)
 		{
 			if(letter == (*it)->letter)
 			{
+				// expand the rule
 				resultString += determineStochasticRule(letter);
 				foundInRules = true;
 				break;
 			}
 		}
+		// rule not found, add the symbol into the string
 		if(!foundInRules)
 		{
 			resultString += letter;
@@ -617,9 +602,11 @@ string expandRules(string startString)
 	return resultString;
 }
 
+/*
+	Determine stochastic rules by filling an array of size 10 with the rules and returning one randomly.
+*/
 string determineStochasticRule(char letter)
 {
-	list<ruleObject*> rules;
 	ruleObject* weightedArray[10];
 	int count = 0;
 
@@ -627,6 +614,7 @@ string determineStochasticRule(char letter)
 	{
 		if(letter == (*it)->letter)
 		{
+			// If the rule is stochastic give it as many entries in the array as the tenths component of its weight
 			if((*it)->weight != 1.0f)
 			{
 				for(int i = 0; i < std::floor((*it)->weight *10); i++)
@@ -635,11 +623,13 @@ string determineStochasticRule(char letter)
 					count++;
 				}
 			}
+			// The rule isn't stochastic, return the normal rule
 			else
 			{
 				return (*it)->rule;
 			}
 		}
 	}
+	// Return random rule
 	return weightedArray[rand() % 10]->rule;
 }

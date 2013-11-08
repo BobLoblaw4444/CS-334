@@ -1,6 +1,6 @@
 ---start-of-rules.txt---
-27.5
-5
+22.5
+4
 f
-f -> f[+f]f[-f]f
+f->ff-[-f+f+f]+[+f-f-f]
 ---end-of-rules.txt---
