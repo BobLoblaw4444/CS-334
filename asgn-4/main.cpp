@@ -23,7 +23,6 @@ int numVertices = 8;
 float radius = 1.0f/120;
 float height = 1.0f/90;
 
-bool rotateZ = false;
 
 class ruleObject
 {
@@ -56,32 +55,32 @@ class state
 		}
 };
 
+// Helper function to convert to radians
 float inRadians(float deg)
 {
 	return deg * (3.14f/180.0f);
 }
 
-bool count = false;
-int fCount = 0;
-
+// Input variables
 float turnAngle;
 int numOfIterations;
 string initialString;
 list<ruleObject*> ruleList;
-list<state*> vertexList;
+
+// Streams to write out the vertices and faces, then combine into obj later
 std::stringstream vertexString;
 std::stringstream faceString;
 std::stringstream objString;
+
+// Counter to keep track of which vertex program is looking at
 int vertexNum = 1;
 
-
+// Functions to parse and build tree string
 void parseInput();
 string expandRules(string startString);
 string determineStochasticRule(char letter);
-bool compareWeights(ruleObject* first, ruleObject* second);
 
 state* buildCylinder(state* currentState);
-void rotateVertices(float angle);
 
 string								 modelName;
 
@@ -438,7 +437,10 @@ int main(int argc, const char* argv[]) {
 }
 
 /*
-	
+	This function builds a cylinder one slice at a time. I calculate z and x to create a circle
+	and then calculate y based on the given angle and the distance between the current x coordinate
+	and the initial x coordinate. Then the points are saved into a vertex string and the corresponding
+	faces are determined and added to a face string. Later these strings are combined to form the obj file.
 */
 state* buildCylinder(state* currentState)
 {
@@ -521,21 +523,10 @@ state* buildCylinder(state* currentState)
 	// increment vertex to next cylinder
 	vertexNum++;
 
+	// return the centerpoint of the top circle to be used as the starting point for the next cylinder
 	return (new state(centralX2, centralY2, centralZ2));
 }
 
-void rotateVertices(float angle)
-{
-	float px = vertexList.front()->x;
-	float py = vertexList.front()->y;
-
-	for(list<state*>::iterator it = vertexList.begin(); it != vertexList.end(); it++)
-	{
-	
-		vertexString << "v " << (*it)->x << " " << (*it)->y << " " << (*it)->z <<"\n";
-	}
-	vertexList.clear();
-}
 
 void parseInput()
 {
@@ -611,8 +602,6 @@ string expandRules(string startString)
 			{
 				resultString += determineStochasticRule(letter);
 				foundInRules = true;
-				if(count)
-					fCount+=5;
 				break;
 			}
 		}
@@ -626,16 +615,6 @@ string expandRules(string startString)
 		}
 	}
 	return resultString;
-}
-
-bool compareWeights(ruleObject* first, ruleObject* second)
-{
-	if(first->weight > second->weight)
-	{
-		return true;
-	}
-	else
-		return false;
 }
 
 string determineStochasticRule(char letter)
