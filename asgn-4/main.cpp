@@ -13,15 +13,17 @@
 #include <fstream>
 #include <list>
 #include <stack>
+#include <time.h>
 
 using std::cout;
 using std::string;
 using std::list;
 
-int numVertices = 14;
-float radius = 1.0f;
-float height = 1.0f;
+int numVertices = 6;
+float radius = 1.0f/120;
+float height = 1.0f/120;
 
+bool rotateZ = false;
 
 class ruleObject
 {
@@ -78,7 +80,7 @@ string expandRules(string startString);
 string determineStochasticRule(char letter);
 bool compareWeights(ruleObject* first, ruleObject* second);
 
-void buildCylinder(state* currentState);
+state* buildCylinder(state* currentState);
 void rotateVertices(float angle);
 
 string								 modelName;
@@ -346,6 +348,8 @@ int main(int argc, const char* argv[]) {
     GApp::Settings settings(argc, argv);  
     settings.colorGuardBandThickness  = Vector2int16(0, 0);
     settings.depthGuardBandThickness  = Vector2int16(0, 0);
+	
+	srand(time(0));
 
 	parseInput();
 
@@ -372,16 +376,34 @@ int main(int argc, const char* argv[]) {
 	std::stack<state> stateList;
 
 	state* currentState = new state(0.0f, 0.0f, 0.0f);
-	currentState->angle = inRadians(45.0f);
+	currentState->angle = inRadians(90.0f);
 
-	for(int i = 0; i < 1; i++)
+	for(int i = 0; i < expandedRules.size(); i++)
 	{
 		if(expandedRules[i] == initialString[0])
 		{
-			buildCylinder(currentState);
+			if((rand() % 2) == 0)
+			{
+				rotateZ = true;
+			}
+
+			state* newPos = buildCylinder(currentState);
 			rotateVertices(currentState->angle);
-			currentState->x += radius * cos(currentState->angle);
-			currentState->y += height * sin(currentState->angle);
+
+			currentState->x = newPos->x;
+			currentState->y = newPos->y;
+			currentState->z = newPos->z;
+
+			/*if(rotateZ)
+			{
+				currentState->z += radius * cos(currentState->angle);
+			}
+			else
+			{
+				currentState->x += radius * cos(currentState->angle);
+			}
+			currentState->y += height + height * sin(currentState->angle);*/
+			
 		}
 		else if(expandedRules[i] == '+')
 		{
@@ -415,7 +437,7 @@ int main(int argc, const char* argv[]) {
     return App(settings).run();
 }
 
-void buildCylinder(state* currentState)
+state* buildCylinder(state* currentState)
 {
 	float x = currentState->x;
 	float y = currentState->y;
@@ -427,22 +449,43 @@ void buildCylinder(state* currentState)
 	// build bottom circle point
 	int centralVertex1 = vertexNum;
 	int centralVertex2 = vertexNum + 3;
+
+	float centralY2;
+	float centralX2;
+	float centralZ2;
+
 	vertexList.push_back(new state(x,y,z));
 
-	for(int i = 0; i < 1; i++)
+	for(int i = 0; i < numVertices; i++)
 	{
 		// bottom circle slice 1st vertex
 		z = currentState->z + (radius * cos(angle * angleNum));
 		x = currentState->x + (radius * sin(angle * angleNum));
-		y = currentState->y + (radius * sin(currentState->angle))*(currentState->x - x );
+
+		if(rotateZ)
+		{
+			y = currentState->y + (radius * cos(currentState->angle))*(currentState->z - z );
+		}
+		else
+		{
+			y = currentState->y + (radius * sin(currentState->angle))*(currentState->x - x );
+		}
 
 		vertexList.push_back(new state(x,y,z));
 	
 		// bottom circle slice 2nd vertex
 		angleNum++;
-		z = currentState->z + (radius * cos(angle * angleNum));// +  (radius * cos(currentState->angle));
-		x = currentState->x + (radius * sin(angle * angleNum));// +  (radius * cos(currentState->angle));
-		y = currentState->y + (radius * sin(currentState->angle))*(currentState->x - x );
+		z = currentState->z + (radius * cos(angle * angleNum));
+		x = currentState->x + (radius * sin(angle * angleNum));
+		
+		if(rotateZ)
+		{
+			y = currentState->y + (radius * cos(currentState->angle))*(currentState->z - z );
+		}
+		else
+		{
+			y = currentState->y + (radius * sin(currentState->angle))*(currentState->x - x );
+		}
 	
 		vertexList.push_back(new state(x,y,z));
 	
@@ -451,8 +494,9 @@ void buildCylinder(state* currentState)
 
 		// central point of top circle
 		angleNum--;
-		float centralY2 = currentState->y + (height * sin(currentState->angle));
-		float centralX2 = currentState->x + (radius * cos(currentState->angle));
+		centralY2 = currentState->y + height + (height * sin(currentState->angle));
+		centralX2 = currentState->x + (radius * cos(currentState->angle));
+		centralZ2 = currentState->z + (radius * cos(currentState->angle));
 		z = currentState->z;
 
 		vertexList.push_back(new state(centralX2,centralY2,z));
@@ -461,9 +505,17 @@ void buildCylinder(state* currentState)
 		faceString << "f " << vertexNum + 4 << " " << vertexNum + 2 << " " << vertexNum + 1 <<"\n";
 
 		// top circle slice 1st vertex
-		z = currentState->z + (radius * cos(angle * angleNum));
+		z = centralZ2 + (radius * cos(angle * angleNum));
 		x = centralX2 + (radius * sin(angle * angleNum));
-		y = centralY2 + (radius * sin(currentState->angle))*(centralX2 - x );
+		
+		if(rotateZ)
+		{
+			y = centralY2 + (radius * cos(currentState->angle))*(centralZ2 - z );
+		}
+		else
+		{
+			y = centralY2 + (radius * sin(currentState->angle))*(centralX2 - x);
+		}
 		
 		vertexList.push_back(new state(x,y,z));
 
@@ -472,9 +524,17 @@ void buildCylinder(state* currentState)
 	
 		// top circle slice 2nd vertex
 		angleNum++;
-		z = currentState->z + (radius * cos(angle * angleNum));
+		z = centralZ2 + (radius * cos(angle * angleNum));
 		x = centralX2 + (radius * sin(angle * angleNum));
-		y = centralY2 + (radius * sin(currentState->angle))*(centralX2 - x);
+		
+		if(rotateZ)
+		{
+			y = centralY2 + (radius * cos(currentState->angle))*(centralZ2 - z );
+		}
+		else
+		{
+			y = centralY2 + (radius * sin(currentState->angle))*(centralX2 - x);
+		}
 		
 		vertexList.push_back(new state(x,y,z));
 
@@ -487,6 +547,8 @@ void buildCylinder(state* currentState)
 		vertexNum+=5;
 	}
 	vertexNum++;
+
+	return (new state(centralX2, centralY2, centralZ2));
 }
 
 void rotateVertices(float angle)
@@ -496,27 +558,7 @@ void rotateVertices(float angle)
 
 	for(list<state*>::iterator it = vertexList.begin(); it != vertexList.end(); it++)
 	{
-	//	//px+(x-px)cos(alpha)
-		/*if((*it)->x - px < 0)
-		{
-			(*it)->x += (*it)->x * cos(angle - inRadians(90.0f));
-		}
-		else
-		{
-			(*it)->x = px + ((*it)->x - px) * cos(angle - inRadians(270.0f));
-		}
-
-		if((*it)->y - py < 0)
-		{
-			(*it)->y = (*it)->y + ((*it)->y - py) * sin(angle - inRadians(90.0f));
-		}
-		else
-		{
-			(*it)->y = py + ((*it)->y - py) * sin(angle - inRadians(270.0f));
-		}*/
-
-		
-
+	
 		vertexString << "v " << (*it)->x << " " << (*it)->y << " " << (*it)->z <<"\n";
 	}
 	vertexList.clear();
@@ -647,7 +689,5 @@ string determineStochasticRule(char letter)
 			}
 		}
 	}
-	
-	Random rand;
-	return weightedArray[rand.integer(0,9)]->rule;
+	return weightedArray[rand() % 10]->rule;
 }
