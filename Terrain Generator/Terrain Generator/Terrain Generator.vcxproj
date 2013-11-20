@@ -13,6 +13,9 @@
   <ItemGroup>
     <ClCompile Include="simplexNoise.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="simplexNoise.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FDD8C38-6077-42FC-A6E1-DE775C887496}</ProjectGuid>
     <RootNamespace>TerrainGenerator</RootNamespace>
