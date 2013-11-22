@@ -11,10 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="simplexNoise.cpp" />
+    <ClInclude Include="SimplexNoise.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="simplexNoise.h" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="SimplexNoise.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FDD8C38-6077-42FC-A6E1-DE775C887496}</ProjectGuid>
