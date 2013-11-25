@@ -18,7 +18,7 @@ public:
 	// Counter to keep track of which vertex program is looking at
 	int vertexNum;
 	float increment;
-	int heightAdjust;
+	float heightAdjust;
 
 	int worldHeight;
 	int worldWidth;

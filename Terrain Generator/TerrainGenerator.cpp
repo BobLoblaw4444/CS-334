@@ -3,36 +3,41 @@
 TerrainGenerator::TerrainGenerator(void)
 {
 	vertexNum = 1;
-	increment = .025f;
-	heightAdjust = 5;
+	increment = .01f;
+	heightAdjust = 9;
 
-	worldHeight = 5;
-	worldWidth = 5;
+	worldHeight = 2;
+	worldWidth = 2;
 }
 
 void TerrainGenerator::generateTerrain()
 {
 	SimplexNoise* sn = new SimplexNoise();
 	srand(time(0));
-	float rndOffset = (float)(rand()%10);
+	
+	int rndOffset = rand()%255;
 
 	for(float i = 0; i < worldHeight; i+=increment)
 	{
 		for(float j = 0; j < worldWidth; j+=increment)
 		{
-			//heightAdjust = (rand() % 1);
+			heightAdjust = (float)(rand() % 1) + heightAdjust;
+
 			float height = sn->noise(i+rndOffset,j+rndOffset)/heightAdjust;
 			vertexString << "v " << i << " " << j << " " << height <<"\n";
 
+			
 			height = sn->noise(i+increment+rndOffset,j+rndOffset)/heightAdjust;
 			vertexString << "v " << i+increment << " " << j << " " << height <<"\n";
 
+			
 			height = sn->noise(i+rndOffset,j+increment+rndOffset)/heightAdjust;
 			vertexString << "v " << i << " " << j+increment << " " << height <<"\n";
 			
 			faceString << "f " << vertexNum << " " << vertexNum + 1 << " " << vertexNum + 2 <<"\n";
 			faceString << "f " << vertexNum + 2 << " " << vertexNum + 1 << " " << vertexNum <<"\n";
 
+			
 			height = sn->noise(i+increment+rndOffset,j+increment+rndOffset)/heightAdjust;
 			vertexString << "v " << i+increment << " " << j+increment << " " << height <<"\n";
 
@@ -62,7 +67,7 @@ void TerrainGenerator::generateTerrain()
 	}
 
 	std::ofstream objfile;
-	objfile.open ("terrain.obj");
+	objfile.open ("../data-files/terrain.obj");
 	objfile << vertexString.rdbuf();
 	objfile << faceString.rdbuf();
 	objfile.close();

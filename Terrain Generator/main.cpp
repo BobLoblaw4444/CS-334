@@ -106,7 +106,7 @@ void App::onGraphics3D(RenderDevice* rd, Array<shared_ptr<Surface> >& surface3D)
             Args args;
             configureShaderArgs(args);
             
-            // Send model geometry to the graphics card
+            //Send model geometry to the graphics card
             CFrame cframe;
             for (int i = 0; i < mySurfaces.size(); ++i) {
 
@@ -252,16 +252,16 @@ int main(int argc, const char* argv[])
 {
 	initGLG3D();
 
-//	#   ifdef G3D_WINDOWS
-//      if (! FileSystem::exists("../myprog.pix", false) && FileSystem::exists("G3D.sln", false)) {
-//          // The program was started from within Visual Studio and is
-//          // running with cwd = G3D/VC10/.  Change to
-//          // the appropriate sample directory.
-//          chdir("../samples/starter/data-files");
-//      } else if (FileSystem::exists("data-files")) {
-//          chdir("data-files");
-//      }
-//#   endif
+	#   ifdef G3D_WINDOWS
+      if (! FileSystem::exists("../myprog.pix", false) && FileSystem::exists("G3D.sln", false)) {
+          // The program was started from within Visual Studio and is
+          // running with cwd = G3D/VC10/.  Change to
+          // the appropriate sample directory.
+          chdir("../samples/starter/data-files");
+      } else if (FileSystem::exists("data-files")) {
+          chdir("data-files");
+      }
+#   endif
 
 	GApp::Settings settings(argc, argv);  
     settings.colorGuardBandThickness  = Vector2int16(0, 0);
@@ -271,7 +271,7 @@ int main(int argc, const char* argv[])
 
 	tg->generateTerrain();
 
-	modelName = "../terrain.obj";
+	modelName = "../data-files/terrain.obj";
 
 	return App(settings).run();
 }
