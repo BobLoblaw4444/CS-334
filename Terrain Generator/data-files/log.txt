@@ -1,12 +1,12 @@
 Application Log
-Start: Mon Sep 23 20:30:56 2013
+Start: Mon Nov 25 14:06:51 2013
 
-Initializing System::findDataFile took 0.004769s
+Initializing System::findDataFile took 0.013327s
 
 Entering GApp::GApp()
-cwd = C:\Users\twolvert\Desktop\CS-334\trunk\asgn-2\data-files
-System::setAppDataDir("C:\Users\twolvert\Desktop\CS-334\trunk\asgn-2\Debug\")
-Initializing System::findDataFile took 0.001628s
+cwd = H:\CS334!!\trunk\Terrain Generator\data-files
+System::setAppDataDir("H:\CS334!!\trunk\Terrain Generator\Debug\")
+Initializing System::findDataFile took 0.006691s
 Setting video mode
 wglSwapIntervalEXT(0);
 Enabling separate specular lighting.
@@ -119,8 +119,8 @@ Done initializing RenderDevice.
 Network StartupStarting WinSock networking.
 System = { 
     App { 
-        Name = "C:\\Users\\twolvert\\Desktop\\CS-334\\trunk\\asgn-2\\Debug\\asgn-2.exe"
-        cwd = "C:\\Users\\twolvert\\Desktop\\CS-334\\trunk\\asgn-2\\data-files"
+        Name = "H:\\CS334!!\\trunk\\Terrain Generator\\Debug\\Terrain Generator.exe"
+        cwd = "H:\\CS334!!\\trunk\\Terrain Generator\\data-files"
     } 
     
     OS { 
@@ -143,7 +143,7 @@ System = {
     G3D { 
         Link version = 90000 
         Compile version = "G3D Innovation Engine 9.00, 32-bit (Debug)"
-        G3D9DATA = "C:\\G3D9\\data"
+        G3D9DATA = "c:\\G3D9\\data"
     } 
     
     GPU = { 
@@ -399,9 +399,9 @@ System = {
     
     Network = { 
         Adapter0 ={ 
-            hostname = "K9-12.ad.cs.purdue.edu;"
+            hostname = "K9-25.ad.cs.purdue.edu;"
             name = ";"
-            ip = "128. 10. 15.112"; 
+            ip = "128. 10. 15.125"; 
             subnet = "  0.  0.255.255"; 
             broadcast = "255.255.255.255"; 
             mac = "00:00:00:00:00:00"; 
@@ -412,13 +412,9 @@ System = {
     }; 
 
 Entering GApp::loadFont("console-small.fnt")
-Found "console-small.fnt" at "C:\G3D9\data/font/console-small.fnt"
+Found "console-small.fnt" at "c:\G3D9\data/font/console-small.fnt"
 Done GApp::loadFont(...)
 Done GApp::GApp()
-
-: Vertex shader was successfully compiled to run on hardware.
-: Fragment shader was successfully compiled to run on hardware.
-Vertex shader(s) linked, fragment shader(s) linked.
 
 : Vertex shader was successfully compiled to run on hardware.
 : Fragment shader was successfully compiled to run on hardware.
@@ -443,37 +439,29 @@ _____________________________________________________
 
     ###    Files Used    ###
 
-C:\G3D9\data/shader/Film/Film_compositeAndTone.pix
-C:/G3D9/data/font/greek.fnt
-C:/G3D9/data/shader/Film/Film_compositeAndTone.pix
-../heightMap.png
-C:/G3D9/data/shader/Film/Film_FXAA.pix
-C:/G3D9/data/font/arial.fnt
-C:/G3D9/data/shader/Film/Film_expose.pix
+c:\G3D9\data/shader/GaussianBlur/GaussianBlur_apply.pix
+c:/G3D9/data/cubemap/noonclouds/noonclouds_up.png
+c:\G3D9\data/shader/Film/Film_expose.pix
+c:/G3D9/data/font/icon.fnt
+c:/G3D9/data/font/console-small.fnt
+c:\G3D9\data/shader/compatibility.glsl
+c:/G3D9/data/cubemap/noonclouds/noonclouds_rt.png
+../terrain.obj
 ..
-../displacementMap.png
-C:/G3D9/data/shader/compatibility.glsl
-C:\G3D9\data/shader/Film/Film_expose.pix
+c:/G3D9/data/icon/tango.icn
+c:/G3D9/data/shader/Film/Film_expose.pix
+c:/G3D9/data/cubemap/noonclouds/noonclouds_ft.png
+c:/G3D9/data/cubemap/noonclouds/noonclouds_dn.png
+c:/G3D9/data/cubemap/noonclouds/noonclouds_lf.png
 log.txt
-C:/G3D9/data/cubemap/noonclouds/noonclouds_rt.png
-C:/G3D9/data/cubemap/noonclouds/noonclouds_dn.png
-C:\Users\twolvert\Desktop\CS-334\trunk\asgn-2\data-files/../myprog.pix
-C:/Users/twolvert/Desktop/CS-334/trunk/asgn-2/data-files/../myprog.pix
-C:/G3D9/data/cubemap/noonclouds/noonclouds_lf.png
-C:/Users/twolvert/Desktop/CS-334/trunk/asgn-2/data-files/../myprog.vrt
-C:\G3D9\data/shader/Film/Film_FXAA.pix
-C:\G3D9\data/shader/compatibility.glsl
-C:/G3D9/data/icon/tango.icn
-C:\G3D9\data/shader/GaussianBlur/GaussianBlur_apply.pix
-C:/G3D9/data/font/console-small.fnt
-C:/G3D9/data/cubemap/noonclouds/noonclouds_ft.png
-C:/G3D9/data/model/crate/crate.mtl
-C:\Users\twolvert\Desktop\CS-334\trunk\asgn-2\data-files/../myprog.vrt
-C:/G3D9/data/shader/GaussianBlur/GaussianBlur_apply.pix
-C:/G3D9/data/gui/osx-10.7.gtm
-C:/G3D9/data/model/crate/crate.obj
-C:/G3D9/data/font/icon.fnt
-C:/G3D9/data/cubemap/noonclouds/noonclouds_up.png
-C:/Users/twolvert/Desktop/CS-334/trunk/asgn-2/data-files/..
-C:/G3D9/data/cubemap/noonclouds/noonclouds_bk.png
+c:/G3D9/data/gui/osx-10.7.gtm
+c:\G3D9\data/shader/Film/Film_FXAA.pix
+c:/G3D9/data/shader/compatibility.glsl
+c:/G3D9/data/cubemap/noonclouds/noonclouds_bk.png
+c:/G3D9/data/shader/Film/Film_FXAA.pix
+c:/G3D9/data/font/arial.fnt
+c:/G3D9/data/font/greek.fnt
+c:/G3D9/data/shader/Film/Film_compositeAndTone.pix
+c:\G3D9\data/shader/Film/Film_compositeAndTone.pix
+c:/G3D9/data/shader/GaussianBlur/GaussianBlur_apply.pix
 
