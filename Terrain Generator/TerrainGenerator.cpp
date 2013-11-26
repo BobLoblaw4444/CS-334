@@ -3,11 +3,11 @@
 TerrainGenerator::TerrainGenerator(void)
 {
 	vertexNum = 1;
-	increment = .01f;
-	heightAdjust = 9;
+	increment = .025f;
+	heightAdjust = 5;
 
-	worldHeight = 2;
-	worldWidth = 2;
+	worldHeight = 5;
+	worldWidth = 5;
 }
 
 void TerrainGenerator::generateTerrain()

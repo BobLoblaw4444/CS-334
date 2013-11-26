@@ -20,8 +20,8 @@ public:
 	float increment;
 	float heightAdjust;
 
-	int worldHeight;
-	int worldWidth;
+	float worldHeight;
+	float worldWidth;
 
 	TerrainGenerator(void);
 	~TerrainGenerator(void);
