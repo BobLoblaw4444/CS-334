@@ -17,11 +17,14 @@ public:
 
 	// Counter to keep track of which vertex program is looking at
 	int vertexNum;
-	float increment;
-	float heightAdjust;
+	int topLeft, bottomLeft, topRight, bottomRight, lowestLeft, lowestRight;
 
-	float worldHeight;
-	float worldWidth;
+	float scale;
+	float heightAdjust;
+	float waterLevel;
+
+	int worldHeight;
+	int worldWidth;
 
 	TerrainGenerator(void);
 	~TerrainGenerator(void);
