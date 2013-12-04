@@ -183,14 +183,14 @@ void TerrainGenerator::generateTerrain()
 	bottomRight = vertexNum + 3;
 
 	// Create the bottom
-	vertexString << "v " << 0.01f << " " << 0.01f << " " << -1.0f <<"\n";
-	vertexString << "v " << worldWidth-.01f << " " << 0.01f << " " << -1.0f <<"\n";
-	vertexString << "v " << 0.01f << " " << worldHeight-.01f << " " << -1.0f <<"\n";
+	vertexString << "v " << 0.01f << " " << 0.01f << " " << -1.0f/heightAdjust <<"\n";
+	vertexString << "v " << worldWidth-.01f << " " << 0.01f << " " << -1.0f/heightAdjust <<"\n";
+	vertexString << "v " << 0.01f << " " << worldHeight-.01f << " " << -1.0f/heightAdjust <<"\n";
 
 	faceString << "f " << topLeft << " " << bottomLeft << " " << topRight <<"\n";
 	faceString << "f " << topRight << " " << bottomLeft << " " << topLeft <<"\n";
 
-	vertexString << "v " << worldWidth-.01f << " " << worldHeight-.01f << " " << -1.0f <<"\n";
+	vertexString << "v " << worldWidth-.01f << " " << worldHeight-.01f << " " << -1.0f/heightAdjust <<"\n";
 	faceString << "f " << bottomLeft << " " << topRight << " " << bottomRight <<"\n";
 	faceString << "f " << bottomRight << " " << topRight << " " << bottomLeft <<"\n";
 
