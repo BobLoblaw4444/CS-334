@@ -189,7 +189,7 @@ void TerrainGenerator::generateTerrain()
 
 	// Build an obj file from the vertices and faces lists
 	std::ofstream objfile;
-	objfile.open ("terrain.obj");
+	objfile.open ("../Data/terrain.obj");
 	objfile << vertexString.rdbuf();
 	objfile << faceString.rdbuf();
 	objfile.close();
