@@ -1,10 +1,5 @@
 #include "TerrainGenerator.h"
 
-int topEdge[50];
-int leftEdge[50];
-int rightEdge[50];
-int bottomEdge[50];
-
 TerrainGenerator::TerrainGenerator(void)
 {
 	// Initialize terrain generation parameters
@@ -28,11 +23,17 @@ void TerrainGenerator::generateTerrain()
 	// Compute a random value to ensure the terrain is seeded differently each time
 	int rndOffset = rand()%255;
 
+	std::ofstream heightMap;
+	heightMap.open ("../Data/heightmap.txt");
+	heightMap <<waterLevel << "\n";
+
 	// Build the terrain one row of squares at a time
 	for(int i = 0; i < worldHeight; i++)
 	{
 		for(int j = 0; j < worldWidth; j++)
 		{
+			float totalHeight = 0;
+			
 			// Compute and save the indices for the noise function
 			float xIndex = (i*scale)+rndOffset;
 			float yIndex = (j*scale)+rndOffset;
@@ -44,14 +45,17 @@ void TerrainGenerator::generateTerrain()
 
 			// Get vertex at top left corner of square
 			float height = sn->noise(xIndex,yIndex)/heightAdjust;
+			totalHeight += height;
 			vertexString << "v " << i << " " << j << " " << height <<"\n";
 			
 			// Get vertex at bottom left corner of square
 			height = sn->noise(xIndex+scale,yIndex)/heightAdjust;
+			totalHeight += height;
 			vertexString << "v " << i+1 << " " << j << " " << height <<"\n";
 
 			// Get vertex at top right of square
 			height = sn->noise(xIndex,yIndex+scale)/heightAdjust;
+			totalHeight += height;
 			vertexString << "v " << i << " " << j+1 << " " << height <<"\n";
 			
 			// Create triangle from the first 3 vertices
@@ -60,12 +64,15 @@ void TerrainGenerator::generateTerrain()
 
 			// Get vertex at bottom right corner of square
 			height = sn->noise(xIndex+scale,yIndex+scale)/heightAdjust;
+			totalHeight += height;
 			vertexString << "v " << i+1 << " " << j+1 << " " << height <<"\n";
 
 			// Create triangle using new point to complete the square
 			faceString << "f " << bottomLeft << " " << topRight << " " << bottomRight <<"\n";
 			faceString << "f " << bottomRight << " " << topRight << " " << bottomLeft <<"\n";
 			
+			heightMap << totalHeight/4 <<" ";
+
 			if(i == 0)
 			{
 				lowestLeft = vertexNum + 4;
@@ -142,11 +149,13 @@ void TerrainGenerator::generateTerrain()
 				faceString << "f " << lowestRight << " " << lowestLeft << " " << bottomRight <<"\n";
 			
 				vertexNum+=2;
-			}
+			}	
 
 			// Increment vertexNum so that the next square can be created
 			vertexNum+=4;
 		}
+
+		heightMap <<"\n";
 	}
 	
 	topLeft = vertexNum;
@@ -193,9 +202,6 @@ void TerrainGenerator::generateTerrain()
 	objfile << vertexString.rdbuf();
 	objfile << faceString.rdbuf();
 	objfile.close();
-}
 
-//void buidSquare(int point1, int point2, int point3, int point4, )
-//{
-//
-//}
+	heightMap.close();
+}
