@@ -97,7 +97,6 @@ void TerrainGenerator::generateTerrain()
 				lowestLeft = vertexNum + 4;
 				lowestRight = vertexNum + 5;
 
-				//topEdge[j] = vertexNum;
 				vertexString << "v " << i+1 << " " << j << " " << -1/heightAdjust <<"\n";
 				vertexString << "v " << i+1 << " " << j+1 << " " << -1/heightAdjust <<"\n";
 
@@ -117,7 +116,6 @@ void TerrainGenerator::generateTerrain()
 				lowestLeft = vertexNum + 4;
 				lowestRight = vertexNum + 5;
 
-				//topEdge[j] = vertexNum;
 				vertexString << "v " << i << " " << j << " " << -1/heightAdjust <<"\n";
 				vertexString << "v " << i+1 << " " << j << " " << -1/heightAdjust <<"\n";
 
@@ -136,7 +134,6 @@ void TerrainGenerator::generateTerrain()
 				lowestLeft = vertexNum + 4;
 				lowestRight = vertexNum + 5;
 
-				//topEdge[j] = vertexNum;
 				vertexString << "v " << i << " " << j+1 << " " << -1/heightAdjust <<"\n";
 				vertexString << "v " << i+1 << " " << j+1 << " " << -1/heightAdjust <<"\n";
 

@@ -16,6 +16,10 @@
   <ItemGroup>
     <ClInclude Include="App.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="myprog.pix" />
+    <None Include="myprog.vrt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FDD8C38-6077-42FC-A6E1-DE775C887496}</ProjectGuid>
     <RootNamespace>TerrainGenerator</RootNamespace>
