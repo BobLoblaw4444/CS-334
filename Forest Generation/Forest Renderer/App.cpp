@@ -2,6 +2,7 @@
 #include <G3D/G3DAll.h>
 #include <GLG3D/GLG3D.h>
 #include <string.h>
+#include <fstream>
 #include <sstream>
 
 int numTrees = 2500;
@@ -55,23 +56,63 @@ public:
 void App::onInit() {
     createDeveloperHUD();
     window()->setCaption("Forest");
-        
+    
+	std::ifstream heightMap("../../Data/heightmap.txt");
+	std::ifstream treeMap("../../Data/treemap.txt");
+
+	std::string heightLine;
+	std::string treeLine;
+
+	// For each square on the 50x50 terrain, add the appropriate tree to the model list
 	for(int i = 0; i < 50; i++)
 	{
+		std::getline(heightMap, heightLine);
+		std::getline(treeMap, treeLine);
+
+		std::istringstream heightStream(heightLine);
+		std::istringstream treeStream(treeLine);
+
 		for(int j = 0; j < 50; j++)
 		{
+			float height;
+			heightStream >> height;
+
+			int treeType;
+			treeStream >> treeType;
+
+			if(treeType == 0)
+			{
+				model[i*50 + j] = 0;
+				continue;
+			}
+
 			ArticulatedModel::Specification spec;
+
+			switch(treeType)
+			{
+				case 1:
+					spec.scale = .0125f;
+					break;
+				case 2:
+					spec.scale = .025f;
+					break;
+				case 3:
+					spec.scale = .05f;
+					break;
+			}
 
 			std::stringstream transform (std::stringstream::in | std::stringstream::out);
 			spec.filename = System::findDataFile("../../Data/Pine_Tree.obj");
-			spec.scale = .05f;
-			
-			transform << "transformGeometry(\"root\", Matrix4::translation(" << (0.25f+.5*i) << ", " << "0, " << (-0.25f-.5*j) << "));";
+			transform << "transformGeometry(\"root\", Matrix4::translation(" << (0.25f+.5*i) << ", " << height*.5f << ", " << (-0.25f-.5*j) << "));";
 			spec.preprocess.append(ArticulatedModel::Instruction(Any::parse(transform.str())));
 			model[i*50 + j] = ArticulatedModel::create(spec);
 		}
 	}	
 	
+	heightMap.close();
+	treeMap.close();
+
+	// Add the terrain to the modelList
 	ArticulatedModel::Specification spec;
 	spec.filename = "../../Data/terrain.obj";
 	spec.scale = 0.5f;
@@ -119,15 +160,16 @@ void App::onGraphics3D(RenderDevice* rd, Array<shared_ptr<Surface> >& surface3D)
             // Pose our model based on the manipulator axes
 			for(int i = 0; i < numTrees + 1; i++)
 			{
-				//renderTreeLine(i, mySurfaces);
+				// Pose model if not null
 				if(model[i] != NULL)
 				{
 					model[i]->pose(mySurfaces, manipulator->frame());
 				}
-				else
+				// Quit processing models
+				/*else
 				{
 					break;
-				}
+				}*/
 			}
 				
 			// Set up shared arguments

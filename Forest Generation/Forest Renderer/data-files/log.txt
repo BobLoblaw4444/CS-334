@@ -1,12 +1,12 @@
 Application Log
-Start: Wed Dec 04 22:49:42 2013
+Start: Thu Dec 05 13:57:47 2013
 
-Initializing System::findDataFile took 0.006673s
+Initializing System::findDataFile took 0.005739s
 
 Entering GApp::GApp()
 cwd = H:\CS334\trunk\Forest Generation\Forest Renderer\data-files
 System::setAppDataDir("H:\CS334\trunk\Forest Generation\Forest Renderer\Release\")
-Initializing System::findDataFile took 0.001377s
+Initializing System::findDataFile took 0.001020s
 Setting video mode
 wglSwapIntervalEXT(0);
 Enabling separate specular lighting.
@@ -399,9 +399,9 @@ System = {
     
     Network = { 
         Adapter0 ={ 
-            hostname = "K9-11.ad.cs.purdue.edu;"
+            hostname = "K9-25.ad.cs.purdue.edu;"
             name = ";"
-            ip = "128. 10. 15.111"; 
+            ip = "128. 10. 15.125"; 
             subnet = "  0.  0.255.255"; 
             broadcast = "255.255.255.255"; 
             mac = "00:00:00:00:00:00"; 
