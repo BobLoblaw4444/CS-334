@@ -3,12 +3,15 @@
 #include <GLG3D/GLG3D.h>
 #include <string.h>
 #include <sstream>
-int numTrees = 500;
+
+int numTrees = 2500;
+//ArticulatedModel::Specification spec[2501];
+
+
 
 class App : public GApp {
 private:
-    shared_ptr<ArticulatedModel>         model[500];
-
+	shared_ptr<ArticulatedModel>		 model[2501];
     LocalLightingEnvironment             environment;
 	Texture::Ref                         bumpMap;
 	Texture::Ref                         displacementMap;
@@ -53,27 +56,29 @@ void App::onInit() {
     createDeveloperHUD();
     window()->setCaption("Forest");
         
-    ArticulatedModel::Specification spec[500];
-	spec[0].filename = "../../Data/terrain.obj";
-	spec[0].scale = 0.5f;
-	spec[0].preprocess.append(ArticulatedModel::Instruction(Any::parse("transformGeometry(\"root\", Matrix4::pitchDegrees(-90));")));
-	
-	for(int i = 1; i < 10; i++)
+	for(int i = 0; i < 50; i++)
 	{
-		for(int j = 0; i < 50; j++)
+		for(int j = 0; j < 50; j++)
 		{
+			ArticulatedModel::Specification spec;
+
 			std::stringstream transform (std::stringstream::in | std::stringstream::out);
-			spec[i].filename = System::findDataFile("../../Data/Tree.obj");
-			spec[i].scale = .01f;
-			transform << "transformGeometry(\"root\", Matrix4::translation(" << .5f*i << ", " << "0, " << -.5f*j << "));";
-			spec[i].preprocess.append(ArticulatedModel::Instruction(Any::parse(transform.str())));
+			spec.filename = System::findDataFile("../../Data/Pine_Tree.obj");
+			spec.scale = .05f;
+			
+			transform << "transformGeometry(\"root\", Matrix4::translation(" << (0.25f+.5*i) << ", " << "0, " << (-0.25f-.5*j) << "));";
+			spec.preprocess.append(ArticulatedModel::Instruction(Any::parse(transform.str())));
+			model[i*50 + j] = ArticulatedModel::create(spec);
 		}
-	}
+	}	
 	
-	for(int i = 0; i < numTrees; i++)
-	{
-		model[i] = ArticulatedModel::create(spec[i]);
-	}
+	ArticulatedModel::Specification spec;
+	spec.filename = "../../Data/terrain.obj";
+	spec.scale = 0.5f;
+	spec.preprocess.append(ArticulatedModel::Instruction(Any::parse("transformGeometry(\"root\", Matrix4::pitchDegrees(-90));")));
+	model[2500] = ArticulatedModel::create(spec);
+			
+
     makeLighting();
     makeColorList();
     makeGui();
@@ -99,7 +104,6 @@ void App::onInit() {
     showRenderingStats = false;
 }
 
-
 void App::onGraphics3D(RenderDevice* rd, Array<shared_ptr<Surface> >& surface3D) {
     rd->clear();
 
@@ -113,11 +117,20 @@ void App::onGraphics3D(RenderDevice* rd, Array<shared_ptr<Surface> >& surface3D)
         rd->pushState(); {
             Array< shared_ptr<Surface> > mySurfaces;
             // Pose our model based on the manipulator axes
-			for(int i = 0; i < numTrees; i++)
+			for(int i = 0; i < numTrees + 1; i++)
 			{
-				model[i]->pose(mySurfaces, manipulator->frame());
+				//renderTreeLine(i, mySurfaces);
+				if(model[i] != NULL)
+				{
+					model[i]->pose(mySurfaces, manipulator->frame());
+				}
+				else
+				{
+					break;
+				}
 			}
-            // Set up shared arguments
+				
+			// Set up shared arguments
             Args args;
             configureShaderArgs(args);
             

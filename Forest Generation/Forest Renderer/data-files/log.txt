@@ -1,12 +1,12 @@
 Application Log
-Start: Wed Dec 04 19:06:35 2013
+Start: Wed Dec 04 22:49:42 2013
 
-Initializing System::findDataFile took 0.005810s
+Initializing System::findDataFile took 0.006673s
 
 Entering GApp::GApp()
 cwd = H:\CS334\trunk\Forest Generation\Forest Renderer\data-files
 System::setAppDataDir("H:\CS334\trunk\Forest Generation\Forest Renderer\Release\")
-Initializing System::findDataFile took 0.001542s
+Initializing System::findDataFile took 0.001377s
 Setting video mode
 wglSwapIntervalEXT(0);
 Enabling separate specular lighting.
@@ -416,14 +416,67 @@ Found "console-small.fnt" at "c:\G3D9\data/font/console-small.fnt"
 Done GApp::loadFont(...)
 Done GApp::GApp()
 
+: Vertex shader was successfully compiled to run on hardware.
+: Fragment shader was successfully compiled to run on hardware.
+Vertex shader(s) linked, fragment shader(s) linked.
 
-**************************
+: Vertex shader was successfully compiled to run on hardware.
+: Fragment shader was successfully compiled to run on hardware.
+Vertex shader(s) linked, fragment shader(s) linked.
 
-Critical Error - Forest Renderer.exe
-Memory manager returned NULL: out of memory?
-
-Expression: data
-C:\G3D9\include\G3D/Array.h:160
-
-Last Error (0x00000008): N
-
+: Fragment shader was successfully compiled to run on hardware.
+Fragment shader(s) linked.
+
+: Fragment shader was successfully compiled to run on hardware.
+Fragment shader(s) linked.
+
+: Fragment shader was successfully compiled to run on hardware.
+Fragment shader(s) linked.
+
+: Fragment shader was successfully compiled to run on hardware.
+Fragment shader(s) linked.
+
+: Fragment shader was successfully compiled to run on hardware.
+Fragment shader(s) linked.
+
+_____________________________________________________
+
+    ###    Files Used    ###
+
+c:/G3D9/data/cubemap/noonclouds/noonclouds_ft.png
+c:/G3D9/data/icon/tango.icn
+c:/G3D9/data/font/arial.fnt
+c:/G3D9/data/cubemap/noonclouds/noonclouds_bk.png
+H:/CS334/trunk/Forest Generation/Forest Renderer/data-files/../myprog.pix
+c:\G3D9\data/shader/Film/Film_FXAA.pix
+../../Data/Pine_Tree.obj
+c:/G3D9/data/shader/Film/Film_expose.pix
+c:/G3D9/data/shader/Film/Film_compositeAndTone.pix
+H:/CS334/trunk/Forest Generation/Forest Renderer/data-files/../../Data/Pine_Tree.mtl
+c:/G3D9/data/cubemap/noonclouds/noonclouds_rt.png
+c:/G3D9/data/font/greek.fnt
+c:/G3D9/data/shader/compatibility.glsl
+H:\CS334\trunk\Forest Generation\Forest Renderer\data-files/../myprog.vrt
+H:/CS334/trunk/Forest Generation/Forest Renderer/data-files/../..
+c:\G3D9\data/shader/Film/Film_compositeAndTone.pix
+../heightMap.png
+c:/G3D9/data/gui/osx-10.7.gtm
+..
+log.txt
+c:/G3D9/data/font/console-small.fnt
+../../Data/terrain.obj
+H:/CS334/trunk/Forest Generation/Forest Renderer/data-files/..
+c:/G3D9/data/cubemap/noonclouds/noonclouds_lf.png
+c:/G3D9/data/shader/GaussianBlur/GaussianBlur_apply.pix
+c:\G3D9\data/shader/compatibility.glsl
+H:/CS334/trunk/Forest Generation/Forest Renderer/data-files/../myprog.vrt
+c:/G3D9/data/cubemap/noonclouds/noonclouds_dn.png
+c:\G3D9\data/shader/Film/Film_expose.pix
+../lightMap.png
+c:\G3D9\data/shader/GaussianBlur/GaussianBlur_apply.pix
+c:/G3D9/data/cubemap/noonclouds/noonclouds_up.png
+c:/G3D9/data/font/icon.fnt
+H:\CS334\trunk\Forest Generation\Forest Renderer\data-files/../myprog.pix
+../..
+c:/G3D9/data/shader/Film/Film_FXAA.pix
+
