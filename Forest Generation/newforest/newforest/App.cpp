@@ -30,10 +30,6 @@ void App::onInit() {
     // automatically caught.
     showRenderingStats    = false;
 
-    // For higher-quality screenshots:
-    // developerWindow->videoRecordDialog->setScreenShotFormat("PNG");
-    // developerWindow->videoRecordDialog->setCaptureGui(false);
-
     m_scene = Scene::create();
     setScene(m_scene);
 
@@ -44,9 +40,7 @@ void App::onInit() {
     makeGBuffer();
     makeGUI();
 
-    //developerWindow->cameraControlWindow->moveTo(Point2(developerWindow->cameraControlWindow->rect().x0(), 0));
     loadScene("Forest");
-    //setActiveCamera(m_scene->typedEntity<Camera>("camera"));
 	m_debugCamera->setPosition(Vector3(60.0f, 20.0f, -60.0f));
     m_debugCamera->setFieldOfView(45 * units::degrees(), FOVDirection::VERTICAL);
 	m_debugCamera->lookAt(Point3(30, -2, -30));
@@ -69,6 +63,7 @@ void App::onInit() {
 	// For each square on the 50x50 terrain, add the appropriate tree to the model list
 	for(int i = 0; i < 50; i++)
 	{
+		// Get the next line from both the tree list and height map and create string streams from them
 		std::getline(heightMap, heightLine);
 		std::getline(treeMap, treeLine);
 
@@ -77,7 +72,7 @@ void App::onInit() {
 
 		for(int j = 0; j < 50; j++)
 		{
-			
+			// Read in next value from streams
 			float height;
 			heightStream >> height;
 
@@ -89,6 +84,7 @@ void App::onInit() {
 			float rndZOffset = (rand()%10)/50.0f;
 			float rndAngleOffset = rand()%90;
 
+			// Randomly choose between positive and negative
 			if (rand()%2 == 1)
 			{
 				rndXOffset*= -1;
@@ -153,7 +149,6 @@ void App::makeGBuffer() {
 void App::makeGUI() {
     createDeveloperHUD();
 
-	
     debugWindow->setVisible(false);
 	developerWindow->setVisible(false);
 	developerWindow->setEnabled(false);

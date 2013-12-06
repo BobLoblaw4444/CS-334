@@ -69,6 +69,7 @@ void TerrainGenerator::generateTerrain()
 
 			heightMap << totalHeight/4 <<" ";
 
+			// Determine the gradient of green for the grass texture
 			for(int k = 0; k < 12; k++)
 			{
 				if(k < 6)
@@ -107,7 +108,7 @@ void TerrainGenerator::generateTerrain()
 				faceString << "f " << topLeft << " " << topRight << " " << lowestLeft <<"\n";
 				faceString << "f " << lowestLeft << " " << topRight << " " << topLeft <<"\n";
 
-				// Create triangle from the first 3 vertices
+				// Create triangle from the last 3 vertices
 				faceString << "f " << topRight << " " << lowestLeft << " " << lowestRight <<"\n";
 				faceString << "f " << lowestRight << " " << lowestLeft << " " << topRight <<"\n";
 
@@ -126,7 +127,7 @@ void TerrainGenerator::generateTerrain()
 				faceString << "f " << bottomLeft << " " << bottomRight << " " << lowestLeft <<"\n";
 				faceString << "f " << lowestLeft << " " << bottomRight << " " << bottomLeft <<"\n";
 
-				// Create triangle from the first 3 vertices
+				// Create triangle from the last 3 vertices
 				faceString << "f " << bottomRight << " " << lowestLeft << " " << lowestRight <<"\n";
 				faceString << "f " << lowestRight << " " << lowestLeft << " " << bottomRight <<"\n";
 			
@@ -145,7 +146,7 @@ void TerrainGenerator::generateTerrain()
 				faceString << "f " << topLeft << " " << bottomLeft << " " << lowestLeft <<"\n";
 				faceString << "f " << lowestLeft << " " << bottomLeft << " " << topLeft <<"\n";
 
-				// Create triangle from the first 3 vertices
+				// Create triangle from the last 3 vertices
 				faceString << "f " << bottomLeft << " " << lowestLeft << " " << lowestRight <<"\n";
 				faceString << "f " << lowestRight << " " << lowestLeft << " " << bottomLeft <<"\n";
 
@@ -163,7 +164,7 @@ void TerrainGenerator::generateTerrain()
 				faceString << "f " << topRight << " " << bottomRight << " " << lowestLeft <<"\n";
 				faceString << "f " << lowestLeft << " " << bottomRight << " " << topRight <<"\n";
 
-				// Create triangle from the first 3 vertices
+				// Create triangle from the last 3 vertices
 				faceString << "f " << bottomRight << " " << lowestLeft << " " << lowestRight <<"\n";
 				faceString << "f " << lowestRight << " " << lowestLeft << " " << bottomRight <<"\n";
 			
@@ -182,6 +183,7 @@ void TerrainGenerator::generateTerrain()
 	topRight = vertexNum + 2;
 	bottomRight = vertexNum + 3;
 
+	// Use water texture
 	faceString << "usemtl water\n";
 
 	// Create the water
@@ -203,7 +205,7 @@ void TerrainGenerator::generateTerrain()
 	topRight = vertexNum + 2;
 	bottomRight = vertexNum + 3;
 	
-	// Create the bottom
+	// Create the bottom of the surrounding box
 	vertexString << "v " << 0.01f << " " << 0.01f << " " << -1.0f/heightAdjust <<"\n";
 	vertexString << "v " << worldWidth-.01f << " " << 0.01f << " " << -1.0f/heightAdjust <<"\n";
 	vertexString << "v " << 0.01f << " " << worldHeight-.01f << " " << -1.0f/heightAdjust <<"\n";

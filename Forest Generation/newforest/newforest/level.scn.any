@@ -37,6 +37,7 @@
     };
     
     entities = {
+		// Main light source
         sun = Light {
             type = "DIRECTIONAL";
             canChange = false;

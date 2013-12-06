@@ -1,0 +1,17 @@
+﻿Build started 12/5/2013 3:20:26 PM.
+     1>Project "c:\Users\Ricky\documents\visual studio 2010\Projects\newForest\newForest\newForest.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\newForest.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         All outputs are up-to-date.
+       Link:
+         All outputs are up-to-date.
+         newForest.vcxproj -> c:\users\ricky\documents\visual studio 2010\Projects\newForest\Debug\newForest.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\newForest.unsuccessfulbuild".
+         Touching "Debug\newForest.lastbuildstate".
+     1>Done Building Project "c:\Users\Ricky\documents\visual studio 2010\Projects\newForest\newForest\newForest.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.04

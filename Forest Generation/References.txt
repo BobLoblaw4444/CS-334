@@ -1,0 +1,5 @@
+Tree Model:
+http://www.turbosquid.com/FullPreview/Index.cfm/ID/709257
+
+Simplex Noise:
+http://staffwww.itn.liu.se/~stegu/aqsis/aqsis-newnoise/
