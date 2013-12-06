@@ -2,7 +2,7 @@
 // You can extend this sample scene file format with your own fields.
 // Edit the scene parsing in Scene.cpp.
 {
-    name = "Level",
+    name = "Forest",
    
     models = {
         smallTreeModel = ArticulatedModel::Specification { 
@@ -30,7 +30,7 @@
             constant = 1.5;
             texture  = 
                 Texture::Specification {
-                    filename = "cubemap/hipshot_m9_sky/16_*.png";
+                    filename = "cubemap/nightsky/nightsky_*.jpg";
                     desiredFormat = "SRGB8";
                 };
         };
@@ -40,8 +40,8 @@
         sun = Light {
             type = "DIRECTIONAL";
             canChange = false;
-            frame = CFrame::fromXYZYPRDegrees(inf, inf, inf, -117, -34, 0);
-            biradiance = Biradiance3(3, 3, 3);
+            frame = CFrame::fromXYZYPRDegrees(inf, inf, inf, -60, -34, 0);
+            biradiance = Biradiance3(1, 1, 1);
             shadowMapSize = Vector2int16(2048, 2048);
         };
 

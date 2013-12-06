@@ -2,6 +2,7 @@
 #include <string.h>
 #include <fstream>
 #include <sstream>
+#include <time.h>
 
 G3D_START_AT_MAIN();
 
@@ -44,11 +45,11 @@ void App::onInit() {
     makeGUI();
 
     //developerWindow->cameraControlWindow->moveTo(Point2(developerWindow->cameraControlWindow->rect().x0(), 0));
-    loadScene("Level");
+    loadScene("Forest");
     //setActiveCamera(m_scene->typedEntity<Camera>("camera"));
-	m_debugCamera->setPosition(Vector3(1.0f, 1.0f, 2.5f));
+	m_debugCamera->setPosition(Vector3(60.0f, 20.0f, -60.0f));
     m_debugCamera->setFieldOfView(45 * units::degrees(), FOVDirection::VERTICAL);
-	m_debugCamera->lookAt(Point3::zero());
+	m_debugCamera->lookAt(Point3(30, -2, -30));
 	m_debugController->setEnabled(false);
 	setActiveCamera(m_debugCamera);
     developerWindow->sceneEditorWindow->setPreventEntitySelect(true);
@@ -62,6 +63,9 @@ void App::onInit() {
 	Any x;
 	x.load("tree.txt");
 
+	// Seed random number generator
+	srand(time(0));
+
 	// For each square on the 50x50 terrain, add the appropriate tree to the model list
 	for(int i = 0; i < 50; i++)
 	{
@@ -73,33 +77,48 @@ void App::onInit() {
 
 		for(int j = 0; j < 50; j++)
 		{
+			
 			float height;
 			heightStream >> height;
 
 			int treeType;
 			treeStream >> treeType;
 
+			// Compute random values to offset the trees each time
+			float rndXOffset = (rand()%10)/50.0f;
+			float rndZOffset = (rand()%10)/50.0f;
+			float rndAngleOffset = rand()%90;
+
+			if (rand()%2 == 1)
+			{
+				rndXOffset*= -1;
+			}
+			if (rand()%2 == 1)
+			{
+				rndZOffset*= -1;
+			}
+			if (rand()%2 == 1)
+			{
+				rndAngleOffset*= -1;
+			}
+
+			// Translate tree to proper position with slight variation and a small height correction
+			x["frame"]=(Matrix4::yawDegrees(rndAngleOffset),Point3(.5f+i + rndXOffset,height+.1f,-.5f-j + rndZOffset));
+
+			// Choose which size of tree to spawn
 			switch(treeType)
 			{
-			case 1:
-
-				x["model"]="smallTreeModel";
-				x["frame"]=Point3(.5f+i,height,-.5f-j);
-			
-				m_scene->createEntity("VisibleEntity","newTree",x);
-				break;
-			case 2:
-
-				x["model"]="treeModel";
-				x["frame"]=Point3(.5f+i,height,-.5f-j);
-			
-				m_scene->createEntity("VisibleEntity","newTree",x);
-				break;
-			case 3:
-				x["model"]="bigTreeModel";
-				x["frame"]=Point3(.5f+i,height,-.5f-j);
-			
-				m_scene->createEntity("VisibleEntity","newTree",x);
+				case 1:
+					x["model"]="smallTreeModel";
+					m_scene->createEntity("VisibleEntity","newTree",x);
+					break;
+				case 2:
+					x["model"]="treeModel";		
+					m_scene->createEntity("VisibleEntity","newTree",x);
+					break;
+				case 3:
+					x["model"]="bigTreeModel";
+					m_scene->createEntity("VisibleEntity","newTree",x);
 					break;
 			}
 		}
@@ -134,7 +153,10 @@ void App::makeGBuffer() {
 void App::makeGUI() {
     createDeveloperHUD();
 
+	
     debugWindow->setVisible(false);
+	developerWindow->setVisible(false);
+	developerWindow->setEnabled(false);
     developerWindow->videoRecordDialog->setEnabled(false);
     developerWindow->sceneEditorWindow->setVisible(false);
     developerWindow->cameraControlWindow->setVisible(false);

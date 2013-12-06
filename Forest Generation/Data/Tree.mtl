@@ -1,20 +1,31 @@
-# 
-# Wavefront material file
-# Created with Kaydara FBX
-# 
-
-newmtl Mat_1
-Ka 0.000000 0.000000 0.000000
-Kd 0.548387 0.342294 0.053763
-Ks 0.200000 0.200000 0.200000
+# Max2Mtl Version 4.0 Mar 10th, 2001
+#
+# Multi/Sub Material__35 (2) to come 
+#
+newmtl Stem
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  10.0
 illum 2
-Ns 50.000000
-Tr 1.000000
-
-newmtl Mat
-Ka 0.000000 0.000000 0.000000
-Kd 0.000000 0.682353 0.000000
-Ks 0.200000 0.200000 0.200000
+#
+newmtl L1
+Ka  0.3 0.3 0.2
+Kd  0.3 0.3 0.2
+Ks  0.3 0.3 0.3
+d  1.0
+Ns  10.0
 illum 2
-Ns 50.000000
-Tr 1.000000
+#
+# Multi/Sub Material__35 done 
+#
+newmtl L1
+Ka  0.3 0.3 0.2
+Kd  0.3 0.3 0.2
+Ks  0.3 0.3 0.3
+d  1.0
+Ns  10.0
+illum 2
+#
+# EOF
