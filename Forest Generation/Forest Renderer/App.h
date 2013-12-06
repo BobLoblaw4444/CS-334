@@ -2,51 +2,34 @@
 #define App_h
 
 #include <G3D/G3DAll.h>
-#include <GLG3D/GLG3D.h>
 
-class MyCamera{
-public:
-	float angleX,angleY,dirX,dirY,dirZ,xPos,yPos,zPos;
-
-	MyCamera(){
-		angleX = 0.0;
-		angleY = 0.0;
-		dirX = 0.0;
-		dirZ = -1.0;
-		dirY = 0.0;
-		xPos = 0.0;
-		yPos = 0.0;
-		zPos = 10.0;
-	}
-};
+class PhysicsScene;
 
 class App : public GApp {
-private:
-    
-   
-    /** Position during the previous frame */
-    CFrame              m_prevCFrame;
+protected:
 
-    /** Called from onInit() */
+    bool                        m_firstPersonMode;
+
+    std::string                 m_playerName;
+
+    shared_ptr<Scene>    m_scene;    
+    
+    /** Called from onInit */
     void makeGUI();
 
-   
-    /** Show a full-screen message */
-    void message(const std::string& msg) const;
-
+    /** Called from onInit */
+    void makeGBuffer();
 
 public:
-
+    
     App(const GApp::Settings& settings = GApp::Settings());
-
-    virtual void onInit();
-
-    void renderScene();
-
-	void onUserInput(UserInput* ui);
-
-    virtual void onGraphics(RenderDevice* rd, Array<shared_ptr<Surface> >& posed3D, Array<shared_ptr<Surface2D> >& posed2D);
-    virtual void onCleanup();
+    virtual void onInit() override;
+    virtual void onAI() override;
+    virtual void onNetwork() override;
+    virtual void onSimulation(RealTime rdt, SimTime sdt, SimTime idt) override;
+    virtual void onPose(Array<shared_ptr<Surface> >& posed3D, Array<shared_ptr<Surface2D> >& posed2D) override;
+    virtual void onGraphics3D(RenderDevice* rd, Array<shared_ptr<Surface> >& posed3D) override;
+	shared_ptr<ThirdPersonManipulator>   manipulator;
 };
 
 #endif

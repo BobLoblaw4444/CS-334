@@ -47,29 +47,33 @@ void TerrainGenerator::generateTerrain()
 			float height = sn->noise(xIndex,yIndex)/heightAdjust;
 			totalHeight += height;
 			vertexString << "v " << i << " " << j << " " << height <<"\n";
-			
+			textureString << "vt " << 0 << " " << 0 <<"\n";
+
 			// Get vertex at bottom left corner of square
 			height = sn->noise(xIndex+scale,yIndex)/heightAdjust;
 			totalHeight += height;
 			vertexString << "v " << i+1 << " " << j << " " << height <<"\n";
+			textureString << "vt " << 1 << " " << 0 <<"\n";
 
 			// Get vertex at top right of square
 			height = sn->noise(xIndex,yIndex+scale)/heightAdjust;
 			totalHeight += height;
 			vertexString << "v " << i << " " << j+1 << " " << height <<"\n";
-			
+			textureString << "vt " << 0 << " " << 1 <<"\n";
+
 			// Create triangle from the first 3 vertices
-			faceString << "f " << topLeft << " " << bottomLeft << " " << topRight <<"\n";
-			faceString << "f " << topRight << " " << bottomLeft << " " << topLeft <<"\n";
+			faceString << "f " << topLeft << "/1 " << bottomLeft << "/2 " << topRight <<"/3" <<"\n";
+			faceString << "f " << topRight << "/3 " << bottomLeft << "/2 " << topLeft <<"/1" << "\n";
 
 			// Get vertex at bottom right corner of square
 			height = sn->noise(xIndex+scale,yIndex+scale)/heightAdjust;
 			totalHeight += height;
 			vertexString << "v " << i+1 << " " << j+1 << " " << height <<"\n";
+			textureString << "vt " << 1 << " " << 1 <<"\n";
 
 			// Create triangle using new point to complete the square
-			faceString << "f " << bottomLeft << " " << topRight << " " << bottomRight <<"\n";
-			faceString << "f " << bottomRight << " " << topRight << " " << bottomLeft <<"\n";
+			faceString << "f " << bottomLeft << "/2 " << topRight << "/3 " << bottomRight <<"/4" <<"\n";
+			faceString << "f " << bottomRight << "/4 " << topRight << "/3 " << bottomLeft << "/2 " <<"\n";
 			
 			heightMap << totalHeight/4 <<" ";
 
@@ -160,6 +164,8 @@ void TerrainGenerator::generateTerrain()
 	topRight = vertexNum + 2;
 	bottomRight = vertexNum + 3;
 
+	faceString << "usemtl water\n";
+
 	// Create the water
 	vertexString << "v " << 0.01f << " " << 0.01f << " " << waterLevel <<"\n";
 	vertexString << "v " << worldWidth-.01f << " " << 0.01f << " " << waterLevel <<"\n";
@@ -179,6 +185,8 @@ void TerrainGenerator::generateTerrain()
 	topRight = vertexNum + 2;
 	bottomRight = vertexNum + 3;
 
+	//faceString << "usemtl shiny_green\n";
+
 	// Create the bottom
 	vertexString << "v " << 0.01f << " " << 0.01f << " " << -1.0f/heightAdjust <<"\n";
 	vertexString << "v " << worldWidth-.01f << " " << 0.01f << " " << -1.0f/heightAdjust <<"\n";
@@ -196,7 +204,10 @@ void TerrainGenerator::generateTerrain()
 	// Build an obj file from the vertices and faces lists
 	std::ofstream objfile;
 	objfile.open ("../Data/terrain.obj");
+	objfile << "mtllib terrain.mtl\n";
 	objfile << vertexString.rdbuf();
+	objfile << textureString.rdbuf();
+	objfile <<"usemtl grass\n";
 	objfile << faceString.rdbuf();
 	objfile.close();
 

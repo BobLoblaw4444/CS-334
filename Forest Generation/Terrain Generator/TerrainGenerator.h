@@ -13,6 +13,7 @@ class TerrainGenerator
 public:
 	// Streams to write out the vertices and faces, then combine into obj later
 	stringstream vertexString;
+	stringstream textureString;
 	stringstream faceString;
 
 	// Counter to keep track of which vertex program is looking at
