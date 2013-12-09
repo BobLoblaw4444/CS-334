@@ -1,0 +1,4 @@
+{ 
+    frame = Vector3(49.5, 0.627738, -31.5 ); 
+    model = "bigTreeModel"; 
+} 

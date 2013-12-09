@@ -1,0 +1,17 @@
+﻿Build started 12/5/2013 10:18:20 PM.
+     1>Project "H:\CS334\trunk\Forest Generation\Terrain Generator\Terrain Generator.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\Terrain Generator.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         All outputs are up-to-date.
+       Link:
+         All outputs are up-to-date.
+         Terrain Generator.vcxproj -> H:\CS334\trunk\Forest Generation\Terrain Generator\Debug\Terrain Generator.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\Terrain Generator.unsuccessfulbuild".
+         Touching "Debug\Terrain Generator.lastbuildstate".
+     1>Done Building Project "H:\CS334\trunk\Forest Generation\Terrain Generator\Terrain Generator.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.25

@@ -1,0 +1,84 @@
+// -*- c++ -*-
+// You can extend this sample scene file format with your own fields.
+// Edit the scene parsing in Scene.cpp.
+{
+    name = "Forest",
+   
+    models = {
+        smallTreeModel = ArticulatedModel::Specification { 
+            filename = "./Data/Pine_Tree.obj"; 
+			scale=.0125f;
+        }; 
+		treeModel = ArticulatedModel::Specification { 
+            filename = "./Data/Pine_Tree.obj"; 
+			scale=.025f;
+        }; 
+		bigTreeModel = ArticulatedModel::Specification { 
+            filename = "./Data/Pine_Tree.obj"; 
+			scale=.05f
+        }; 
+        terrainModel = ArticulatedModel::Specification { 
+            filename="./Data/terrain.obj"; 
+			
+			preprocess=(transformGeometry("root",Matrix4::pitchDegrees(-90)););
+        }; 
+       
+    };
+    
+    localLightingEnvironment = LocalLightingEnvironment {
+        environmentMap = {
+            constant = 1.5;
+            texture  = 
+                Texture::Specification {
+                    filename = "cubemap/nightsky/nightsky_*.jpg";
+                    desiredFormat = "SRGB8";
+                };
+        };
+    };
+    
+    entities = {
+        sun = Light {
+            type = "DIRECTIONAL";
+            canChange = false;
+            frame = CFrame::fromXYZYPRDegrees(inf, inf, inf, -60, -34, 0);
+            biradiance = Biradiance3(1, 1, 1);
+            shadowMapSize = Vector2int16(2048, 2048);
+        };
+
+        fillLight = Light {
+            canChange = false;
+            type = "DIRECTIONAL";
+            biradiance = Biradiance3::fromARGB(0x85816f);
+            frame = CFrame::fromXYZYPRDegrees(inf, inf, inf, -30, 45, 0);
+            castsShadows = false;
+        };
+
+		terrain = VisibleEntity { 
+            model = "terrainModel"; 
+            frame = Point3(0, 0, 0 ); 
+            canChange = false;
+        };
+
+        camera = Camera {
+            frame = CFrame::fromXYZYPRDegrees(  -13.3, 1, -11.2, 0, 0, 0 );
+        
+            depthOfFieldSettings = DepthOfFieldSettings {
+                model = "ARTIST";
+                enabled = false;
+                nearSharpPlaneZ = -1.5;
+            };
+
+            motionBlurSettings = MotionBlurSettings {
+                enabled = true;
+            };
+
+            projection = Projection {
+                nearPlaneZ = -0.2;
+                farPlaneZ = -400;
+                fovDirection = "VERTICAL";
+                fovDegrees = 50;
+            }
+        };
+    };
+        
+}
